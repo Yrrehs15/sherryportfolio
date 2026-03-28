@@ -2,45 +2,141 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>個人作品集 | Your Name</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WANG MIN HSUAN | Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav>
+    <div class="top-logo-bar">
         <h1>WANG MIN HSUAN</h1>
-        <p>陶瓷工藝 / 遊戲美術 / 平面設計</p>
-    </nav>
+        <p>陶瓷工藝 / 遊戲美術 / 平面設計 / 3D 建模</p>
+    </div>
+
+    <header class="hero">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="images/bg-video.mp4" type="video/mp4">
+        </video>
+        
+        <nav class="top-nav">
+            <ul class="nav-links">
+                <li><a href="#top">HOME</a></li>
+                <li><a href="#portfolio">PORTFOLIO</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+        
+        <div class="hero-content">
+            <h2>DESIGN PORTFOLIO</h2>
+        </div>
+        <div class="scroll-hint">SCROLL ↓</div>
+    </header>
+
+    <div class="intro-section">
+        <div class="intro-text">
+            <p>Hi ! 這裡是王敏璇的作品集 !</p>
+            <p>探索材質與數位之間的界線，尋找自然的秩序。</p>
+        </div>
+        
+        <div id="portfolio" class="section-title">
+            <hr>
+            <h2>PORTFOLIO</h2>
+        </div>
+    </div>
 
     <section class="portfolio-grid">
         <div class="project-card">
-            <img src="images/1.jpg" alt="作品二">
-            <h3>《復甦》系列 - 鸚鵡螺</h3>
-            <p>陶瓷、手作小物</p>
+            <img src="images/1.jpg" alt="陶瓷">
+            <h3>陶瓷工藝</h3>
+            <p>《復甦》系列 - 鸚鵡螺</p>
         </div>
-
         <div class="project-card">
-            <img src="images/cube.jpg" alt="我的陶瓷作品" class="my-photo">
-            <h3>Unity 遊戲專題</h3>
-            <p>3D 建模、場景美術、角色設計</p>
+            <img src="images/cube.jpg" alt="遊戲">
+            <h3>遊戲美術</h3>
+            <p>Unity 3D 場景設計</p>
         </div>
-
         <div class="project-card">
-            <img src="images/3.jpg" alt="作品三">
+            <img src="images/3.jpg" alt="平面">
             <h3>平面設計</h3>
-            <p>Illustrator、Procreate、AutoCAD</p>
+            <p>AutoCAD / Illustrator</p>
+        </div>
+        <div class="project-card">
+            <img src="images/4.jpg" alt="3D">
+            <h3>3D 建模</h3>
+            <p>ZBrush / Blender</p>
         </div>
     </section>
 
-
-    <footer class="contact-section">
-        <hr> <h2>Contact</h2>
+    <footer id="contact" class="contact-section">
+        <hr>
+        <h2>Contact</h2>
         <p>Email: sherrycat1115@gmail.com</p>
         <div class="social-links">
-            <a href="#">Instagram : sherry_11_15</a> | <a href="#">0966-321-591</a> 
+            <a href="#">Instagram : sherry_11_15</a>|  <span>Phone : 0966-321-591</span>
         </div>
         <p style="font-size: 12px; color: #bbb; margin-top: 30px;">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
     </footer>
 
+    <script>
+        // 1. 監測滾動：讓導覽列在下滑後變色
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.top-nav');
+            if (window.scrollY > 100) { 
+                nav.classList.add('scrolled'); // 滑動超過100px加上變色樣式
+            } else {
+                nav.classList.remove('scrolled'); // 回到頂部移除變色
+            }
+        });
+    
+        // 2. 慢速捲動處理 (修正版)
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+    
+                // --- 關鍵修正：判斷如果是連結到其他頁面 (如 about.html)，就不攔截 ---
+                if (!href.startsWith('#')) {
+                    return; // 結束 function，讓瀏覽器執行正常的頁面跳轉
+                }
+    
+                // 如果是 "#" 開頭的內部連結，則執行慢速捲動
+                e.preventDefault();
+                
+                let targetPosition = 0;
+                if (href !== "#" && href !== "#top") {
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        targetPosition = targetElement.offsetTop;
+                    }
+                }
+                
+                // 執行慢速捲動：1500 代表 1.5 秒
+                scrollToTarget(targetPosition, 1500); 
+            });
+        });
+    
+        // 慢速捲動核心函式 (維持不變)
+        function scrollToTarget(destination, duration) {
+            const start = window.pageYOffset;
+            const distance = destination - start;
+            let startTime = null;
+    
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const run = ease(timeElapsed, start, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+    
+            function ease(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t + b;
+                t--;
+                return -c / 2 * (t * (t - 2) - 1) + b;
+            }
+            requestAnimationFrame(animation);
+        }
+    </script>
 </body>
 </html>
