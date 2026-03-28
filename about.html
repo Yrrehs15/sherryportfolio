@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOUT | WANG MIN HSUAN</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* About 頁面專屬微調 */
+        .about-container {
+            max-width: 900px;
+            margin: 150px auto 100px auto; /* 增加上方距離，避免被固定選單遮到 */
+            padding: 0 10%;
+            display: flex;
+            gap: 50px;
+            align-items: flex-start;
+        }
+
+        .about-image { flex: 1; filter: grayscale(20%); }
+        .about-image img { width: 100%; border-radius: 4px; box-shadow: 10px 10px 0px #E0E0E0; }
+        .about-content { flex: 1.5; }
+        .about-content h2 { font-weight: 300; letter-spacing: 5px; margin-bottom: 30px; color: #555; }
+        .about-content p { margin-bottom: 20px; color: #757575; text-align: justify; line-height: 1.8; }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 10px 25px;
+            border: 1px solid #757575;
+            color: #757575;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .back-home:hover { background-color: #757575; color: #fff; }
+
+        @media (max-width: 768px) {
+            .about-container { flex-direction: column; margin-top: 100px; }
+            .about-image { margin-bottom: 30px; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <nav class="top-nav scrolled"> <ul class="nav-links">
+            <li><a href="index.html#top">HOME</a></li>
+            <li><a href="index.html#portfolio">PORTFOLIO</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <div class="top-logo-bar">
+        <p>  </p>
+        <p>  </p>
+        <h1>ABOUT ME</h1>
+        
+    </div>
+
+    <main class="about-container">
+        <div class="about-image">
+            <img src="images/profile.jpg" alt="Wang Min Hsuan"> 
+        </div>
+    
+        <div class="about-content">
+            <h2>王敏璇 WANG MIN HSUAN</h2>
+            <p>I am passionate about visual design and modeling of games.
+                Skilled in creating 3D objects and graphic designs using Photoshop,Illustrator and Rhino, and also capable of making assets and drawing 2D characters.I am currently self-studying Blender, focusing on node-based operations, and plan to model characters and create animations in the future. 
+                After graduation, I aspire to work as a scene designer in a
+                game company.</p>
+    
+            <div class="resume-section">
+                <div class="resume-column">
+                    <h3>EDUCATION</h3>
+                    <p>國立台北教育大學 藝術與設計學系</p>
+                    <p>設計組</p>
+                </div>
+                
+                <div class="vertical-line"></div>
+    
+                <div class="resume-column">
+                    <h3>SKILLS</h3>
+                    <p>Ceramics: Glaze Chemistry</p>
+                    <p>Design: Illustrator/Photoshop/Procreate/CSP/AutoCad</p>
+                    <p>3D & Game: Blender/Unity 3D/Premiere pro</p>
+                </div>
+            </div>
+    
+            <a href="index.html" class="back-home">← BACK TO HOME</a>
+        </div>
+    </main>
+
+    <footer class="contact-section">
+        <p style="font-size: 12px; color: #bbb;">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
