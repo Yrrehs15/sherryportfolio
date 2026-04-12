@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WANG MIN HSUAN | Portfolio</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body id="top">
+
+<nav class="top-nav" id="navbar">
+  <div class="nav-brand">
+    <span class="nav-brand-name">WANG MIN HSUAN</span>
+    <span class="nav-brand-sub">| CERAMIC ARTIST</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">HOME</a></li>
+    <li><a href="#ceramics">CERAMICS</a></li>
+    <li><a href="#other-works">OTHER WORKS</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" class="mm-link">HOME</a>
+  <a href="#ceramics" class="mm-link">CERAMICS</a>
+  <a href="#other-works" class="mm-link">OTHER WORKS</a>
+  <a href="about.html" class="mm-link">ABOUT</a>
+  <a href="#contact" class="mm-link">CONTACT</a>
+</div>
+
+<div class="hero-video-fixed" id="heroVideoFixed">
+  <video autoplay muted loop playsinline id="heroVideo">
+    <source src="images/bg-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-video-overlay"></div>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <p class="hero-greeting">HELLO! 這裡是王敏璇的作品集</p>
+    <p class="hero-eyebrow">ART &amp; DESIGN — PORTFOLIO</p>
+    <h1 class="hero-title">Wang Min<br><em>Hsuan</em></h1>
+    <p class="hero-sub">Ceramics &nbsp;·&nbsp; Game Art &nbsp;·&nbsp; Graphic &nbsp;·&nbsp; 3D</p>
+  </div>
+  <button class="scroll-line-btn" id="scrollDownBtn" aria-label="向下捲動">
+    <div class="scroll-line-track"><div class="scroll-line-fill"></div></div>
+  </button>
+</section>
+
+<section class="ceramics-section" id="ceramics">
+  <div class="glass-edge glass-edge--top"></div>
+  <div class="ceramics-bg">
+    <img src="images/creamic.jpg" alt="陶瓷作品" class="ceramics-bg-img">
+    <div class="ceramics-bg-overlay"></div>
+  </div>
+  <div class="ceramics-content">
+    <div class="ceramics-label reveal-up">PORTFOLIO — CERAMICS</div>
+    <div class="reveal-up" style="--delay:.15s">
+      <h2 class="ceramics-title">RECOVERY<span class="ceramics-title-zh"> | 復甦</span></h2>
+      <p class="ceramics-desc">以土為媒介，探索形體的邊界與釉色的語言。<br>觸感、裂紋、光澤——每件作品都是一次與材料的對話。</p>
+    </div>
+    <a href="ceramics.html" class="glow-btn reveal-up" style="--delay:.3s">
+      <span class="glow-btn__text">EXPLORE THE CLAY</span>
+    </a>
+  </div>
+  <div class="glass-edge glass-edge--bottom"></div>
+</section>
+
+<section class="other-works" id="other-works">
+  <div class="ow-header reveal-up">
+    <div class="ow-header-label">OTHER WORKS</div>
+    <h2 class="ow-header-title">More Projects</h2>
+    <p class="ow-header-sub">遊戲美術 &nbsp;/&nbsp; 平面設計 &nbsp;/&nbsp; 3D 建模</p>
+  </div>
+
+  <!-- GAME ART (2張 → loop) -->
+  <div class="ow-block" id="block-game">
+    <div class="ow-block-bg">
+      <div class="block-bg-layer active" style="background-image:url('images/game-1.png')"></div>
+      <div class="block-bg-layer"></div>
+      <div class="ow-bg-mask"></div>
+    </div>
+    <div class="ow-block-content">
+      <div class="ow-block-header"><span class="ow-block-cat-label">GAME ART</span></div>
+      <div class="ow-carousel reveal-up">
+        <div class="swiper swiper-game">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" data-title="UNITY GAME | PROJECT #1" data-desc="Unity 3D 場景設計 / 玩家移動與碰撞邏輯" data-link="game.html" data-img="images/game-1.png">
+              <img src="images/game-1.png" alt="Game 1">
+            </div>
+            <div class="swiper-slide" data-title="UNITY GAME | PROJECT #2" data-desc="Unity 3D 關卡設計 / 角色互動系統" data-link="game.html" data-img="images/game-2.jpg">
+              <img src="images/game-2.jpg" alt="Game 2">
+            </div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+      <div class="ow-fixed-info reveal-up" style="--delay:.2s">
+        <h3 class="info-title">UNITY GAME | PROJECT #1</h3>
+        <p class="info-desc">Unity 3D 場景設計 / 玩家移動與碰撞邏輯</p>
+        <a href="game.html" class="glow-btn glow-btn--sm info-link">
+          <span class="glow-btn__text">PLAY DEMO</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRAPHIC DESIGN (3張 → bounce) -->
+  <div class="ow-block" id="block-graphic">
+    <div class="ow-block-bg">
+      <div class="block-bg-layer active" style="background-image:url('images/graphic-1.jpg')"></div>
+      <div class="block-bg-layer"></div>
+      <div class="ow-bg-mask"></div>
+    </div>
+    <div class="ow-block-content">
+      <div class="ow-block-header"><span class="ow-block-cat-label">GRAPHIC DESIGN</span></div>
+      <div class="ow-carousel reveal-up">
+        <div class="swiper swiper-graphic">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" data-title="SKY LIGHT | BRANDING" data-desc="AutoCAD / Illustrator / 品牌識別設計" data-link="graphic.html" data-img="images/graphic-1.jpg">
+              <img src="images/graphic-1.jpg" alt="Graphic 1">
+            </div>
+            <div class="swiper-slide" data-title="POSTER DESIGN" data-desc="海報設計 / Illustrator" data-link="graphic.html" data-img="images/graphic-2.jpg">
+              <img src="images/graphic-2.jpg" alt="Graphic 2">
+            </div>
+            <div class="swiper-slide" data-title="LAYOUT DESIGN" data-desc="版面排版 / 字體設計" data-link="graphic.html" data-img="images/graphic-3.png">
+              <img src="images/graphic-3.png" alt="Graphic 3">
+            </div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+      <div class="ow-fixed-info reveal-up" style="--delay:.2s">
+        <h3 class="info-title">SKY LIGHT | BRANDING</h3>
+        <p class="info-desc">AutoCAD / Illustrator / 品牌識別設計</p>
+        <a href="graphic.html" class="glow-btn glow-btn--sm info-link">
+          <span class="glow-btn__text">VIEW PROJECT</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3D MODELING (4張 → bounce) -->
+  <div class="ow-block" id="block-td">
+    <div class="ow-block-bg">
+      <div class="block-bg-layer active" style="background-image:url('images/td-1.jpg')"></div>
+      <div class="block-bg-layer"></div>
+      <div class="ow-bg-mask"></div>
+    </div>
+    <div class="ow-block-content">
+      <div class="ow-block-header"><span class="ow-block-cat-label">3D MODELING</span></div>
+      <div class="ow-carousel reveal-up">
+        <div class="swiper swiper-td">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" data-title="3D MODELING | FORM & MOTION" data-desc="ZBrush / Blender 角色建模" data-link="3d.html" data-img="images/td-1.jpg">
+              <img src="images/td-1.jpg" alt="3D 1">
+            </div>
+            <div class="swiper-slide" data-title="CHARACTER DESIGN" data-desc="Blender 角色設計與材質" data-link="3d.html" data-img="images/td-2.jpg">
+              <img src="images/td-2.jpg" alt="3D 2">
+            </div>
+            <div class="swiper-slide" data-title="SCENE RENDERING" data-desc="渲染與光影實驗" data-link="3d.html" data-img="images/td-3.jpg">
+              <img src="images/td-3.jpg" alt="3D 3">
+            </div>
+            <div class="swiper-slide" data-title="ABYSSAL RUINS" data-desc="Calcite Warp Gate 場景設計" data-link="3d.html" data-img="images/td-4.jpg">
+              <img src="images/td-4.jpg" alt="3D 4">
+            </div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+      <div class="ow-fixed-info reveal-up" style="--delay:.2s">
+        <h3 class="info-title">3D MODELING | FORM & MOTION</h3>
+        <p class="info-desc">ZBrush / Blender 角色建模</p>
+        <a href="3d.html" class="glow-btn glow-btn--sm info-link">
+          <span class="glow-btn__text">VIEW PROJECT</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="contact-section" id="contact">
+  <hr>
+  <h2>CONTACT</h2>
+  <p>Email: <a href="mailto:sherrycat1115@gmail.com">sherrycat1115@gmail.com</a></p>
+  <div class="social-links">
+    <a href="https://www.instagram.com/sherry_11_15" target="_blank">Instagram : sherry_11_15</a>
+    <span class="sep">|</span>
+    <span>Phone : 0966-321-591</span>
+  </div>
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+/* ── Nav & Menu ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 80), {passive:true});
+const ham = document.getElementById('hamburger');
+const mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+
+/* ── 平滑捲動 ── */
+function smoothScroll(dest, dur) {
+  const start = window.pageYOffset, dist = dest - start; let t0 = null;
+  (function tick(now) {
+    if (!t0) t0 = now;
+    const el = now - t0, p = Math.min(el/dur, 1), e = p < .5 ? 2*p*p : -1+(4-2*p)*p;
+    window.scrollTo(0, start + dist*e);
+    if (el < dur) requestAnimationFrame(tick);
+  })(performance.now());
+}
+document.querySelectorAll('a[href^="#"], .mm-link[href^="#"]').forEach(a =>
+  a.addEventListener('click', ev => {
+    const href = a.getAttribute('href'); if (!href.startsWith('#') || href==='#') return;
+    const t = document.querySelector(href); if (!t) return;
+    ev.preventDefault(); smoothScroll(t.offsetTop, 1200);
+  }));
+document.getElementById('scrollDownBtn').addEventListener('click', () =>
+  smoothScroll(document.getElementById('ceramics').offsetTop, 1000));
+
+/* ── 影片視差 ── */
+const heroVid = document.querySelector('.hero-video-fixed video');
+const heroFixed = document.getElementById('heroVideoFixed');
+const ceramicsSec = document.getElementById('ceramics');
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  if (heroVid) heroVid.style.transform = `translateY(${sy * 0.3}px)`;
+  heroFixed.style.visibility = ceramicsSec.getBoundingClientRect().top <= 0 ? 'hidden' : 'visible';
+}, {passive:true});
+
+/* ── Reveal on scroll ── */
+const ro = new IntersectionObserver(entries =>
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:0.1});
+document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
+
+/* ══════════════════════════════════════════════════════
+   Swiper 初始化
+   ─ Game (2張):   loop:true  → 無限循環 1→2→1→2
+   ─ Graphic (3張): bounce 模式 → 1→2→3→2→1→2→3…
+   ─ 3D (4張):      bounce 模式 → 1→2→3→4→3→2→1→2→3→4…
+   所有 block 背景都做 crossfade 漸變
+   ══════════════════════════════════════════════════════ */
+
+/* 共用：更新下方資訊文字 + 背景 crossfade */
+function setupBlockSync(blockEl, swiperInstance) {
+  const bgLayers = blockEl.querySelectorAll('.block-bg-layer');
+  let curBg = 0;
+  const titleEl = blockEl.querySelector('.info-title');
+  const descEl  = blockEl.querySelector('.info-desc');
+  const linkEl  = blockEl.querySelector('.info-link');
+
+  swiperInstance.on('slideChange', function() {
+    const slide = this.slides[this.activeIndex];
+    if (!slide) return;
+
+    // ── 文字淡出淡入 ──
+    titleEl.style.opacity = 0; titleEl.style.transform = 'translateY(6px)';
+    descEl.style.opacity  = 0; descEl.style.transform  = 'translateY(6px)';
+    setTimeout(() => {
+      titleEl.textContent = slide.dataset.title || '';
+      descEl.textContent  = slide.dataset.desc  || '';
+      if (linkEl) linkEl.href = slide.dataset.link || '#';
+      titleEl.style.opacity = 1; titleEl.style.transform = 'translateY(0)';
+      descEl.style.opacity  = 1; descEl.style.transform  = 'translateY(0)';
+    }, 260);
+
+    // ── 背景 crossfade ──
+    const imgSrc = slide.dataset.img || (slide.querySelector('img') ? slide.querySelector('img').src : '');
+    if (imgSrc) {
+      const next = curBg === 0 ? 1 : 0;
+      bgLayers[next].style.backgroundImage = `url(${imgSrc})`;
+      bgLayers[next].classList.add('active');
+      bgLayers[curBg].classList.remove('active');
+      curBg = next;
+    }
+  });
+}
+
+/* ─ Game: 只有兩張 → loop 無限循環 ─ */
+(function() {
+  const blockEl = document.querySelector('#block-game');
+  const sw = new Swiper('.swiper-game', {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    loop: true,
+    coverflowEffect: { rotate:0, stretch:-50, depth:240, modifier:1.1, slideShadows:true },
+    navigation: {
+      nextEl: blockEl.querySelector('.swiper-button-next'),
+      prevEl: blockEl.querySelector('.swiper-button-prev'),
+    },
+    pagination: { el: blockEl.querySelector('.swiper-pagination'), clickable: true },
+  });
+  setupBlockSync(blockEl, sw);
+})();
+
+/* ─ 通用 Bounce Swiper (Graphic 3張 / 3D 4張) ─ */
+function makeBounceSwiper(selector, blockId) {
+  const blockEl = document.querySelector(blockId);
+  const slideEls = blockEl.querySelectorAll('.swiper-slide');
+  const total = slideEls.length;   // 實際張數
+  let dir = 1;                      // 1 = 向右, -1 = 向左
+  let virtualIdx = 0;               // 邏輯 index (0-based)
+
+  // Swiper 不使用 loop，手動控制前後
+  const sw = new Swiper(selector, {
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    loop: false,
+    coverflowEffect: { rotate:0, stretch:-50, depth:240, modifier:1.1, slideShadows:true },
+    navigation: {
+      nextEl: blockEl.querySelector('.swiper-button-next'),
+      prevEl: blockEl.querySelector('.swiper-button-prev'),
+    },
+    pagination: { el: blockEl.querySelector('.swiper-pagination'), clickable: true },
+    on: {
+      // 攔截 slideChange 來實作 bounce
+      slideChange: function() {
+        const newIdx = this.activeIndex;
+        // 判斷使用者是往哪個方向滑
+        if (newIdx > virtualIdx) dir = 1;
+        else if (newIdx < virtualIdx) dir = -1;
+        virtualIdx = newIdx;
+
+        // 到達末端時反向
+        if (virtualIdx >= total - 1) dir = -1;
+        if (virtualIdx <= 0) dir = 1;
+      }
+    }
+  });
+
+  // 覆寫左右按鈕行為實作 bounce
+  const nextBtn = blockEl.querySelector('.swiper-button-next');
+  const prevBtn = blockEl.querySelector('.swiper-button-prev');
+
+  function goNext() {
+    if (virtualIdx >= total - 1) { dir = -1; }
+    else if (virtualIdx <= 0) { dir = 1; }
+    const target = virtualIdx + dir;
+    if (target >= 0 && target < total) {
+      sw.slideTo(target);
+      virtualIdx = target;
+      if (virtualIdx >= total - 1) dir = -1;
+      if (virtualIdx <= 0) dir = 1;
+    }
+  }
+  function goPrev() {
+    dir = (virtualIdx <= 0) ? 1 : -1;
+    const target = virtualIdx + dir;
+    if (target >= 0 && target < total) {
+      sw.slideTo(target);
+      virtualIdx = target;
+      if (virtualIdx >= total - 1) dir = -1;
+      if (virtualIdx <= 0) dir = 1;
+    }
+  }
+
+  // 替換 Swiper 內建按鈕事件
+  if (nextBtn) {
+    const cloneNext = nextBtn.cloneNode(true);
+    nextBtn.parentNode.replaceChild(cloneNext, nextBtn);
+    cloneNext.addEventListener('click', goNext);
+  }
+  if (prevBtn) {
+    const clonePrev = prevBtn.cloneNode(true);
+    prevBtn.parentNode.replaceChild(clonePrev, prevBtn);
+    clonePrev.addEventListener('click', goPrev);
+  }
+
+  // 拖曳後也做 bounce 修正
+  sw.on('slideChangeTransitionEnd', function() {
+    const cur = this.activeIndex;
+    if (cur !== virtualIdx) {
+      // 使用者直接拖曳到非預期位置 → 以目前位置更新
+      if (cur > virtualIdx) dir = 1; else dir = -1;
+      virtualIdx = cur;
+      if (virtualIdx >= total - 1) dir = -1;
+      if (virtualIdx <= 0) dir = 1;
+    }
+  });
+
+  setupBlockSync(blockEl, sw);
+}
+
+makeBounceSwiper('.swiper-graphic', '#block-graphic');
+makeBounceSwiper('.swiper-td',      '#block-td');
+</script>
+</body>
+</html>
