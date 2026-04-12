@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand"><span class="nav-brand-name">WANG MIN HSUAN</span><span class="nav-brand-sub">| CERAMIC ARTIST</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li><li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li><li><a href="about.html">ABOUT</a></li><li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a><a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a><a href="about.html" class="mm-link">ABOUT</a><a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<div class="top-logo-bar"><h1>ABOUT ME</h1></div>
+
+<main class="about-container">
+  <div class="about-image"><img src="images/about-me.jpg" alt="Wang Min Hsuan"></div>
+  <div class="about-content">
+    <h2>王敏璇 WANG MIN HSUAN</h2>
+    <p>I am passionate about visual design and the art of ceramics — drawn to the way raw clay holds memory, texture, and imperfection. There is something honest about working with your hands in the soil, feeling the resistance of the material as a form slowly emerges.</p>
+    <p>At the same time, I am equally fascinated by the logic of digital systems — the precision of 3D modeling, the interactivity of game design, and the visual clarity of graphic communication. I see ceramics and digital art not as opposites, but as two languages saying the same thing: that making is a form of thinking.</p>
+    <div class="resume-section">
+      <div class="resume-column">
+        <h3>EDUCATION</h3>
+        <p>國立台北教育大學</p><p>藝術與設計學系</p><p>設計組</p>
+      </div>
+      <div class="vertical-line"></div>
+      <div class="resume-column">
+        <h3>SKILLS</h3>
+        <p>Ceramics: Glaze Chemistry</p>
+        <p>Design: Illustrator / Photoshop / Procreate / CSP / AutoCAD</p>
+        <p>3D &amp; Game: Blender / Unity 3D / Premiere Pro / ZBrush</p>
+      </div>
+    </div>
+    <a href="index.html" class="back-home" style="margin-top:44px">← BACK TO HOME</a>
+  </div>
+</main>
+
+<footer class="contact-section about-footer"><p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p></footer>
+
+<script>
+const ham=document.getElementById('hamburger'),mMenu=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mMenu.classList.toggle('open');});
+document.querySelectorAll('.mm-link').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mMenu.classList.remove('open');}));
+</script>
+</body>
+</html>

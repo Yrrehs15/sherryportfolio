@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Art | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand"><span class="nav-brand-name">WANG MIN HSUAN</span><span class="nav-brand-sub">| CERAMIC ARTIST</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li><li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li><li><a href="about.html">ABOUT</a></li><li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a><a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a><a href="about.html" class="mm-link">ABOUT</a><a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<div class="detail-hero">
+  <div class="detail-hero-bg" style="background-image:url('images/game-1.png')"></div>
+  <div class="detail-hero-content">
+    <div class="detail-tag">GAME ART</div>
+    <h1 class="detail-title">Game Art</h1>
+    <p class="detail-subtitle">Unity 3D Scene &amp; Interaction Design</p>
+  </div>
+</div>
+
+<div class="detail-grid">
+  <div class="detail-item reveal-up">
+    <div class="detail-item-img"><img src="images/game-1.png" alt="Unity Game 1"></div>
+    <div class="detail-item-body">
+      <div class="detail-item-num">01</div>
+      <div class="detail-item-name">UNITY GAME | PROJECT #1</div>
+      <p class="detail-item-desc">Unity 3D 場景設計。玩家移動與碰撞邏輯，第三人稱視角場景搭建。</p>
+    </div>
+  </div>
+  <div class="detail-item reveal-up" style="--delay:.1s">
+    <div class="detail-item-img"><img src="images/game-2.jpg" alt="Unity Game 2"></div>
+    <div class="detail-item-body">
+      <div class="detail-item-num">02</div>
+      <div class="detail-item-name">UNITY GAME | PROJECT #2</div>
+      <p class="detail-item-desc">關卡設計與角色互動系統，包含 UI 介面與觸發器邏輯。</p>
+    </div>
+  </div>
+</div>
+
+<div class="back-home-wrap"><a href="index.html" class="back-home">← BACK TO HOME</a></div>
+<footer class="contact-section" style="padding:40px 6%"><p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p></footer>
+
+<script>
+const ham=document.getElementById('hamburger'),mMenu=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mMenu.classList.toggle('open');});
+document.querySelectorAll('.mm-link').forEach(a=>a.addEventListener('click',()=>{ham.classList.remove('open');mMenu.classList.remove('open');}));
+const ro=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('revealed');}),{threshold:.1});
+document.querySelectorAll('.reveal-up').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
