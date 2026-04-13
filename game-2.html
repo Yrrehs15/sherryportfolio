@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ★ 瀏覽器分頁標題 -->
+<title>Turn Sushi | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- 導覽列 -->
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand">
+    <span class="nav-brand-name">WANG MIN HSUAN</span>
+    <span class="nav-brand-sub">| CERAMIC ARTIST</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li>
+    <li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a>
+  <a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a>
+  <a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HERO BANNER
+     ★ 換封面圖：改 background-image:url('...')
+══════════════════════════════════════════ -->
+<div class="gd-hero">
+  <!-- ★ Hero 背景圖 -->
+  <div class="gd-hero-bg" style="background-image:url('images/game-2.jpg')"></div>
+  <div class="gd-hero-overlay"></div>
+  <div class="gd-hero-content">
+    <!-- ★ 分類小標 -->
+    <div class="gd-hero-tag">GAME ART — PROJECT #2</div>
+    <!-- ★ 遊戲大標題 -->
+    <h1 class="gd-hero-title">Turn Sushi</h1>
+    <!-- ★ 副標 -->
+    <p class="gd-hero-sub">Unity 3D · Top-Down · 2025</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     主內容：左側媒體 + 右側資訊
+══════════════════════════════════════════ -->
+<div class="gd-main">
+
+  <!-- ── 左側：媒體顯示區 ── -->
+  <div class="gd-media">
+
+    <div class="gd-player" id="gdPlayer2">
+
+      <!-- ★ 媒體1：影片（有影片時取消下方兩行的註解，刪掉 img 項目）-->
+      <!-- <iframe class="gd-player-item active" id="gdi2-video"
+        src="https://www.youtube.com/embed/★在此貼上影片ID★"
+        allow="autoplay;encrypted-media" allowfullscreen></iframe> -->
+
+      <!-- ★ 媒體1：封面截圖（預設）-->
+      <img class="gd-player-item active" id="gdi2-img0" src="images/game-2.jpg" alt="Turn Sushi 封面">
+
+      <!-- ★ 媒體2（可繼續新增）-->
+      <!-- <img class="gd-player-item" id="gdi2-img1" src="images/★截圖2路徑★" alt="截圖2"> -->
+
+    </div>
+
+    <!-- ★ 縮圖列 -->
+    <div class="gd-thumbs" id="gdThumbs2">
+
+      <!-- 影片縮圖（有影片時啟用）-->
+      <!-- <div class="gd-thumb gd-thumb-vid active" data-target="gdi2-video">▶</div> -->
+
+      <!-- ★ 截圖縮圖1 -->
+      <div class="gd-thumb active" data-target="gdi2-img0">
+        <img src="images/game-2.jpg" alt="封面">
+      </div>
+
+      <!-- ★ 截圖縮圖2（有第2張截圖時取消註解，改路徑）-->
+      <!-- <div class="gd-thumb" data-target="gdi2-img1">
+        <img src="images/★截圖2★" alt="截圖2">
+      </div> -->
+
+    </div>
+
+  </div><!-- /gd-media -->
+
+
+  <!-- ── 右側：作品資訊 ── -->
+  <div class="gd-info">
+
+    <!-- ★ 副標題 -->
+    <h2 class="gd-title">Turn Sushi</h2>
+
+    <!-- ★ Meta 資訊 -->
+    <div class="gd-meta">
+      <div class="gd-meta-row">
+        <span class="gd-meta-key">類型</span>
+        <!-- ★ 遊戲類型 -->
+        <span class="gd-meta-val">Top-Down / 關卡解謎</span>
+      </div>
+      <div class="gd-meta-row">
+        <span class="gd-meta-key">製作時間</span>
+        <!-- ★ 製作時間 -->
+        <span class="gd-meta-val">★ 填入製作時間（e.g. 2025.01 — 2025.06）</span>
+      </div>
+      <div class="gd-meta-row">
+        <span class="gd-meta-key">引擎</span>
+        <span class="gd-meta-val">Unity 3D</span>
+      </div>
+      <div class="gd-meta-row">
+        <span class="gd-meta-key">開發人員</span>
+        <!-- ★ 開發人員 -->
+        <span class="gd-meta-val">★ 填入開發人員名稱</span>
+      </div>
+    </div>
+
+    <!-- ★ 一行簡介 -->
+    <p class="gd-blurb">
+      ★ 填入遊戲簡介。例如：一款以迴轉壽司為主題的俯視角解謎遊戲。
+      玩家操控廚師在廚房關卡中擺放食材、觸發機關，挑戰各種謎題。
+    </p>
+
+    <!-- ★ PLAY 按鈕 — 連結到 itch.io，target="_blank" 開新分頁 -->
+    <a href="https://lulubearowo.itch.io/turn-sushi" target="_blank" class="gd-play-btn">
+      <span class="gd-play-icon">▶</span>
+      <span>PLAY DEMO</span>
+    </a>
+
+  </div><!-- /gd-info -->
+
+</div><!-- /gd-main -->
+
+
+<!-- 分隔線 -->
+<div class="gd-divider"></div>
+
+
+<!-- ══════════════════════════════════════════
+     下方內容區
+══════════════════════════════════════════ -->
+<div class="gd-body">
+
+  <!-- ★ 段落1：關於遊戲 -->
+  <h3 class="gd-section-title">關於遊戲</h3>
+  <p class="gd-text">
+    ★ 填入遊戲介紹文字。例如：<br>
+    Turn Sushi 是一款以迴轉壽司廚房為舞台的俯視角動作解謎遊戲。
+    玩家化身主廚，在充滿陷阱的廚房中蒐集食材、觸發機關，完成每關的壽司任務。
+    遊戲強調關卡設計與角色互動系統，包含自製 UI 介面與觸發器邏輯。
+  </p>
+
+  <!-- ★ 段落2：製作過程 -->
+  <h3 class="gd-section-title">製作過程</h3>
+  <p class="gd-text">
+    ★ 填入製作說明。例如：<br>
+    以 Unity 3D 製作，採用 Tilemap 系統建置俯視角關卡，
+    自製角色互動框架實現物件觸發、道具撿取、NPC 行為等功能。
+    美術資源部分手繪了主要角色線稿，並以 Unity Sprite Renderer 呈現。
+  </p>
+
+  <!-- ★ 截圖 -->
+  <h3 class="gd-section-title">截圖</h3>
+  <div class="gd-gallery">
+
+    <!-- ★ 截圖1 -->
+    <div class="gd-gallery-item">
+      <img src="images/game-2.jpg" alt="截圖1">
+    </div>
+
+    <!-- ★ 截圖2（替換 src）-->
+    <div class="gd-gallery-item">
+      <!-- <img src="images/★截圖2★" alt="截圖2"> -->
+      <img src="images/game-2.jpg" alt="截圖2（待補）" style="opacity:.3;filter:grayscale(1)">
+    </div>
+
+    <!-- ★ 截圖3（可新增）-->
+    <!-- <div class="gd-gallery-item">
+      <img src="images/★截圖3★" alt="截圖3">
+    </div> -->
+
+  </div>
+
+</div><!-- /gd-body -->
+
+
+<!-- ★ 返回 Game Art 列表頁 -->
+<div class="gd-back-wrap">
+  <a href="game.html" class="back-page">← BACK TO GAME ART</a>
+</div>
+
+<footer class="contact-section" style="padding:40px 6%">
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+<script>
+/* ── 漢堡選單 ── */
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+
+/* ── Reveal 動畫 ── */
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.1});
+document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
+
+/* ── 縮圖切換主顯示 ── */
+document.querySelectorAll('#gdThumbs2 .gd-thumb').forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    document.querySelectorAll('#gdThumbs2 .gd-thumb').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('#gdPlayer2 .gd-player-item').forEach(i => i.classList.remove('active'));
+    thumb.classList.add('active');
+    const target = document.getElementById(thumb.dataset.target);
+    if (target) target.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

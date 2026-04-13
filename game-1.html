@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ★ 瀏覽器分頁標題 -->
+<title>Cat Jump Jump | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- 導覽列 -->
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand">
+    <span class="nav-brand-name">WANG MIN HSUAN</span>
+    <span class="nav-brand-sub">| CERAMIC ARTIST</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li>
+    <li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a>
+  <a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a>
+  <a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HERO BANNER
+     ★ gd-hero-bg 的 background-image = 封面圖
+══════════════════════════════════════════ -->
+<div class="gd-hero">
+  <!-- ★ Hero 背景圖（換成任意圖片路徑）-->
+  <div class="gd-hero-bg" style="background-image:url('images/game-1.png')"></div>
+  <div class="gd-hero-overlay"></div>
+  <div class="gd-hero-content">
+    <!-- ★ 分類小標 -->
+    <div class="gd-hero-tag">GAME ART — PROJECT #1</div>
+    <!-- ★ 遊戲大標題 -->
+    <h1 class="gd-hero-title">Cat Jump Jump</h1>
+    <!-- ★ 遊戲英文副標 -->
+    <p class="gd-hero-sub">Unity 3D · Platformer · 2025</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     主內容：左側媒體 + 右側資訊
+══════════════════════════════════════════ -->
+<div class="gd-main">
+
+  <!-- ── 左側：媒體顯示區 ── -->
+  <div class="gd-media">
+
+    <!-- 主顯示區（預設顯示第一個縮圖的內容）-->
+    <div class="gd-player" id="gdPlayer1">
+
+      <!-- ★ 媒體項目1：影片
+           YouTube 嵌入方式：src="https://www.youtube.com/embed/影片ID"
+           如有自製 mp4：改成 <video> 標籤
+           目前先以截圖替代，等有影片再換 -->
+      <!-- <iframe class="gd-player-item active" id="gdi-video"
+        src="https://www.youtube.com/embed/★在此貼上影片ID★"
+        allow="autoplay;encrypted-media" allowfullscreen></iframe> -->
+
+      <!-- ★ 媒體項目1：封面截圖（預設顯示）-->
+      <img class="gd-player-item active" id="gdi-img0" src="images/game-1.png" alt="Cat Jump Jump 封面">
+
+      <!-- ★ 媒體項目2：截圖2（放更多圖在這裡，複製這行並改 id / src）-->
+      <!-- <img class="gd-player-item" id="gdi-img1" src="images/★截圖2路徑★" alt="截圖2"> -->
+
+      <!-- ★ 媒體項目3：截圖3 -->
+      <!-- <img class="gd-player-item" id="gdi-img2" src="images/★截圖3路徑★" alt="截圖3"> -->
+
+    </div><!-- /gd-player -->
+
+    <!-- ★ 縮圖選擇條（點縮圖切換主顯示）-->
+    <div class="gd-thumbs" id="gdThumbs1">
+
+      <!-- ★ 縮圖1：影片圖示（有影片時啟用，移除下方的 img 縮圖，取消這行註解並刪掉 img 縮圖）-->
+      <!-- <div class="gd-thumb gd-thumb-vid active" data-target="gdi-video">▶</div> -->
+
+      <!-- ★ 縮圖1：圖片（目前預設使用截圖）-->
+      <div class="gd-thumb active" data-target="gdi-img0">
+        <img src="images/game-1.png" alt="封面">
+      </div>
+
+      <!-- ★ 縮圖2（如有第2張截圖，複製上面 gd-thumb 區塊，改 data-target 和 src）-->
+      <!-- <div class="gd-thumb" data-target="gdi-img1">
+        <img src="images/★截圖2★" alt="截圖2">
+      </div> -->
+
+      <!-- ★ 縮圖3（如有第3張截圖）-->
+      <!-- <div class="gd-thumb" data-target="gdi-img2">
+        <img src="images/★截圖3★" alt="截圖3">
+      </div> -->
+
+    </div><!-- /gd-thumbs -->
+
+  </div><!-- /gd-media -->
+
+
+  <!-- ── 右側：作品資訊 ── -->
+  <div class="gd-info">
+
+    <!-- ★ 右側副標題（通常和遊戲名相同或簡短說明）-->
+    <h2 class="gd-title">Cat Jump Jump</h2>
+
+    <!-- ★ Meta 資訊表格（鍵=左欄、值=右欄）-->
+    <div class="gd-meta">
+      <div class="gd-meta-row">
+        <span class="gd-meta-key">類型</span>
+        <!-- ★ 遊戲類型 -->
+        <span class="gd-meta-val">3D Platformer / 第三人稱視角</span>
+      </div>
+      <div class="gd-meta-row">
+        <span class="gd-meta-key">製作時間</span>
+        <!-- ★ 製作時間 -->
+        <span class="gd-meta-val">★ 填入製作時間（e.g. 2024.09 — 2025.01）</span>
+      </div>
+      <div class="gd-meta-row">
+        <span class="gd-meta-key">引擎</span>
+        <span class="gd-meta-val">Unity 3D</span>
+      </div>
+      <div class="gd-meta-row">
+        <span class="gd-meta-key">開發人員</span>
+        <!-- ★ 開發人員名單（多人用逗號分隔）-->
+        <span class="gd-meta-val">★ 填入開發人員名稱</span>
+      </div>
+    </div>
+
+    <!-- ★ 作品一行簡介 -->
+    <p class="gd-blurb">
+      ★ 填入一段遊戲簡介，例如：一隻貓咪在箱子城市中跳躍冒險的 3D 平台遊戲。
+      玩家需在各種場景中收集道具、避開障礙。
+    </p>
+
+    <!-- ★ PLAY 按鈕 — href 是遊戲連結，target="_blank" 開新分頁 -->
+    <a href="https://yrrehs.itch.io/catjumpjump" target="_blank" class="gd-play-btn">
+      <span class="gd-play-icon">▶</span>
+      <span>PLAY DEMO</span>
+    </a>
+
+  </div><!-- /gd-info -->
+
+</div><!-- /gd-main -->
+
+
+<!-- 分隔線 -->
+<div class="gd-divider"></div>
+
+
+<!-- ══════════════════════════════════════════
+     下方內容區（介紹、截圖）
+══════════════════════════════════════════ -->
+<div class="gd-body">
+
+  <!-- ★ 段落1：關於遊戲 -->
+  <h3 class="gd-section-title">關於遊戲</h3>
+  <p class="gd-text">
+    ★ 在這裡填入遊戲介紹文字。例如：<br>
+    Cat Jump Jump 是一款以貓咪為主角的 3D 平台跳躍遊戲，玩家控制貓咪在
+    由箱子搭建的城市中不斷向上跳躍，收集魚骨、躲避障礙。
+    遊戲採用卡通低多邊形風格，強調流暢的操控感與視覺回饋。
+  </p>
+
+  <!-- ★ 段落2：製作過程 / 技術說明 -->
+  <h3 class="gd-section-title">製作過程</h3>
+  <p class="gd-text">
+    ★ 在這裡填入製作過程或技術說明。例如：<br>
+    使用 Unity 3D 製作，自製角色移動控制器，實作地板碰撞偵測、跳躍物理。
+    場景設計使用模組化 Prefab 搭建，加速關卡設計流程。UI 系統使用 Canvas + DOTween 動畫。
+  </p>
+
+  <!-- ★ 截圖 Gallery（加入截圖路徑）-->
+  <h3 class="gd-section-title">截圖</h3>
+  <div class="gd-gallery">
+
+    <!-- ★ 截圖1：已有 game-1.png -->
+    <div class="gd-gallery-item">
+      <img src="images/game-1.png" alt="截圖1">
+    </div>
+
+    <!-- ★ 截圖2：替換 src 為實際截圖路徑 -->
+    <div class="gd-gallery-item">
+      <!-- <img src="images/★截圖2路徑★" alt="截圖2"> -->
+      <!-- 暫無截圖時顯示空白 placeholder -->
+      <img src="images/game-1.png" alt="截圖2（待補）" style="opacity:.3;filter:grayscale(1)">
+    </div>
+
+    <!-- ★ 截圖3（可新增更多：複製整個 gd-gallery-item 區塊）-->
+    <!-- <div class="gd-gallery-item">
+      <img src="images/★截圖3★" alt="截圖3">
+    </div> -->
+
+  </div><!-- /gd-gallery -->
+
+</div><!-- /gd-body -->
+
+
+<!-- ★ 返回 Game Art 列表頁 -->
+<div class="gd-back-wrap">
+  <a href="game.html" class="back-page">← BACK TO GAME ART</a>
+</div>
+
+<footer class="contact-section" style="padding:40px 6%">
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+<script>
+/* ── 漢堡選單 ── */
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+
+/* ── Reveal 動畫 ── */
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.1});
+document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
+
+/* ── 縮圖切換主顯示區 ── */
+document.querySelectorAll('#gdThumbs1 .gd-thumb').forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    /* 移除所有 active */
+    document.querySelectorAll('#gdThumbs1 .gd-thumb').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('#gdPlayer1 .gd-player-item').forEach(i => i.classList.remove('active'));
+    /* 啟動點擊的縮圖對應的主顯示 */
+    thumb.classList.add('active');
+    const target = document.getElementById(thumb.dataset.target);
+    if (target) target.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

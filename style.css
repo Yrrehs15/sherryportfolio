@@ -1,23 +1,24 @@
-/* ═══════════════════════════════════════════════
-   WANG MIN HSUAN — Portfolio CSS (Final v4)
-   ─ 水平對齊：所有卡片中線對齊
-   ─ 點點：緊接在圖框下方
-   ─ 無限循環：移除 bounce
-   ═══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   WANG MIN HSUAN — Portfolio CSS (Final v5)
+   ── 深海藍色調、卡片背景圖修正、陶瓷手機置中
+   ── 手機 block 間距縮小、遊戲作品詳細頁(.gd-*)
+   ═══════════════════════════════════════════════════════════════ */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap');
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ★ CSS 全域變數 — 改這裡全站生效
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 :root {
-  --dark:  #1a1a18;
-  --dark2: #111110;
-  --serif: 'Cormorant Garamond', Georgia, serif;
+  --dark:  #0c1927;    /* ★ 主背景色（深海洋藍）*/
+  --dark2: #07101a;    /* ★ 頁尾/深色區塊背景 */
+  --serif: 'Cormorant Garamond', Georgia, serif;  /* 大標題字型 */
   --body:  'DM Sans', "PingFang TC", "Microsoft JhengHei", sans-serif;
-  --mono:  'Space Mono', monospace;
-  --nav-h: 64px;
+  --mono:  'Space Mono', monospace;               /* 小標/標籤/按鈕 */
+  --nav-h: 64px;       /* ★ 導覽列高度（手機版 media query 改為 56px）*/
   --ease:  cubic-bezier(0.22, 1, 0.36, 1);
-  /* 中間牌寬度百分比（供 stage 高度計算）*/
-  --cc-cw: 0.52;
 }
 
+/* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:auto}
 body{background:var(--dark);color:rgba(255,255,255,.55);font-family:var(--body);font-weight:300;line-height:1.6;overflow-x:hidden}
@@ -26,11 +27,13 @@ a{text-decoration:none}
 video{display:block}
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:var(--dark)}
-::-webkit-scrollbar-thumb{background:#444;border-radius:2px}
+::-webkit-scrollbar-thumb{background:#2a3f55;border-radius:2px}
 
-/* ═══ NAV ═══ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   NAV 導覽列
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .top-nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;transition:background .4s,box-shadow .4s;}
-.top-nav.scrolled{background:rgba(26,26,24,.92);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(255,255,255,.07);}
+.top-nav.scrolled{background:rgba(12,25,39,.92);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(255,255,255,.07);}
 .nav-brand{display:flex;align-items:baseline;gap:6px}
 .nav-brand-name{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:#fff;text-transform:uppercase}
 .nav-brand-sub{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:rgba(255,255,255,.38)}
@@ -45,15 +48,16 @@ video{display:block}
 .hamburger.open span:nth-child(2){opacity:0}
 .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
 .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;
-  background:rgba(26,26,24,.85);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(12,25,39,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(255,255,255,.07);
   padding:24px 6%;flex-direction:column;gap:20px;z-index:999;}
 .mobile-menu.open{display:flex}
 .mobile-menu a{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.55);transition:color .25s}
 .mobile-menu a:hover{color:#fff}
 
-/* ═══ HERO ═══ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   HERO 首頁影片
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .hero-video-fixed{position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;overflow:hidden;}
 .hero-video-fixed video{width:100%;height:100%;object-fit:cover;filter:brightness(.50);will-change:transform;}
 .hero-video-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05) 0%,rgba(0,0,0,.22) 55%,rgba(0,0,0,.50) 100%);}
@@ -74,17 +78,14 @@ video{display:block}
 .reveal-up{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--delay,0s)}
 .reveal-up.revealed{opacity:1;transform:translateY(0)}
 
-/* ═══════════════════════════════════════════════
-   GLOW BUTTON
-   ═══════════════════════════════════════════════ */
-@property --glow-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-@keyframes glowSpin { to { --glow-angle: 360deg; } }
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ★ GLOW BUTTON 全站共用
+     Hover 時邊框光點轉圈效果
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+@property --glow-angle{syntax:'<angle>';initial-value:0deg;inherits:false;}
+@keyframes glowSpin{to{--glow-angle:360deg;}}
 
-.glow-btn {
+.glow-btn{
   position:relative;display:inline-flex;align-items:center;justify-content:center;
   padding:13px 36px;border-radius:99px;
   color:rgba(255,255,255,0.65);
@@ -93,19 +94,10 @@ video{display:block}
   text-decoration:none;cursor:pointer;isolation:isolate;
   transition:color .35s ease,background .35s ease,transform .25s ease;
 }
-.glow-btn::before{
-  content:'';position:absolute;inset:0;border-radius:99px;
-  border:1px solid rgba(255,255,255,0.22);
-  transition:border-color .35s ease;pointer-events:none;
-}
+.glow-btn::before{content:'';position:absolute;inset:0;border-radius:99px;border:1px solid rgba(255,255,255,0.22);transition:border-color .35s ease;pointer-events:none;}
 .glow-btn::after{
   content:'';position:absolute;inset:-1px;border-radius:99px;
-  background:conic-gradient(
-    from var(--glow-angle),
-    transparent 0%,transparent 55%,
-    rgba(255,255,255,0.15) 65%,rgba(255,255,255,0.95) 75%,
-    rgba(200,220,255,0.6) 82%,transparent 92%,transparent 100%
-  );
+  background:conic-gradient(from var(--glow-angle),transparent 0%,transparent 55%,rgba(255,255,255,0.15) 65%,rgba(255,255,255,0.95) 75%,rgba(200,220,255,0.6) 82%,transparent 92%,transparent 100%);
   opacity:0;transition:opacity .3s ease;z-index:-1;
   -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;padding:1px;pointer-events:none;
@@ -116,43 +108,57 @@ video{display:block}
 .glow-btn--sm{padding:9px 24px;font-size:9px;letter-spacing:0.22em;}
 .glow-btn__text{position:relative;z-index:1;}
 
-.back-home{
-  display:inline-flex;align-items:center;justify-content:center;
+/* back / play 按鈕（.back-home, .back-page, .gd-play-btn 共用光流框）*/
+.back-home,.back-page,.gd-play-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
   padding:12px 32px;border-radius:99px;
-  color:rgba(255,255,255,0.6);
-  font-family:var(--mono);font-size:10px;letter-spacing:0.24em;text-transform:uppercase;
-  background:rgba(255,255,255,0.06);border:none;
+  color:rgba(255,255,255,0.7);
+  font-family:var(--mono);font-size:10px;letter-spacing:0.26em;text-transform:uppercase;
+  background:rgba(255,255,255,0.07);border:none;
   text-decoration:none;cursor:pointer;isolation:isolate;position:relative;
-  transition:color .35s ease,background .35s ease,transform .25s ease;
+  transition:color .3s,background .3s,transform .25s;
 }
-.back-home::before{content:'';position:absolute;inset:0;border-radius:99px;border:1px solid rgba(255,255,255,0.2);transition:border-color .35s ease;pointer-events:none;}
-.back-home::after{
+.back-home::before,.back-page::before,.gd-play-btn::before{content:'';position:absolute;inset:0;border-radius:99px;border:1px solid rgba(255,255,255,0.22);pointer-events:none;transition:border-color .3s;}
+.back-home::after,.back-page::after,.gd-play-btn::after{
   content:'';position:absolute;inset:-1px;border-radius:99px;
   background:conic-gradient(from var(--glow-angle),transparent 0%,transparent 55%,rgba(255,255,255,0.15) 65%,rgba(255,255,255,0.95) 75%,rgba(200,220,255,0.6) 82%,transparent 92%,transparent 100%);
-  opacity:0;transition:opacity .3s ease;z-index:-1;
+  opacity:0;transition:opacity .3s;z-index:-1;
   -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;padding:1px;pointer-events:none;
 }
-.back-home:hover{color:rgba(255,255,255,0.95);background:rgba(255,255,255,0.13);transform:translateY(-1px);}
-.back-home:hover::before{border-color:rgba(255,255,255,0.08);}
-.back-home:hover::after{opacity:1;animation:glowSpin 1.6s linear infinite;}
+.back-home:hover,.back-page:hover,.gd-play-btn:hover{color:#fff;background:rgba(255,255,255,0.14);transform:translateY(-1px);}
+.back-home:hover::before,.back-page:hover::before,.gd-play-btn:hover::before{border-color:rgba(255,255,255,0.08);}
+.back-home:hover::after,.back-page:hover::after,.gd-play-btn:hover::after{opacity:1;animation:glowSpin 1.6s linear infinite;}
 
-/* ═══ CERAMICS ═══ */
-.ceramics-section{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:calc(var(--nav-h) + 80px) 8% 160px;overflow:hidden;background:#1a1a18;}
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CERAMICS 陶瓷區塊
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.ceramics-section{
+  position:relative;z-index:1;min-height:100vh;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  padding:calc(var(--nav-h) + 80px) 8% 160px; /* ★ 上/左右/下 留白 */
+  overflow:hidden;background:var(--dark);
+}
 .ceramics-bg{position:absolute;inset:0}
 .ceramics-bg-img{width:100%;height:100%;object-fit:cover}
+/* ★ 陶瓷背景遮罩透明度 — 調整 rgba 第4個數字控制暗度 */
 .ceramics-bg-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.45) 55%,rgba(0,0,0,.28) 100%);}
 .ceramics-content{position:relative;z-index:2;max-width:560px;display:flex;flex-direction:column;gap:0}
+/* PORTFOLIO — CERAMICS 小標 */
 .ceramics-label{font-family:var(--mono);font-size:9px;letter-spacing:.35em;color:rgba(255,255,255,.42);text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:12px}
 .ceramics-label::before{content:'';display:block;width:22px;height:1px;background:rgba(255,255,255,.3)}
-.ceramics-title{font-family:var(--serif);font-size:clamp(36px,6vw,72px);font-weight:300;color:#fff;letter-spacing:-.01em;line-height:1;margin-bottom:22px}
-.ceramics-title-zh{font-style:italic;color:rgba(255,255,255,.52)}
-.ceramics-desc{font-size:14px;line-height:1.9;color:rgba(255,255,255,.6);margin-bottom:36px}
+/* RECOVERY 大標（clamp: 最小36px / 視窗6% / 最大72px）*/
+.ceramics-title{font-family:var(--serif);font-size:clamp(36px,6vw,72px);font-weight:300;color:#fff;letter-spacing:-.01em;line-height:1;margin-bottom:32px}
+/* ★ | 復甦 — 斜體粗體，顏色。如要改回普通 font-weight:300 */
+.ceramics-title-zh{font-style:italic;font-weight:700;color:rgba(255,255,255,.78)}
+/* 漸層邊緣 */
 .glass-edge{position:absolute;left:0;right:0;pointer-events:none;z-index:10}
-.glass-edge--top{top:0;height:120px;background:linear-gradient(to bottom,rgba(26,26,24,1) 0%,rgba(26,26,24,.5) 50%,transparent 100%)}
-.glass-edge--bottom{bottom:0;height:140px;background:linear-gradient(to bottom,transparent 0%,rgba(26,26,24,.5) 55%,rgba(26,26,24,1) 100%)}
+.glass-edge--top{top:0;height:120px;background:linear-gradient(to bottom,rgba(12,25,39,1) 0%,rgba(12,25,39,.5) 50%,transparent 100%)}
+.glass-edge--bottom{bottom:0;height:140px;background:linear-gradient(to bottom,transparent 0%,rgba(12,25,39,.5) 55%,rgba(12,25,39,1) 100%)}
 
-/* ═══ OTHER WORKS ═══ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   OTHER WORKS 作品區
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .other-works{position:relative;z-index:2;padding-bottom:80px;background:var(--dark);}
 .ow-header{position:relative;z-index:3;text-align:center;padding:100px 6% 60px}
 .ow-header-label{font-family:var(--mono);font-size:9px;letter-spacing:.35em;color:rgba(255,255,255,.25);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:14px}
@@ -160,18 +166,30 @@ video{display:block}
 .ow-header-title{font-family:var(--serif);font-size:clamp(30px,5vw,54px);font-weight:300;color:rgba(255,255,255,.88);letter-spacing:-.01em;margin-bottom:12px}
 .ow-header-sub{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.28);text-transform:uppercase}
 
+/* ★ 每個分類 Block 上下間距 */
 .ow-block{position:relative;padding:80px 0 100px;overflow:hidden;}
 .ow-block-bg{position:absolute;inset:0;z-index:0;}
+
+/* ★ 動態背景圖：blur 強度 / brightness 亮度(0=全黑) */
 .block-bg-layer{
   position:absolute;inset:-5%;
   background-size:cover;background-position:center;
-  filter:blur(28px) brightness(0.25);
+  filter:blur(24px) brightness(0.2);  /* ← 調整模糊/亮度 */
   opacity:0;transition:opacity 1.1s ease-in-out;
 }
-.block-bg-layer.active{opacity:1;}
+/* ★ 顯示時透明度 (0~1) */
+.block-bg-layer.active{opacity:0.85;}
+
+/* ★ 遮罩：中段值越小背景圖越清楚（0=完全透明，1=全不透明）*/
 .ow-bg-mask{
   position:absolute;inset:0;
-  background:linear-gradient(to bottom,rgba(26,26,24,1) 0%,rgba(26,26,24,0.4) 50%,rgba(26,26,24,1) 100%);
+  background:linear-gradient(
+    to bottom,
+    rgba(12,25,39,1)    0%,
+    rgba(12,25,39,0.15) 28%,   /* ← 調小→背景更清晰 */
+    rgba(12,25,39,0.15) 72%,
+    rgba(12,25,39,1)    100%
+  );
   z-index:1;pointer-events:none;
 }
 .ow-block-content{position:relative;z-index:3;}
@@ -183,226 +201,140 @@ video{display:block}
 }
 .ow-block-cat-label::before,.ow-block-cat-label::after{content:'';display:block;width:18px;height:1px;background:rgba(255,255,255,.25)}
 
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CAROUSEL 卡片輪播
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+.cc-wrap{position:relative;width:100%;padding:20px 0 32px;}
+.cc-inner{display:flex;flex-direction:column;align-items:center;width:100%;}
+/* Stage 高度 = 中間牌寬(52%) × 9/16 = 29.25% */
+.cc-stage{position:relative;width:100%;height:0;padding-bottom:29.25%;overflow:visible;}
 
-/* ══════════════════════════════════════════════════════
-   CAROUSEL — 水平對齊版
-   ──────────────────────────────────────────────────────
-   架構:
-     .cc-wrap
-       └─ .cc-inner  (flex column，置中)
-            ├─ .cc-stage  (padding-bottom aspect ratio，overflow:visible)
-            │    ├─ .cc-btn.cc-prev / .cc-btn.cc-next  (absolute, top:50%)
-            │    └─ .cc-slide × N
-            └─ .cc-dots  (margin-top 緊接 stage 下方)
-
-   關鍵：所有 .cc-slide 使用 top:50% + translateY(-50%)
-   → 左右小牌與中間大牌「中線」水平對齊
-   ══════════════════════════════════════════════════════ */
-
-.cc-wrap {
-  position: relative;
-  width: 100%;
-  padding: 20px 0 32px;
+.cc-slide{
+  position:absolute;top:50%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;
+  box-shadow:0 24px 64px rgba(0,0,0,.65);background:#111;
+  transition:width .5s var(--ease),left .5s var(--ease),top .5s var(--ease),transform .5s var(--ease),opacity .5s var(--ease),filter .5s var(--ease);
 }
-
-/* cc-inner：flex column，讓 dots 自然接在 stage 下 */
-.cc-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+.cc-no-anim{transition:none!important;}
+.cc-hidden{width:0;left:50%;top:50%;transform:translate(-50%,-50%);opacity:0;pointer-events:none;}
+/* ★ 中間牌寬度 52%（改這個數字可調整大小）*/
+.cc-center{width:52%;left:50%;top:50%;transform:translate(-50%,-50%);opacity:1;filter:brightness(1);z-index:3;}
+/* ★ 左牌：寬30%，距左邊4% */
+.cc-left{width:30%;left:4%;top:50%;transform:translateY(-50%) scale(0.95);opacity:0.65;filter:brightness(0.35);z-index:2;}
+/* ★ 右牌：寬30%，從66%開始（100%-4%-30%=66%）*/
+.cc-right{width:30%;left:66%;top:50%;transform:translateY(-50%) scale(0.95);opacity:0.65;filter:brightness(0.35);z-index:2;}
+.cc-img-wrap{width:100%;height:100%;overflow:hidden;}
+.cc-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s var(--ease);}
+.cc-center:hover .cc-img-wrap img{transform:scale(1.05);}
+/* ★ 圓點距圖框底部距離 */
+.cc-dots{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;z-index:10;}
+.cc-dot{display:block;width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:background .35s,transform .35s;}
+.cc-dot.active{background:rgba(255,255,255,.88);transform:scale(1.35);}
+.cc-btn{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:20;
+  width:46px;height:46px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.6);font-size:24px;cursor:pointer;
+  backdrop-filter:blur(4px);isolation:isolate;display:flex;align-items:center;justify-content:center;
+  transition:color .3s,background .3s,border-color .3s,transform .25s;
 }
-
-/* ── Stage：寬100%，高度 = 中間牌(52%) × 9/16 aspect ratio ──
-   公式: padding-bottom = 52% × (9/16) = 29.25%
-   ──────────────────────────────────────────────────────── */
-.cc-stage {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 29.25%;   /* = 52% × 9/16 */
-  overflow: visible;        /* 讓左右牌不被裁切 */
+.cc-btn::after{
+  content:'';position:absolute;inset:-1px;border-radius:50%;
+  background:conic-gradient(from var(--glow-angle),transparent 0%,transparent 55%,rgba(255,255,255,.15) 65%,rgba(255,255,255,.9) 75%,rgba(200,220,255,.5) 82%,transparent 92%,transparent 100%);
+  opacity:0;transition:opacity .3s;z-index:-1;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;padding:1px;pointer-events:none;
 }
+.cc-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.38);color:#fff;transform:translateY(-50%) scale(1.06);}
+.cc-btn:hover::after{opacity:1;animation:glowSpin 1.2s linear infinite;}
+.cc-prev{left:12px;}.cc-next{right:12px;}
+.ow-fixed-info{text-align:center;max-width:600px;margin:0 auto;padding:0 24px;position:relative;z-index:5;}
+/* ★ 作品標題字級 */
+.info-title{font-family:var(--serif);font-size:32px;font-weight:300;color:#fff;margin-bottom:12px;letter-spacing:.02em;transition:opacity .3s,transform .3s;}
+/* ★ 作品描述字色 */
+.info-desc{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:28px;line-height:1.6;transition:opacity .3s,transform .3s;}
 
-/* ── 所有牌基礎：top:50% + 各自 transform ── */
-.cc-slide {
-  position: absolute;
-  top: 50%;               /* ← 關鍵：所有牌以 stage 中線對齊 */
-  aspect-ratio: 16/9;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.65);
-  background: #111;
-  transition:
-    width  .5s var(--ease),
-    left   .5s var(--ease),
-    top    .5s var(--ease),
-    transform .5s var(--ease),
-    opacity   .5s var(--ease),
-    filter    .5s var(--ease);
-}
-.cc-no-anim { transition: none !important; }
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   GAME DETAIL PAGE 遊戲詳細頁 (.gd-*)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* Hero Banner */
+.gd-hero{position:relative;height:48vh;min-height:280px;display:flex;align-items:flex-end;overflow:hidden;}
+.gd-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.35);transform:scale(1.05);}
+.gd-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(12,25,39,.88) 100%);}
+.gd-hero-content{position:relative;z-index:2;padding:0 8% 44px;}
+.gd-hero-tag{font-family:var(--mono);font-size:9px;letter-spacing:.35em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.gd-hero-tag::before{content:'';display:block;width:18px;height:1px;background:rgba(255,255,255,.3)}
+/* ★ 遊戲大標題 */
+.gd-hero-title{font-family:var(--serif);font-size:clamp(36px,6vw,72px);font-weight:300;color:#fff;letter-spacing:-.01em;line-height:1;margin-bottom:8px;}
+.gd-hero-sub{font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:rgba(255,255,255,.38);text-transform:uppercase;}
 
-/* ── 隱藏牌：收縮到中央，不可見 ── */
-.cc-hidden {
-  width: 0;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* ── 中間主牌：52% 寬，X/Y 均置中 ── */
-.cc-center {
-  width: 52%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 1;
-  filter: brightness(1);
-  z-index: 3;
+/* ── 主內容：左媒體 + 右資訊（雙欄）── */
+.gd-main{
+  max-width:1100px;margin:0 auto;
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr; /* ★ 左右比例。改 1fr 1fr = 各半 */
+  gap:48px;
+  padding:56px 6% 40px;
+  align-items:start;
 }
 
-/* ── 左側牌：30% 寬，Y 置中（與中間牌中線對齊）── */
-.cc-left {
-  width: 30%;
-  left: 4%;
-  top: 50%;
-  transform: translateY(-50%) scale(0.95);
-  opacity: 0.65;
-  filter: brightness(0.35);
-  z-index: 2;
+/* 主顯示區（16:9）*/
+.gd-player{
+  position:relative;width:100%;aspect-ratio:16/9;
+  background:#050f1a;border-radius:12px;overflow:hidden;
+  box-shadow:0 28px 72px rgba(0,0,0,.7);
 }
+.gd-player-item{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none;transition:opacity .4s;}
+.gd-player-item.active{opacity:1;pointer-events:auto;}
+.gd-player iframe.gd-player-item{border:none;}
 
-/* ── 右側牌：30% 寬，Y 置中 ── */
-.cc-right {
-  width: 30%;
-  left: 66%;              /* 100% - 4% - 30% = 66% */
-  top: 50%;
-  transform: translateY(-50%) scale(0.95);
-  opacity: 0.65;
-  filter: brightness(0.35);
-  z-index: 2;
+/* ★ 縮圖選擇列 */
+.gd-thumbs{display:flex;gap:10px;margin-top:12px;}
+.gd-thumb{
+  flex:1;aspect-ratio:16/9;border-radius:7px;overflow:hidden;cursor:pointer;
+  background:#0a1a2e;border:1px solid rgba(255,255,255,.1);
+  transition:border-color .3s,opacity .3s,transform .3s;opacity:.5;
 }
+.gd-thumb.active,.gd-thumb:hover{opacity:1;border-color:rgba(255,255,255,.5);transform:translateY(-2px);}
+.gd-thumb img,.gd-thumb video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
+/* 影片縮圖 */
+.gd-thumb-vid{display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);font-size:20px;color:rgba(255,255,255,.6);height:100%;}
 
-/* ── 圖片 hover 放大（只對中間牌）── */
-.cc-img-wrap {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-.cc-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .55s var(--ease);
-}
-.cc-center:hover .cc-img-wrap img {
-  transform: scale(1.05);
-}
+/* 右側資訊 */
+.gd-info{display:flex;flex-direction:column;gap:0;padding-top:4px;}
+/* ★ 遊戲副標題（右側欄）*/
+.gd-title{font-family:var(--serif);font-size:clamp(26px,3vw,44px);font-weight:300;color:#fff;letter-spacing:-.01em;line-height:1.15;margin-bottom:22px;}
+/* Meta 資訊（類型/時間/開發者）*/
+.gd-meta{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.08);}
+.gd-meta-row{display:flex;gap:12px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;}
+.gd-meta-key{min-width:80px;color:rgba(255,255,255,.28);}   /* ★ 左側標籤 */
+.gd-meta-val{color:rgba(255,255,255,.65);}                  /* ★ 右側內容 */
+/* 作品簡介 */
+.gd-blurb{font-size:14px;line-height:1.85;color:rgba(255,255,255,.48);margin-bottom:32px;}
 
-/* ── 圓點：緊接在 stage 下方（不用 absolute，用 margin-top）── */
-.cc-dots {
-  margin-top: 14px;        /* 距圖框底部 14px */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  z-index: 10;
-}
-.cc-dot {
-  display: block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.28);
-  cursor: pointer;
-  transition: background .35s ease, transform .35s ease;
-}
-.cc-dot.active {
-  background: rgba(255,255,255,0.88);
-  transform: scale(1.35);
-}
+/* 分隔線 */
+.gd-divider{height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.1),transparent);margin:48px 6%;}
 
-/* ── 左右箭頭：absolute in .cc-stage, top:50% 對齊中間牌中線 ── */
-.cc-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 20;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.6);
-  font-size: 24px;
-  line-height: 1;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  isolation: isolate;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color .3s, background .3s, border-color .3s, transform .25s;
+/* 下方內容 */
+.gd-body{max-width:1100px;margin:0 auto;padding:0 6% 60px;}
+/* ★ 段落小標（e.g. 關於遊戲、製作過程）*/
+.gd-section-title{
+  font-family:var(--mono);font-size:9px;letter-spacing:.35em;
+  color:rgba(255,255,255,.3);text-transform:uppercase;
+  margin-bottom:18px;display:flex;align-items:center;gap:14px;
 }
-/* Glow 光流效果 */
-.cc-btn::after {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from var(--glow-angle),
-    transparent 0%, transparent 55%,
-    rgba(255,255,255,0.15) 65%, rgba(255,255,255,0.9) 75%,
-    rgba(200,220,255,0.5) 82%, transparent 92%, transparent 100%
-  );
-  opacity: 0;
-  transition: opacity .3s ease;
-  z-index: -1;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  padding: 1px;
-  pointer-events: none;
-}
-.cc-btn:hover {
-  background: rgba(255,255,255,0.14);
-  border-color: rgba(255,255,255,0.38);
-  color: #fff;
-  transform: translateY(-50%) scale(1.06);
-}
-.cc-btn:hover::after {
-  opacity: 1;
-  animation: glowSpin 1.2s linear infinite;
-}
-.cc-prev { left: 12px; }
-.cc-next { right: 12px; }
+.gd-section-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.1);}
+/* ★ 內文 */
+.gd-text{font-size:14px;line-height:1.9;color:rgba(255,255,255,.5);margin-bottom:40px;max-width:780px;}
+/* ★ 截圖欄數：repeat(2,1fr)=2欄，改3則3欄 */
+.gd-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px;}
+.gd-gallery-item{aspect-ratio:16/9;overflow:hidden;border-radius:8px;background:#0a1a2e;border:1px solid rgba(255,255,255,.07);transition:border-color .3s,transform .3s;}
+.gd-gallery-item:hover{border-color:rgba(255,255,255,.2);transform:translateY(-3px);}
+.gd-gallery-item img,.gd-gallery-item video{width:100%;height:100%;object-fit:cover;display:block;}
+.gd-back-wrap{text-align:center;padding:40px 0 80px;}
 
-/* ── 固定資訊區 ── */
-.ow-fixed-info {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 0 24px;
-  position: relative;
-  z-index: 5;
-}
-.info-title {
-  font-family: var(--serif); font-size: 32px; font-weight: 300;
-  color: #fff; margin-bottom: 12px; letter-spacing: 0.02em;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.info-desc {
-  font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 28px; line-height: 1.6;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-
-/* ═══ DETAIL PAGES ═══ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   DETAIL PAGE（work list: ceramics.html / game.html 等）
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .detail-hero{position:relative;height:55vh;min-height:340px;display:flex;align-items:flex-end;overflow:hidden;}
 .detail-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.38);transform:scale(1.04);}
 .detail-hero-content{position:relative;z-index:2;padding:0 8% 52px;}
@@ -411,8 +343,9 @@ video{display:block}
 .detail-title{font-family:var(--serif);font-size:clamp(38px,6vw,74px);font-weight:300;color:#fff;letter-spacing:-.01em;line-height:1;margin-bottom:10px;}
 .detail-subtitle{font-family:var(--mono);font-size:9px;letter-spacing:.22em;color:rgba(255,255,255,.35);text-transform:uppercase;}
 .detail-grid{max-width:1100px;margin:0 auto;padding:72px 6% 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px 32px;}
-.detail-item{display:flex;flex-direction:column;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;transition:border-color .3s,transform .3s;}
-.detail-item:hover{border-color:rgba(255,255,255,0.16);transform:translateY(-3px);}
+/* ★ detail-item 支援 <a href> 讓整卡可點擊 */
+.detail-item{display:flex;flex-direction:column;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;overflow:hidden;text-decoration:none;color:inherit;transition:border-color .3s,transform .3s;}
+.detail-item:hover{border-color:rgba(255,255,255,.16);transform:translateY(-3px);}
 .detail-item-img{aspect-ratio:16/9;overflow:hidden;}
 .detail-item-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);}
 .detail-item:hover .detail-item-img img{transform:scale(1.04);}
@@ -420,6 +353,8 @@ video{display:block}
 .detail-item-num{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.22);margin-bottom:8px;}
 .detail-item-name{font-family:var(--serif);font-size:20px;font-weight:300;color:rgba(255,255,255,.85);margin-bottom:10px;letter-spacing:.01em;}
 .detail-item-desc{font-size:13px;line-height:1.8;color:rgba(255,255,255,.42);}
+
+/* ABOUT */
 .top-logo-bar{padding:calc(var(--nav-h) + 60px) 8% 0;text-align:center;}
 .top-logo-bar h1{font-family:var(--serif);font-size:clamp(32px,5vw,60px);font-weight:300;color:rgba(255,255,255,.8);letter-spacing:.06em;}
 .about-container{max-width:1100px;margin:0 auto;padding:60px 6% 80px;display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:start;}
@@ -432,10 +367,12 @@ video{display:block}
 .resume-column h3{font-family:var(--mono);font-size:9px;letter-spacing:.28em;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:14px;}
 .resume-column p{font-size:13px;line-height:1.8;color:rgba(255,255,255,.48);margin:0;}
 .vertical-line{width:1px;background:rgba(255,255,255,.07);flex-shrink:0;}
-.about-footer{padding:40px 6% 60px !important;}
+.about-footer{padding:40px 6% 60px!important;}
 .back-home-wrap{text-align:center;padding:20px 6% 60px;}
 
-/* ═══ CONTACT ═══ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CONTACT
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .contact-section{position:relative;z-index:3;text-align:center;padding:80px 6% 100px;background:var(--dark2);}
 .contact-section hr{width:60px;border:none;border-top:1px solid rgba(255,255,255,.1);margin:0 auto 44px}
 .contact-section h2{font-family:var(--serif);font-size:2rem;font-weight:300;letter-spacing:6px;color:rgba(255,255,255,.75);margin-bottom:24px;text-transform:uppercase}
@@ -446,51 +383,61 @@ video{display:block}
 .sep{color:rgba(255,255,255,.15)}
 .copyright{font-size:11px!important;color:rgba(255,255,255,.16)!important;margin-top:40px!important;font-family:var(--mono);letter-spacing:.1em}
 
-
-/* ═══════════════════════════════════════════════
-   RWD — 平板 960px
-   ═══════════════════════════════════════════════ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RWD 960px（平板）
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media(max-width:960px){
   .nav-links{display:none}
   .hamburger{display:flex}
   .ceramics-section{padding:calc(var(--nav-h) + 40px) 6% 140px}
-
-  /* 中間牌放寬至 60%，stage 高度同步更新 */
-  .cc-stage   { padding-bottom: 33.75%; }   /* 60% × 9/16 */
-  .cc-center  { width: 60%; }
-  .cc-left    { width: 20%; left: 2%; }
-  .cc-right   { width: 20%; left: 78%; }   /* 100%-2%-20% */
-
-  .cc-btn     { width: 40px; height: 40px; font-size: 20px; }
-  .cc-prev    { left: 6px; }
-  .cc-next    { right: 6px; }
-
+  .cc-stage{padding-bottom:33.75%;}
+  .cc-center{width:60%;}
+  .cc-left{width:20%;left:2%;}
+  .cc-right{width:20%;left:78%;}
+  .cc-btn{width:40px;height:40px;font-size:20px;}
+  .cc-prev{left:6px;}.cc-next{right:6px;}
+  .gd-main{grid-template-columns:1fr;gap:32px;padding:40px 5% 32px;}
   .about-container{grid-template-columns:1fr;gap:36px;}
   .about-image{max-width:400px;}
 }
 
-/* ═══════════════════════════════════════════════
-   RWD — 手機 600px
-   ═══════════════════════════════════════════════ */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RWD 600px（手機）
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 @media(max-width:600px){
   :root{--nav-h:56px}
   .hero-title{font-size:clamp(42px,12vw,70px)}
-  .ceramics-title{font-size:clamp(28px,8vw,48px)}
+
+  /* ★ 陶瓷手機：文字 + 按鈕置中 */
   .ceramics-section{padding:calc(var(--nav-h) + 32px) 5% 120px}
-  .ow-header{padding:72px 5% 40px}
+  .ceramics-content{max-width:100%;align-items:center;text-align:center;}
+  .ceramics-label{justify-content:center;}
+  .ceramics-label::before{display:none;}   /* 置中時隱藏左側線 */
+  .ceramics-title{font-size:clamp(28px,8vw,48px);}
+  /* ★ 按鈕置中 + 最大寬度（改數字調整按鈕寬度）*/
+  .ceramics-content .glow-btn{max-width:200px;width:100%;padding:12px 16px;}
+
+  /* ★ 手機 Other Works 分類間距（原 80px/100px，縮為 44px/52px）*/
+  .ow-header{padding:56px 5% 32px;}
+  .ow-block{padding:44px 0 52px;}
   .info-title{font-size:22px;}
 
-  /* 手機：中間牌 80%，左右牌極小（幾乎只露出邊緣）*/
-  .cc-stage   { padding-bottom: 45%;  }     /* 80% × 9/16 = 45% */
-  .cc-center  { width: 80%; }
-  .cc-left    { width: 11%; left: 0%; filter: brightness(0.18); }
-  .cc-right   { width: 11%; left: 89%; filter: brightness(0.18); }
+  /* 輪播手機版 */
+  .cc-stage{padding-bottom:45%;}
+  .cc-center{width:80%;}
+  .cc-left{width:11%;left:0%;filter:brightness(.18);}
+  .cc-right{width:11%;left:89%;filter:brightness(.18);}
+  .cc-btn{width:36px;height:36px;font-size:18px;}
+  .cc-prev{left:2px;}.cc-next{right:2px;}
+  .cc-wrap{padding:12px 0 24px;}
+  .cc-dots{margin-top:10px;}
 
-  .cc-btn     { width: 36px; height: 36px; font-size: 18px; }
-  .cc-prev    { left: 2px; }
-  .cc-next    { right: 2px; }
-  .cc-wrap    { padding: 12px 0 24px; }
-  .cc-dots    { margin-top: 10px; }
+  /* 遊戲詳細頁手機 */
+  .gd-hero{height:38vh;min-height:220px;}
+  .gd-hero-content{padding:0 5% 32px;}
+  .gd-main{padding:28px 5% 20px;gap:20px;}
+  .gd-gallery{grid-template-columns:1fr;gap:12px;}
+  .gd-body{padding:0 5% 40px;}
 
   .detail-grid{grid-template-columns:1fr;gap:24px;padding:48px 5% 48px;}
   .detail-hero{height:45vh;min-height:260px;}
@@ -500,5 +447,5 @@ video{display:block}
   .vertical-line{width:100%;height:1px;}
   .top-logo-bar{padding:calc(var(--nav-h) + 36px) 5% 0;}
   .glow-btn{padding:12px 28px;}
-  .back-home{padding:11px 26px;}
+  .back-home,.back-page{padding:11px 24px;}
 }

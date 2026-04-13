@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ★ 瀏覽器分頁標題 -->
 <title>WANG MIN HSUAN | Portfolio</title>
 <link rel="stylesheet" href="style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,9 +12,15 @@
 </head>
 <body id="top">
 
+<!-- ══════════════════════════════════════════
+     NAV 導覽列
+     ★ 左側品牌名稱 / 右側導覽連結
+══════════════════════════════════════════ -->
 <nav class="top-nav" id="navbar">
   <div class="nav-brand">
+    <!-- ★ 左上角名字 -->
     <span class="nav-brand-name">WANG MIN HSUAN</span>
+    <!-- ★ 左上角副標 -->
     <span class="nav-brand-sub">| CERAMIC ARTIST</span>
   </div>
   <ul class="nav-links">
@@ -27,6 +34,8 @@
     <span></span><span></span><span></span>
   </button>
 </nav>
+
+<!-- 手機選單 -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#home" class="mm-link">HOME</a>
   <a href="#ceramics" class="mm-link">CERAMICS</a>
@@ -35,37 +44,58 @@
   <a href="#contact" class="mm-link">CONTACT</a>
 </div>
 
+<!-- ══════════════════════════════════════════
+     HERO 背景影片
+     ★ 影片檔路徑：images/bg-video.mp4
+══════════════════════════════════════════ -->
 <div class="hero-video-fixed" id="heroVideoFixed">
   <video autoplay muted loop playsinline id="heroVideo">
+    <!-- ★ 背景影片路徑，換成自己的影片改這裡 -->
     <source src="images/bg-video.mp4" type="video/mp4">
   </video>
   <div class="hero-video-overlay"></div>
 </div>
 
+<!-- ══════════════════════════════════════════
+     HERO 首頁文字區
+══════════════════════════════════════════ -->
 <section class="hero" id="home">
   <div class="hero-content">
+    <!-- ★ 第一行問候語 -->
     <p class="hero-greeting">HELLO! 這裡是王敏璇的作品集</p>
+    <!-- ★ 第二行英文副標 -->
     <p class="hero-eyebrow">ART &amp; DESIGN — PORTFOLIO</p>
+    <!-- ★ 主標題名字（<em> 是斜體第二行）-->
     <h1 class="hero-title">Wang Min<br><em>Hsuan</em></h1>
+    <!-- ★ 主標下方分類說明 -->
     <p class="hero-sub">Ceramics &nbsp;·&nbsp; Game Art &nbsp;·&nbsp; Graphic &nbsp;·&nbsp; 3D</p>
   </div>
+  <!-- 向下箭頭按鈕（點擊滑到 ceramics 區）-->
   <button class="scroll-line-btn" id="scrollDownBtn" aria-label="向下捲動">
     <div class="scroll-line-track"><div class="scroll-line-fill"></div></div>
   </button>
 </section>
 
+<!-- ══════════════════════════════════════════
+     CERAMICS 陶瓷區塊
+     ★ 背景圖：images/creamic.jpg
+══════════════════════════════════════════ -->
 <section class="ceramics-section" id="ceramics">
   <div class="glass-edge glass-edge--top"></div>
   <div class="ceramics-bg">
+    <!-- ★ 陶瓷區背景圖路徑 -->
     <img src="images/creamic.jpg" alt="陶瓷作品" class="ceramics-bg-img">
     <div class="ceramics-bg-overlay"></div>
   </div>
   <div class="ceramics-content">
+    <!-- ★ 小標籤文字 -->
     <div class="ceramics-label reveal-up">PORTFOLIO — CERAMICS</div>
     <div class="reveal-up" style="--delay:.15s">
+      <!-- ★ 大標題：RECOVERY 是英文，復甦是中文粗體斜體 -->
       <h2 class="ceramics-title">RECOVERY<span class="ceramics-title-zh"> | 復甦</span></h2>
-      <p class="ceramics-desc">以土為媒介，探索形體的邊界與釉色的語言。<br>觸感、裂紋、光澤——每件作品都是一次與材料的對話。</p>
+      <!-- ★ 小說明文字已移除（如要加回來，在此加 <p class="ceramics-desc">...</p>）-->
     </div>
+    <!-- ★ 按鈕文字 / 連結到陶瓷作品頁 -->
     <a href="ceramics.html" class="glow-btn reveal-up" style="--delay:.3s">
       <span class="glow-btn__text">EXPLORE THE CLAY</span>
     </a>
@@ -73,46 +103,84 @@
   <div class="glass-edge glass-edge--bottom"></div>
 </section>
 
+<!-- ══════════════════════════════════════════
+     OTHER WORKS 其他作品區
+══════════════════════════════════════════ -->
 <section class="other-works" id="other-works">
+
+  <!-- 區塊標題 -->
   <div class="ow-header reveal-up">
+    <!-- ★ 小標籤 -->
     <div class="ow-header-label">OTHER WORKS</div>
+    <!-- ★ 大標題 -->
     <h2 class="ow-header-title">More Projects</h2>
+    <!-- ★ 副標 -->
     <p class="ow-header-sub">遊戲美術 &nbsp;/&nbsp; 平面設計 &nbsp;/&nbsp; 3D 建模</p>
   </div>
 
-  <!-- GAME ART (2張) -->
+  <!-- ──────────────────────────────────────
+       GAME ART 分類（2張）
+       背景圖會根據當前輪播圖自動切換
+  ────────────────────────────────────── -->
   <div class="ow-block" id="block-game">
+    <!-- 動態背景：第1層 active=當前顯示，第2層備用於 crossfade -->
     <div class="ow-block-bg">
+      <!-- ★ 第一張預設背景圖（初始為第一張卡的圖）-->
       <div class="block-bg-layer active" style="background-image:url('images/game-1.png')"></div>
-      <div class="block-bg-layer"></div>
+      <div class="block-bg-layer"></div><!-- 切換用，JS 動態填入 -->
       <div class="ow-bg-mask"></div>
     </div>
+
     <div class="ow-block-content">
+      <!-- ★ 分類名稱 -->
       <div class="ow-block-header"><span class="ow-block-cat-label">GAME ART</span></div>
+
+      <!-- 輪播容器 -->
       <div class="cc-wrap reveal-up" id="cc-game">
         <div class="cc-inner">
           <div class="cc-stage">
             <button class="cc-btn cc-prev">&#8249;</button>
             <button class="cc-btn cc-next">&#8250;</button>
-            <div class="cc-slide" data-img="images/game-1.png" data-title="UNITY GAME | PROJECT #1" data-desc="Unity 3D 場景設計 / 玩家移動與碰撞邏輯" data-link="game.html">
+
+            <!-- ★ 卡片1：data-img=背景圖, data-title=標題, data-desc=描述, data-link=按鈕連結 -->
+            <div class="cc-slide"
+              data-img="images/game-1.png"
+              data-title="UNITY GAME | PROJECT #1"
+              data-desc="Unity 3D 場景設計 / 玩家移動與碰撞邏輯"
+              data-link="game-1.html">
               <div class="cc-img-wrap"><img src="images/game-1.png" alt="Game 1"></div>
             </div>
-            <div class="cc-slide" data-img="images/game-2.jpg" data-title="UNITY GAME | PROJECT #2" data-desc="Unity 3D 關卡設計 / 角色互動系統" data-link="game.html">
+
+            <!-- ★ 卡片2 -->
+            <div class="cc-slide"
+              data-img="images/game-2.jpg"
+              data-title="UNITY GAME | PROJECT #2"
+              data-desc="Unity 3D 關卡設計 / 角色互動系統"
+              data-link="game-2.html">
               <div class="cc-img-wrap"><img src="images/game-2.jpg" alt="Game 2"></div>
             </div>
           </div>
           <div class="cc-dots"></div>
         </div>
       </div>
+
+      <!-- 文字資訊區（輪播切換時會更新）-->
       <div class="ow-fixed-info reveal-up" style="--delay:.2s" id="info-game">
+        <!-- ★ 預設標題（會被 JS 動態替換）-->
         <h3 class="info-title">UNITY GAME | PROJECT #1</h3>
         <p class="info-desc">Unity 3D 場景設計 / 玩家移動與碰撞邏輯</p>
-        <a href="game.html" class="glow-btn glow-btn--sm info-link"><span class="glow-btn__text">PLAY DEMO</span></a>
+        <!-- ★ 按鈕文字（href 會被 JS 動態替換）-->
+        <a href="game-1.html" class="glow-btn glow-btn--sm info-link">
+          <span class="glow-btn__text">PLAY DEMO</span>
+        </a>
       </div>
     </div>
-  </div>
+  </div><!-- /block-game -->
 
-  <!-- GRAPHIC DESIGN (3張) -->
+
+  <!-- ──────────────────────────────────────
+       GRAPHIC DESIGN 分類（3張）
+  ────────────────────────────────────── -->
   <div class="ow-block" id="block-graphic">
     <div class="ow-block-bg">
       <div class="block-bg-layer active" style="background-image:url('images/graphic-1.jpg')"></div>
@@ -120,12 +188,15 @@
       <div class="ow-bg-mask"></div>
     </div>
     <div class="ow-block-content">
+      <!-- ★ 分類名稱 -->
       <div class="ow-block-header"><span class="ow-block-cat-label">GRAPHIC DESIGN</span></div>
+
       <div class="cc-wrap reveal-up" id="cc-graphic">
         <div class="cc-inner">
           <div class="cc-stage">
             <button class="cc-btn cc-prev">&#8249;</button>
             <button class="cc-btn cc-next">&#8250;</button>
+            <!-- ★ 卡片 1、2、3 — 改 data-* 屬性修改標題/描述/連結 -->
             <div class="cc-slide" data-img="images/graphic-1.jpg" data-title="SKY LIGHT | BRANDING" data-desc="AutoCAD / Illustrator / 品牌識別設計" data-link="graphic.html">
               <div class="cc-img-wrap"><img src="images/graphic-1.jpg" alt="Graphic 1"></div>
             </div>
@@ -139,15 +210,19 @@
           <div class="cc-dots"></div>
         </div>
       </div>
+
       <div class="ow-fixed-info reveal-up" style="--delay:.2s" id="info-graphic">
         <h3 class="info-title">SKY LIGHT | BRANDING</h3>
         <p class="info-desc">AutoCAD / Illustrator / 品牌識別設計</p>
         <a href="graphic.html" class="glow-btn glow-btn--sm info-link"><span class="glow-btn__text">VIEW PROJECT</span></a>
       </div>
     </div>
-  </div>
+  </div><!-- /block-graphic -->
 
-  <!-- 3D MODELING (4張) -->
+
+  <!-- ──────────────────────────────────────
+       3D MODELING 分類（4張）
+  ────────────────────────────────────── -->
   <div class="ow-block" id="block-td">
     <div class="ow-block-bg">
       <div class="block-bg-layer active" style="background-image:url('images/td-1.jpg')"></div>
@@ -155,12 +230,15 @@
       <div class="ow-bg-mask"></div>
     </div>
     <div class="ow-block-content">
+      <!-- ★ 分類名稱 -->
       <div class="ow-block-header"><span class="ow-block-cat-label">3D MODELING</span></div>
+
       <div class="cc-wrap reveal-up" id="cc-td">
         <div class="cc-inner">
           <div class="cc-stage">
             <button class="cc-btn cc-prev">&#8249;</button>
             <button class="cc-btn cc-next">&#8250;</button>
+            <!-- ★ 卡片 1~4 -->
             <div class="cc-slide" data-img="images/td-1.jpg" data-title="3D MODELING | FORM &amp; MOTION" data-desc="ZBrush / Blender 角色建模" data-link="3d.html">
               <div class="cc-img-wrap"><img src="images/td-1.jpg" alt="3D 1"></div>
             </div>
@@ -177,37 +255,54 @@
           <div class="cc-dots"></div>
         </div>
       </div>
+
       <div class="ow-fixed-info reveal-up" style="--delay:.2s" id="info-td">
         <h3 class="info-title">3D MODELING | FORM &amp; MOTION</h3>
         <p class="info-desc">ZBrush / Blender 角色建模</p>
         <a href="3d.html" class="glow-btn glow-btn--sm info-link"><span class="glow-btn__text">VIEW PROJECT</span></a>
       </div>
     </div>
-  </div>
+  </div><!-- /block-td -->
+
 </section>
 
+
+<!-- ══════════════════════════════════════════
+     CONTACT 頁尾聯絡區
+══════════════════════════════════════════ -->
 <footer class="contact-section" id="contact">
   <hr>
+  <!-- ★ 頁尾大標 -->
   <h2>CONTACT</h2>
+  <!-- ★ Email -->
   <p>Email: <a href="mailto:sherrycat1115@gmail.com">sherrycat1115@gmail.com</a></p>
   <div class="social-links">
+    <!-- ★ Instagram 連結 -->
     <a href="https://www.instagram.com/sherry_11_15" target="_blank">Instagram : sherry_11_15</a>
     <span class="sep">|</span>
+    <!-- ★ 電話 -->
     <span>Phone : 0966-321-591</span>
   </div>
+  <!-- ★ 版權年份 -->
   <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
 </footer>
 
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
 <script>
-/* ══ Nav ══ */
+/* ── Nav 捲動透明度 ── */
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 80), {passive:true});
+
+/* ── 漢堡選單 ── */
 const ham = document.getElementById('hamburger');
 const mMenu = document.getElementById('mobileMenu');
 ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
 document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
 
-/* ══ 平滑捲動 ══ */
+/* ── 平滑捲動 ── */
 function smoothScroll(dest, dur) {
   const start = window.pageYOffset, dist = dest - start; let t0 = null;
   (function tick(now) {
@@ -226,7 +321,7 @@ document.querySelectorAll('a[href^="#"], .mm-link[href^="#"]').forEach(a =>
 document.getElementById('scrollDownBtn').addEventListener('click', () =>
   smoothScroll(document.getElementById('ceramics').offsetTop, 1000));
 
-/* ══ 影片視差 ══ */
+/* ── Hero 影片視差 ── */
 const heroVid = document.querySelector('.hero-video-fixed video');
 const heroFixed = document.getElementById('heroVideoFixed');
 const ceramicsSec = document.getElementById('ceramics');
@@ -235,18 +330,16 @@ window.addEventListener('scroll', () => {
   heroFixed.style.visibility = ceramicsSec.getBoundingClientRect().top <= 0 ? 'hidden' : 'visible';
 }, {passive:true});
 
-/* ══ Reveal ══ */
+/* ── Reveal 進場動畫 ── */
 const ro = new IntersectionObserver(entries =>
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:0.1});
 document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
 
 /* ══════════════════════════════════════════════════════
-   Carousel Engine v2 — 純無限循環
+   Carousel Engine — 純無限循環
    ────────────────────────────────────────────────────
-   N=2:  getSlots → [-1, cur, (cur+1)%2]
-          右側永遠是「另一張」，按 Next 右張滑入中間 ✓
-   N>=3: getSlots → [(cur-1+N)%N, cur, (cur+1)%N]
-          左右都有牌，完整環形循環，絕不看到背景 ✓
+   N=2:  getSlots → [-1, cur, (cur+1)%2]  (右側永遠是另一張)
+   N>=3: getSlots → [(cur-1+N)%N, cur, (cur+1)%N]  (完整循環)
    ══════════════════════════════════════════════════════ */
 function initCarousel(ccId, infoId, blockId) {
   const wrap    = document.getElementById(ccId);
@@ -259,10 +352,8 @@ function initCarousel(ccId, infoId, blockId) {
   const blockEl = document.getElementById(blockId);
   const bgLayers= blockEl.querySelectorAll('.block-bg-layer');
 
-  const N   = slides.length;
-  let   cur = 0;
-  let   curBg = 0;
-  let   busy  = false;
+  const N = slides.length;
+  let cur = 0, curBg = 0, busy = false;
 
   /* 建立圓點 */
   slides.forEach((_, i) => {
@@ -273,7 +364,7 @@ function initCarousel(ccId, infoId, blockId) {
   });
   const allDots = dotsEl.querySelectorAll('.cc-dot');
 
-  /* 計算 [左槽, 中槽, 右槽] — -1 代表空槽 */
+  /* 計算 [左槽, 中槽, 右槽]：-1 = 空 */
   function getSlots(c) {
     if (N === 2) return [-1, c, (c + 1) % N];
     return [(c - 1 + N) % N, c, (c + 1) % N];
@@ -309,7 +400,7 @@ function initCarousel(ccId, infoId, blockId) {
     }, 240);
   }
 
-  /* 更新背景 */
+  /* 更新背景（Crossfade）*/
   function updateBg(idx) {
     const src = slides[idx].dataset.img; if (!src) return;
     const nx = curBg ^ 1;
@@ -319,14 +410,12 @@ function initCarousel(ccId, infoId, blockId) {
     curBg = nx;
   }
 
-  /* 導航到指定 index — 純 mod 循環，不 bounce */
+  /* 導航（純 mod 循環）*/
   function navigate(target) {
     if (busy || target === cur) return;
     busy = true;
     cur = ((target % N) + N) % N;
-    render(cur);
-    updateInfo(cur);
-    updateBg(cur);
+    render(cur); updateInfo(cur); updateBg(cur);
     setTimeout(() => { busy = false; }, 480);
   }
 
@@ -344,14 +433,14 @@ function initCarousel(ccId, infoId, blockId) {
     if (Math.abs(dx) > 40) dx < 0 ? goNext() : goPrev();
   }, {passive:true});
 
-  /* 初始化（先禁 transition 避免閃爍）*/
+  /* 初始化（禁 transition 避免閃爍）*/
   slides.forEach(s => s.classList.add('cc-no-anim'));
   render(0);
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => slides.forEach(s => s.classList.remove('cc-no-anim')));
-  });
+  requestAnimationFrame(() => requestAnimationFrame(() =>
+    slides.forEach(s => s.classList.remove('cc-no-anim'))));
 }
 
+/* 初始化三個輪播 */
 initCarousel('cc-game',    'info-game',    'block-game');
 initCarousel('cc-graphic', 'info-graphic', 'block-graphic');
 initCarousel('cc-td',      'info-td',      'block-td');
