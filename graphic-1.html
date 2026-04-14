@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ★ 頁籤標題 -->
+<title>Sky Light Branding | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand"><span class="nav-brand-name">WANG MIN HSUAN</span><span class="nav-brand-sub">| CERAMIC ARTIST</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li><li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a><a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a><a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ★ 1. 大圖 Cover
+     ─────────────────────────────────────────
+     換成作品主視覺圖片路徑
+     wd-cover img 的 object-fit:
+       cover   = 填滿、自動裁切（橫圖適合）
+       contain = 完整顯示、有 letterbox（直向/特殊比例適合）
+══════════════════════════════════════════ -->
+<div class="wd-cover">
+  <img src="images/graphic-1.jpg" alt="SKY LIGHT BRANDING 主視覺"
+    style="object-fit:cover;">
+</div>
+
+<!-- ── 主要內容 ── -->
+<div class="wd-body">
+
+  <!-- ★ 2. 大標題 -->
+  <h1 class="wd-title">SKY LIGHT | BRANDING</h1>
+
+  <!-- ★ 分類小標 + 工具 -->
+  <div class="wd-tag">GRAPHIC DESIGN &nbsp;·&nbsp; AutoCAD · Illustrator</div>
+
+  <!-- ★ 3. 作品介紹段落 -->
+  <h2 class="wd-section-title">介紹</h2>
+  <p class="wd-text">
+    ★ 填入作品介紹。例如：<br>
+    SKY LIGHT 是一個以天空與光線為核心意象的品牌識別設計專案。
+    從 Logo 造型到色彩系統，嘗試以簡約線條表達光穿透的流動感。
+  </p>
+
+  <!-- ★ 4. 草圖照片 Grid（預設2欄）-->
+  <!-- ★ 草圖若是直向：改 wd-sketch-item 的 style="aspect-ratio:3/4" -->
+  <h2 class="wd-section-title">草圖</h2>
+  <div class="wd-sketches">
+    <!-- ★ 草圖1 -->
+    <div class="wd-sketch-item" style="aspect-ratio:16/9;">
+      <!-- <img src="images/★草圖1路徑★" alt="草圖1"> -->
+      <!-- 暫無草圖：顯示佔位 -->
+      <img src="images/graphic-1.jpg" alt="草圖1（待補）" style="opacity:.25;filter:grayscale(1);">
+    </div>
+    <!-- ★ 草圖2 -->
+    <div class="wd-sketch-item" style="aspect-ratio:16/9;">
+      <!-- <img src="images/★草圖2路徑★" alt="草圖2"> -->
+      <img src="images/graphic-1.jpg" alt="草圖2（待補）" style="opacity:.25;filter:grayscale(1);">
+    </div>
+    <!-- ★ 新增草圖：複製上方 wd-sketch-item 區塊 -->
+  </div>
+
+  <!-- ★ 5. 步驟說明（圖 + 文字交替）-->
+  <h2 class="wd-section-title">製作過程</h2>
+  <div class="wd-steps">
+
+    <!-- ★ 步驟1（奇數：圖左文右）-->
+    <div class="wd-step">
+      <div class="wd-step-img">
+        <!-- ★ 步驟圖片路徑 -->
+        <img src="images/graphic-1.jpg" alt="步驟1圖">
+      </div>
+      <div class="wd-step-text">
+        <!-- ★ 步驟序號 -->
+        <div class="wd-step-num">01</div>
+        <!-- ★ 步驟標題 -->
+        <h3 class="wd-step-title">品牌概念發想</h3>
+        <!-- ★ 步驟說明 -->
+        <p class="wd-step-desc">★ 填入這個步驟的說明文字，例如概念方向、設計思考過程。</p>
+      </div>
+    </div>
+
+    <!-- ★ 步驟2（偶數：圖右文左，CSS 自動 mirror）-->
+    <div class="wd-step">
+      <div class="wd-step-img">
+        <!-- ★ 步驟圖片路徑 -->
+        <img src="images/graphic-1.jpg" alt="步驟2圖">
+      </div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">02</div>
+        <!-- ★ 步驟標題 -->
+        <h3 class="wd-step-title">Logo 造型設計</h3>
+        <!-- ★ 步驟說明 -->
+        <p class="wd-step-desc">★ 填入說明。例如：以雙弧線模擬光線折射，搭配細線字體呈現現代感。</p>
+      </div>
+    </div>
+
+    <!-- ★ 步驟3（奇數）-->
+    <div class="wd-step">
+      <div class="wd-step-img">
+        <img src="images/graphic-1.jpg" alt="步驟3圖">
+      </div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">03</div>
+        <h3 class="wd-step-title">色彩 &amp; 字體系統</h3>
+        <p class="wd-step-desc">★ 填入說明。例如：主色以天空藍與米白為基底，搭配 Thin 字重呈現輕盈感。</p>
+      </div>
+    </div>
+
+    <!-- ★ 新增步驟：複製整個 wd-step 區塊 -->
+
+  </div><!-- /wd-steps -->
+
+</div><!-- /wd-body -->
+
+<!-- ★ 6. 返回上一頁按鈕 -->
+<div class="wd-back-wrap">
+  <a href="graphic.html" class="back-page">← BACK TO GRAPHIC DESIGN</a>
+</div>
+
+<footer class="contact-section" style="padding:40px 6%">
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+<script>
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.1});
+document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

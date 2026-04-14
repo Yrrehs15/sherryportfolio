@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ★ 頁籤標題 -->
+<title>Graphic Design | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand"><span class="nav-brand-name">WANG MIN HSUAN</span><span class="nav-brand-sub">| CERAMIC ARTIST</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li><li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a><a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a><a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<!-- ★ Hero：改 background-image / detail-tag / detail-title / detail-subtitle -->
+<div class="detail-hero">
+  <div class="detail-hero-bg" style="background-image:url('images/graphic-1.jpg')"></div>
+  <div class="detail-hero-content">
+    <div class="detail-tag">GRAPHIC DESIGN</div>
+    <h1 class="detail-title">Graphic Design</h1>
+    <p class="detail-subtitle">Branding · Poster · Layout</p>
+  </div>
+</div>
+
+<!-- ★ 作品 Grid — 每個 <a class="detail-item"> 整卡可點擊 -->
+<div class="detail-grid">
+
+  <!-- ★ 作品1：href 指向 graphic-1.html -->
+  <a class="detail-item reveal-up" href="graphic-1.html">
+    <div class="detail-item-img">
+      <!-- ★ 縮圖路徑 -->
+      <img src="images/graphic-1.jpg" alt="Sky Light Branding">
+    </div>
+    <div class="detail-item-body">
+      <!-- ★ 序號 -->
+      <div class="detail-item-num">01</div>
+      <!-- ★ 作品名稱 -->
+      <div class="detail-item-name">SKY LIGHT | BRANDING</div>
+      <!-- ★ 一行說明 -->
+      <p class="detail-item-desc">品牌識別設計。Logo、色彩系統、字體應用，以天空為意象。</p>
+    </div>
+  </a>
+
+  <!-- ★ 作品2 -->
+  <a class="detail-item reveal-up" href="graphic-2.html" style="--delay:.1s">
+    <div class="detail-item-img">
+      <img src="images/graphic-2.jpg" alt="Poster Design">
+    </div>
+    <div class="detail-item-body">
+      <div class="detail-item-num">02</div>
+      <div class="detail-item-name">POSTER DESIGN</div>
+      <p class="detail-item-desc">活動海報設計，Illustrator 手繪插圖結合排版。</p>
+    </div>
+  </a>
+
+  <!-- ★ 作品3：直向圖 → 改 style 讓圖片顯示完整 -->
+  <a class="detail-item reveal-up" href="graphic-3.html" style="--delay:.2s">
+    <!-- ★ 直向圖片：改 aspect-ratio 讓圖顯示完整，或裁切接受 -->
+    <div class="detail-item-img" style="aspect-ratio:1/1;">
+      <img src="images/graphic-3.png" alt="Layout Design" style="object-fit:contain;background:#07101a;">
+    </div>
+    <div class="detail-item-body">
+      <div class="detail-item-num">03</div>
+      <div class="detail-item-name">LAYOUT DESIGN</div>
+      <p class="detail-item-desc">版面排版設計，字體分層與視覺層次實驗。</p>
+    </div>
+  </a>
+
+</div>
+
+<div class="back-home-wrap">
+  <a href="index.html" class="back-home">← BACK TO HOME</a>
+</div>
+<footer class="contact-section" style="padding:40px 6%"><p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p></footer>
+
+<script>
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.1});
+document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ★ 頁籤標題 -->
+<title>Form & Motion | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand"><span class="nav-brand-name">WANG MIN HSUAN</span><span class="nav-brand-sub">| CERAMIC ARTIST</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li><li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a><a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a><a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ★ 1. 大圖 Cover（主視覺）
+     ─────────────────────────────────────────
+     直向圖建議用 object-fit:contain
+     橫向圖用 object-fit:cover
+     最大高度 80vh，不超出螢幕
+══════════════════════════════════════════ -->
+<div class="wd-cover">
+  <!-- ★ 換成作品主要圖片路徑 -->
+  <img src="images/td-1.jpg" alt="3D MODELING | FORM & MOTION"
+    style="object-fit:cover;">
+</div>
+
+<div class="wd-body">
+
+  <!-- ★ 2. 大標題 -->
+  <h1 class="wd-title">3D MODELING<br>FORM &amp; MOTION</h1>
+
+  <!-- ★ 小標 + 工具 -->
+  <div class="wd-tag">3D MODELING &nbsp;·&nbsp; ZBrush · Blender</div>
+
+  <!-- ★ 3. 作品介紹 -->
+  <h2 class="wd-section-title">介紹</h2>
+  <p class="wd-text">
+    ★ 填入作品介紹。例如：<br>
+    探索有機形體建模的作品系列，以 ZBrush 雕塑高模後匯入 Blender 進行重拓與材質設定。
+    主題聚焦在生物型態的流動感與結構力度的對比。
+  </p>
+
+  <!-- ★ 4. 草圖 Grid（直向草圖把 style 改 aspect-ratio:3/4）-->
+  <h2 class="wd-section-title">草圖 / 概念圖</h2>
+  <div class="wd-sketches">
+    <!-- ★ 草圖1：把 src 換成實際草圖 -->
+    <div class="wd-sketch-item" style="aspect-ratio:16/9;">
+      <!-- <img src="images/★草圖1★" alt="草圖1"> -->
+      <img src="images/td-1.jpg" alt="概念草圖（待補）" style="opacity:.25;filter:grayscale(1);">
+    </div>
+    <!-- ★ 草圖2 -->
+    <div class="wd-sketch-item" style="aspect-ratio:16/9;">
+      <!-- <img src="images/★草圖2★" alt="草圖2"> -->
+      <img src="images/td-1.jpg" alt="概念草圖（待補）" style="opacity:.25;filter:grayscale(1);">
+    </div>
+    <!-- ★ 新增草圖：複製 wd-sketch-item 區塊 -->
+  </div>
+
+  <!-- ★ 5. 製作步驟（圖＋文交替，偶數自動 mirror）-->
+  <h2 class="wd-section-title">製作過程</h2>
+  <div class="wd-steps">
+
+    <!-- ★ 步驟1 -->
+    <div class="wd-step">
+      <div class="wd-step-img">
+        <!-- ★ 步驟圖 -->
+        <img src="images/td-1.jpg" alt="步驟1">
+      </div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">01</div>
+        <!-- ★ 步驟標題 -->
+        <h3 class="wd-step-title">高模雕塑</h3>
+        <!-- ★ 說明 -->
+        <p class="wd-step-desc">★ 填入此步驟說明。例如：使用 ZBrush 以動態拓樸雕刻主體形態，強調肌肉走向與有機曲面的張力。</p>
+      </div>
+    </div>
+
+    <!-- ★ 步驟2（偶數自動左右翻轉）-->
+    <div class="wd-step">
+      <div class="wd-step-img">
+        <img src="images/td-1.jpg" alt="步驟2">
+      </div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">02</div>
+        <h3 class="wd-step-title">重拓樸 &amp; UV 展開</h3>
+        <p class="wd-step-desc">★ 填入說明。例如：以 Blender 重拓為低模，保留關鍵形態細節。手動展開 UV 確保貼圖比例一致。</p>
+      </div>
+    </div>
+
+    <!-- ★ 步驟3 -->
+    <div class="wd-step">
+      <div class="wd-step-img">
+        <img src="images/td-1.jpg" alt="步驟3">
+      </div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">03</div>
+        <h3 class="wd-step-title">材質 &amp; 渲染</h3>
+        <p class="wd-step-desc">★ 填入說明。例如：Substance Painter 繪製 PBR 材質，回到 Blender 以 Cycles 渲染最終畫面。</p>
+      </div>
+    </div>
+
+    <!-- ★ 新增步驟：複製整個 wd-step 區塊 -->
+
+  </div><!-- /wd-steps -->
+
+</div><!-- /wd-body -->
+
+<!-- ★ 6. Back 按鈕 -->
+<div class="wd-back-wrap">
+  <a href="3d.html" class="back-page">← BACK TO 3D MODELING</a>
+</div>
+
+<footer class="contact-section" style="padding:40px 6%">
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+<script>
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.1});
+document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>
