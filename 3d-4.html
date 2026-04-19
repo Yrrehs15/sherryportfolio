@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abyssal Ruins | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand"><span class="nav-brand-name">WANG MIN HSUAN</span><span class="nav-brand-sub">| CERAMIC ARTIST</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li><li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a><a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a><a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<div class="wd-cover">
+  <img src="images/td-4.jpg" alt="ABYSSAL RUINS 主視覺" style="object-fit:cover;">
+</div>
+
+<div class="wd-body">
+
+  <h1 class="wd-title">3D MODELING<br>ABYSSAL RUINS</h1>
+  <div class="wd-tag">3D MODELING &nbsp;·&nbsp; Blender · ZBrush</div>
+
+  <h2 class="wd-section-title">介紹</h2>
+  <p class="wd-text">
+    ★ 填入作品介紹。例如：<br>
+    Calcite Warp Gate — 以礦物結晶與深海廢墟為靈感的場景設計，探索有機礦石結構與廢棄建築之間的視覺對話。
+  </p>
+
+  <h2 class="wd-section-title">草圖 / 概念圖</h2>
+  <div class="wd-sketches">
+    <div class="wd-sketch-item" style="aspect-ratio:16/9;">
+      <img src="images/td-4.jpg" alt="概念草圖（待補）" style="opacity:.25;filter:grayscale(1);">
+    </div>
+    <div class="wd-sketch-item" style="aspect-ratio:16/9;">
+      <img src="images/td-4.jpg" alt="概念草圖（待補）" style="opacity:.25;filter:grayscale(1);">
+    </div>
+  </div>
+
+  <h2 class="wd-section-title">製作過程</h2>
+  <div class="wd-steps">
+
+    <div class="wd-step">
+      <div class="wd-step-img"><img src="images/td-4.jpg" alt="步驟1"></div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">01</div>
+        <h3 class="wd-step-title">造型概念發想</h3>
+        <p class="wd-step-desc">★ 填入此步驟說明。例如：參考礦物結晶生長規律，設計場景的主要結構造型與氛圍基調。</p>
+      </div>
+    </div>
+
+    <div class="wd-step">
+      <div class="wd-step-img"><img src="images/td-4.jpg" alt="步驟2"></div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">02</div>
+        <h3 class="wd-step-title">場景建模</h3>
+        <p class="wd-step-desc">★ 填入說明。例如：以 ZBrush 雕刻結晶細節，再匯入 Blender 組建整體場景架構。</p>
+      </div>
+    </div>
+
+    <div class="wd-step">
+      <div class="wd-step-img"><img src="images/td-4.jpg" alt="步驟3"></div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">03</div>
+        <h3 class="wd-step-title">光影氛圍渲染</h3>
+        <p class="wd-step-desc">★ 填入說明。例如：以深藍暗調為主，結合體積光模擬廢墟縫隙透光的神秘感。</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="wd-back-wrap">
+  <a href="3d.html" class="back-page">← BACK TO 3D MODELING</a>
+</div>
+
+<footer class="contact-section" style="padding:40px 6%">
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+<script>
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.1});
+document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>
