@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cat Jump Jump | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand"><span class="nav-brand-name">WANG MIN HSUAN</span><span class="nav-brand-sub">| CERAMIC ARTIST</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li><li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a><a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a><a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<div class="gd-hero">
+  <div class="gd-hero-bg" style="background-image:url('images/game-1.png')"></div>
+  <div class="gd-hero-overlay"></div>
+  <div class="gd-hero-content">
+    <div class="gd-hero-tag">GAME ART — PROJECT #1</div>
+    <h1 class="gd-hero-title">Cat Jump Jump</h1>
+    <p class="gd-hero-sub">Unity 3D · Platformer · 2025</p>
+  </div>
+</div>
+
+<div class="gd-main">
+
+  <div class="gd-media">
+    <div class="gd-player" id="gdPlayer1">
+      <!-- 影片（預設顯示）-->
+      <video class="gd-player-item active" id="gdi1-v0"
+        src="images/catjump.mp4" controls loop playsinline
+        style="object-fit:cover;"></video>
+      <!-- 截圖1 -->
+      <img class="gd-player-item" id="gdi1-i0" src="images/game-1.png" alt="封面截圖">
+      <!-- 截圖2 -->
+      <img class="gd-player-item" id="gdi1-i1" src="images/game-1-1.jpg" alt="遊戲截圖">
+    </div>
+
+    <div class="gd-steam-strip">
+      <div class="gd-steam-row">
+        <div class="gd-steam-thumb active" data-target="gdi1-v0">
+          <img src="images/game-1.png" alt="遊戲影片">
+          <div class="gd-steam-vid-overlay"></div>
+        </div>
+        <div class="gd-steam-thumb" data-target="gdi1-i0">
+          <img src="images/game-1.png" alt="截圖1">
+        </div>
+        <div class="gd-steam-thumb" data-target="gdi1-i1">
+          <img src="images/game-1-1.jpg" alt="截圖2">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gd-info">
+    <h2 class="gd-title">Cat Jump Jump</h2>
+    <div class="gd-meta">
+      <div class="gd-meta-row"><span class="gd-meta-key">類型</span><span class="gd-meta-val">3D Platformer / 第三人稱視角</span></div>
+      <div class="gd-meta-row"><span class="gd-meta-key">製作時間</span><span class="gd-meta-val">★ 填入製作時間</span></div>
+      <div class="gd-meta-row"><span class="gd-meta-key">引擎</span><span class="gd-meta-val">Unity 3D</span></div>
+      <div class="gd-meta-row"><span class="gd-meta-key">開發人員</span><span class="gd-meta-val">★ 填入開發人員名稱</span></div>
+    </div>
+    <p class="gd-blurb">★ 填入遊戲簡介文字。</p>
+    <a href="https://yrrehs.itch.io/catjumpjump" target="_blank" class="gd-play-btn">
+      <span>▶</span><span>PLAY DEMO</span>
+    </a>
+  </div>
+
+</div>
+
+<div class="gd-divider"></div>
+
+<div class="gd-body">
+  <h3 class="gd-section-title">關於遊戲</h3>
+  <p class="gd-text">★ 填入遊戲介紹。</p>
+  <h3 class="gd-section-title">製作過程</h3>
+  <p class="gd-text">★ 填入製作說明。</p>
+  <h3 class="gd-section-title">截圖</h3>
+  <div class="gd-gallery">
+    <div class="gd-gallery-item"><img src="images/game-1.png" alt="截圖1"></div>
+    <div class="gd-gallery-item"><img src="images/game-1-1.jpg" alt="截圖2"></div>
+  </div>
+</div>
+
+<div class="gd-back-wrap"><a href="game.html" class="back-page">← BACK TO GAME ART</a></div>
+<footer class="contact-section" style="padding:40px 6%"><p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p></footer>
+
+<script>
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+
+const player = document.getElementById('gdPlayer1');
+document.querySelectorAll('.gd-steam-thumb').forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    document.querySelectorAll('.gd-steam-thumb').forEach(t => t.classList.remove('active'));
+    player.querySelectorAll('.gd-player-item').forEach(i => {
+      i.classList.remove('active');
+      if (i.tagName === 'VIDEO') i.pause();
+    });
+    thumb.classList.add('active');
+    const target = player.querySelector('#' + thumb.dataset.target);
+    if (target) target.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
