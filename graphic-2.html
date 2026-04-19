@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poster Design | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand"><span class="nav-brand-name">WANG MIN HSUAN</span><span class="nav-brand-sub">| CERAMIC ARTIST</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li><li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a><a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a><a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<div class="wd-cover">
+  <img src="images/graphic-2.png" alt="POSTER DESIGN 主視覺" style="object-fit:cover;">
+</div>
+
+<div class="wd-body">
+
+  <h1 class="wd-title">POSTER DESIGN</h1>
+  <div class="wd-tag">GRAPHIC DESIGN &nbsp;·&nbsp; Illustrator · Photoshop</div>
+
+  <h2 class="wd-section-title">介紹</h2>
+  <p class="wd-text">
+    ★ 填入作品介紹。例如：<br>
+    活動海報設計系列，以 Illustrator 手繪插圖結合排版，探索圖文之間的視覺張力與敘事性。
+  </p>
+
+  <h2 class="wd-section-title">草圖</h2>
+  <div class="wd-sketches">
+    <div class="wd-sketch-item" style="aspect-ratio:16/9;">
+      <img src="images/graphic-2.png" alt="草圖1（待補）" style="opacity:.25;filter:grayscale(1);">
+    </div>
+    <div class="wd-sketch-item" style="aspect-ratio:16/9;">
+      <img src="images/graphic-2.png" alt="草圖2（待補）" style="opacity:.25;filter:grayscale(1);">
+    </div>
+  </div>
+
+  <h2 class="wd-section-title">製作過程</h2>
+  <div class="wd-steps">
+
+    <div class="wd-step">
+      <div class="wd-step-img"><img src="images/graphic-2.png" alt="步驟1圖"></div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">01</div>
+        <h3 class="wd-step-title">概念發想</h3>
+        <p class="wd-step-desc">★ 填入此步驟說明。例如：確立活動主題與視覺風格方向，進行競品海報分析。</p>
+      </div>
+    </div>
+
+    <div class="wd-step">
+      <div class="wd-step-img"><img src="images/graphic-2.png" alt="步驟2圖"></div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">02</div>
+        <h3 class="wd-step-title">插圖繪製</h3>
+        <p class="wd-step-desc">★ 填入說明。例如：以 Illustrator 向量手繪插圖，建立具一致性的圖像語言。</p>
+      </div>
+    </div>
+
+    <div class="wd-step">
+      <div class="wd-step-img"><img src="images/graphic-2.png" alt="步驟3圖"></div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">03</div>
+        <h3 class="wd-step-title">排版輸出</h3>
+        <p class="wd-step-desc">★ 填入說明。例如：整合插圖、文字層次與色彩系統，輸出印刷規格檔案。</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="wd-back-wrap">
+  <a href="graphic.html" class="back-page">← BACK TO GRAPHIC DESIGN</a>
+</div>
+
+<footer class="contact-section" style="padding:40px 6%">
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+<script>
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.1});
+document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

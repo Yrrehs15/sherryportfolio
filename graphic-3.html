@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layout Design | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand"><span class="nav-brand-name">WANG MIN HSUAN</span><span class="nav-brand-sub">| CERAMIC ARTIST</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li><li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a><a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a><a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<!-- graphic-3.png 是直向圖，用 contain 完整顯示 -->
+<div class="wd-cover" style="background:#07101a;">
+  <img src="images/graphic-3.png" alt="LAYOUT DESIGN 主視覺" style="object-fit:contain;">
+</div>
+
+<div class="wd-body">
+
+  <h1 class="wd-title">LAYOUT DESIGN</h1>
+  <div class="wd-tag">GRAPHIC DESIGN &nbsp;·&nbsp; InDesign · Illustrator</div>
+
+  <h2 class="wd-section-title">介紹</h2>
+  <p class="wd-text">
+    ★ 填入作品介紹。例如：<br>
+    版面排版設計實驗，探索字體分層與視覺層次的可能性，以網格系統為基礎建構清晰的資訊架構。
+  </p>
+
+  <h2 class="wd-section-title">草圖</h2>
+  <div class="wd-sketches">
+    <div class="wd-sketch-item" style="aspect-ratio:16/9;">
+      <img src="images/graphic-3.png" alt="草圖1（待補）" style="opacity:.25;filter:grayscale(1);object-fit:contain;background:#07101a;">
+    </div>
+    <div class="wd-sketch-item" style="aspect-ratio:16/9;">
+      <img src="images/graphic-3.png" alt="草圖2（待補）" style="opacity:.25;filter:grayscale(1);object-fit:contain;background:#07101a;">
+    </div>
+  </div>
+
+  <h2 class="wd-section-title">製作過程</h2>
+  <div class="wd-steps">
+
+    <div class="wd-step">
+      <div class="wd-step-img"><img src="images/graphic-3.png" alt="步驟1圖" style="object-fit:contain;background:#07101a;"></div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">01</div>
+        <h3 class="wd-step-title">網格系統建立</h3>
+        <p class="wd-step-desc">★ 填入此步驟說明。例如：以模組化網格定義版面比例，確保各元素之間的視覺一致性。</p>
+      </div>
+    </div>
+
+    <div class="wd-step">
+      <div class="wd-step-img"><img src="images/graphic-3.png" alt="步驟2圖" style="object-fit:contain;background:#07101a;"></div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">02</div>
+        <h3 class="wd-step-title">字體層次設定</h3>
+        <p class="wd-step-desc">★ 填入說明。例如：選定主標、副標、內文三種字重，以對比建立清晰的閱讀動線。</p>
+      </div>
+    </div>
+
+    <div class="wd-step">
+      <div class="wd-step-img"><img src="images/graphic-3.png" alt="步驟3圖" style="object-fit:contain;background:#07101a;"></div>
+      <div class="wd-step-text">
+        <div class="wd-step-num">03</div>
+        <h3 class="wd-step-title">視覺整合輸出</h3>
+        <p class="wd-step-desc">★ 填入說明。例如：整合色彩、圖像與文字後輸出最終版本，並進行印刷校色確認。</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="wd-back-wrap">
+  <a href="graphic.html" class="back-page">← BACK TO GRAPHIC DESIGN</a>
+</div>
+
+<footer class="contact-section" style="padding:40px 6%">
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+<script>
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), {threshold:.1});
+document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>
