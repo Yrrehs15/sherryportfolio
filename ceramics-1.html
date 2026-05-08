@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ★ 頁籤標題 -->
+<title>復甦 Recovery | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════
+   ceramics-1.html  ——  復甦 Recovery
+   prefix: r1-
+   ═══════════════════════════════════════════════════ */
+
+/* ── 全頁背景（淺色系，有空氣感）── */
+body { background: #05183a; color: #ffffff; }
+
+/* ─────────────────────────────────────────────
+   HERO — 100vh 全版滿版大圖
+   ★ 換圖說明：
+      <div class="r1-hero"> 的 background-image
+      改成你的作品主視覺大圖路徑。
+      建議：creamic-1-hero.jpg（橫向 2:1 以上）
+   ───────────────────────────────────────────── */
+.r1-hero {
+  position: relative;
+  width: 100%; height: 100vh; min-height: 500px;
+  overflow: hidden;
+  display: flex; align-items: flex-end;
+}
+.r1-hero-bg {
+  position: absolute; inset: 0;
+  /* ╔══════════════════════════════════════╗
+     ║  ★ 主視覺大圖換圖位置                ║
+     ║  把 url('images/creamic.jpg') 改成   ║
+     ║  你的作品代表照片路徑                  ║
+     ║  建議圖片尺寸：2400×1600px 以上        ║
+     ╚══════════════════════════════════════╝ */
+  background-image: url('images/creamic.jpg');
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.06);
+  transition: transform 8s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+}
+.r1-hero.loaded .r1-hero-bg { transform: scale(1); }
+
+/* 下半部漸層遮罩（讓文字可讀） */
+.r1-hero-veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 35%,
+    rgba(20,14,8,.55) 75%,
+    rgba(20,14,8,.82) 100%
+  );
+}
+
+.r1-hero-content {
+  position: relative; z-index: 2;
+  padding: 0 8% 64px;
+  width: 100%;
+}
+.r1-hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: .38em;
+  color: rgba(255,255,255,.45);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 14px;
+}
+.r1-hero-eyebrow::before {
+  content: ''; display: block;
+  width: 28px; height: 1px;
+  background: rgba(255,255,255,.3);
+}
+/* ★ 頁面主標題文字 — 下方 HTML 修改 */
+.r1-hero-title {
+  font-family: var(--serif);
+  font-size: clamp(52px, 9vw, 120px);
+  font-weight: 300;
+  color: #fff;
+  letter-spacing: -.02em;
+  line-height: .93;
+  margin-bottom: 20px;
+}
+.r1-hero-title em {
+  font-style: italic;
+  color: rgba(255,255,255,.5);
+  display: block;
+}
+/* ★ Hero 副標（年份/媒材）— 下方 HTML 修改 */
+.r1-hero-meta {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .22em;
+  color: rgba(255,255,255,.38);
+  text-transform: uppercase;
+}
+
+
+
+/* 滾動提示箭頭 */
+.r1-scroll-hint {
+  position: absolute; bottom: 28px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.r1-scroll-hint span {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .25em;
+  color: rgba(255,255,255,.28); text-transform: uppercase;
+}
+.r1-scroll-arrow {
+  width: 1px; height: 48px;
+  background: rgba(255,255,255,.15);
+  position: relative; overflow: hidden; border-radius: 1px;
+}
+.r1-scroll-arrow::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,.65), transparent);
+  animation: r1ScrollDrop 2.2s ease-in-out infinite;
+}
+@keyframes r1ScrollDrop {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  30%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+
+
+.r1-infobar-item {}
+/* ★ 資訊條標籤 — 下方 HTML 修改文字 */
+.r1-infobar-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .28em;
+  color: rgba(42,34,26,.35); text-transform: uppercase;
+  margin-bottom: 4px;
+}
+/* ★ 資訊條數值 — 下方 HTML 修改文字 */
+.r1-infobar-val {
+  font-family: var(--serif); font-size: 17px; font-weight: 300;
+  color: rgba(42,34,26,.75); letter-spacing: .02em;
+}
+
+/* ─────────────────────────────────────────────
+   SECTION 通用
+   ───────────────────────────────────────────── */
+.r1-section {
+  padding: 96px 8%;
+  max-width: 1320px; margin: 0 auto;
+}
+.r1-section--tight { padding-top: 60px; padding-bottom: 60px; }
+
+/* 欄位標題群 */
+.r1-section-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .36em;
+  color: rgba(255, 255, 255, 0.35); text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 16px;
+}
+.r1-section-label::after {
+  content: ''; display: block;
+  width: 36px; height: 1px;
+  background: rgba(42,34,26,.2);
+}
+/* ★ 區塊大標題 — 各區下方 HTML 修改 */
+.r1-section-h2 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4.5vw, 60px);
+  font-weight: 300; color: #ffffff;
+  letter-spacing: -.01em; line-height: 1.1;
+  margin-bottom: 20px;
+}
+/* ★ 區塊說明文字 — 各區下方 HTML 修改 */
+.r1-section-body {
+  font-size: 15px; line-height: 2.0;
+  color: rgba(42,34,26,.55);
+  max-width: 640px;
+}
+
+/* 細橫線分隔 */
+.r1-rule {
+  width: 100%; height: 1px;
+  background: rgba(42,34,26,.1);
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────
+   WORKS GALLERY — 成品展示
+   ★ 三張作品大圖，直向比例（3:4），
+     圖片路徑在下方各 <img src="..."> 換圖
+   ───────────────────────────────────────────── */
+.r1-works-header {
+  padding: 80px 8% 48px;
+  max-width: 1320px; margin: 0 auto;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 32px;
+}
+.r1-works-header-left {}
+.r1-works-count {
+  font-family: var(--serif);
+  font-size: clamp(80px, 10vw, 130px);
+  font-weight: 300; color: rgba(42,34,26,.08);
+  line-height: 1; user-select: none;
+}
+
+/* 三欄 Gallery */
+.r1-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  /* 注意：Gallery 不加 padding，讓圖片幾乎滿版 */
+}
+.r1-gallery-item {
+  position: relative; overflow: hidden;
+  background: #ddd8d0;
+  /* 進場動畫初始值 */
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .9s cubic-bezier(.22,1,.36,1),
+              transform .9s cubic-bezier(.22,1,.36,1);
+}
+.r1-gallery-item.r1-in { opacity: 1; transform: translateY(0); }
+.r1-gallery-item:nth-child(2) { transition-delay: .15s; }
+.r1-gallery-item:nth-child(3) { transition-delay: .30s; }
+
+/*
+  ╔══════════════════════════════════════════╗
+  ║  ★ 成品展示圖 — 換圖說明（三張）         ║
+  ║  下方 <img src="..."> 各改成：            ║
+  ║    圖1: images/creamic-1-1.jpg（正面）    ║
+  ║    圖2: images/creamic-1-2.jpg（側面）    ║
+  ║    圖3: images/creamic-1-3.jpg（情境）    ║
+  ║  建議尺寸：1000×1333px（3:4 比例）        ║
+  ╚══════════════════════════════════════════╝ */
+.r1-gallery-item img {
+  width: 100%; display: block;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  transition: transform .8s cubic-bezier(.22,1,.36,1);
+}
+.r1-gallery-item:hover img { transform: scale(1.04); }
+
+/* 圖說卡片 — 懸停顯示 */
+.r1-gallery-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 40px 20px 20px;
+  background: linear-gradient(to top,
+    rgba(20,14,8,.88) 0%,
+    rgba(20,14,8,.5) 50%,
+    transparent 100%);
+  transform: translateY(8px); opacity: 0;
+  transition: opacity .4s, transform .4s cubic-bezier(.22,1,.36,1);
+}
+.r1-gallery-item:hover .r1-gallery-caption {
+  opacity: 1; transform: translateY(0);
+}
+/* ★ 圖說標題 — 下方 HTML 修改各圖說文字 */
+.r1-gallery-cap-title {
+  font-family: var(--serif); font-size: 16px; font-weight: 300;
+  color: #fff; letter-spacing: .02em; margin-bottom: 4px;
+}
+/* ★ 圖說副標（材料/尺寸）— 下方 HTML 修改 */
+.r1-gallery-cap-sub {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .2em;
+  color: rgba(255, 255, 255, 0.4); text-transform: uppercase;
+}
+
+/* 圖片編號（小角落）*/
+.r1-gallery-idx {
+  position: absolute; top: 16px; left: 18px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .18em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ─────────────────────────────────────────────
+   INTRO TEXT — 作品說明（大字引言 + 段落）
+   ───────────────────────────────────────────── */
+.r1-intro {
+  padding: 96px 8%;
+  background: #05183a;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 72px; align-items: start;
+}
+/* ★ 作品引言大字 — 下方 HTML 修改 */
+.r1-intro-quote {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 300; color: #ffffff;
+  letter-spacing: .01em; line-height: 1.5;
+  border-left: 2px solid rgba(255, 255, 255, 0.25);
+  padding-left: 28px;
+  /* 進場動畫 */
+  opacity: 0; transform: translateX(-24px);
+  transition: opacity .9s cubic-bezier(.22,1,.36,1),
+              transform .9s cubic-bezier(.22,1,.36,1);
+}
+.r1-intro-quote.r1-in { opacity: 1; transform: translateX(0); }
+
+.r1-intro-right {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .9s .15s cubic-bezier(.22,1,.36,1),
+              transform .9s .15s cubic-bezier(.22,1,.36,1);
+}
+.r1-intro-right.r1-in { opacity: 1; transform: translateY(0); }
+
+/* ★ 作品主說明文字 — 下方 HTML 修改 */
+.r1-intro-text {
+  font-size: 15px; line-height: 2.1;
+  color: rgba(255, 255, 255, 0.58);
+  margin-bottom: 24px;
+}
+/* ★ 作品技法/材料標籤列 — 下方 HTML 修改 */
+.r1-tags {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-top: 8px;
+}
+.r1-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .2em;
+  color: rgba(255, 255, 255, 0.45); text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 14px; border-radius: 99px;
+}
+
+/* ─────────────────────────────────────────────
+   PROCESS — 製作過程（淺色背景）
+   ───────────────────────────────────────────── */
+.r1-process-wrap {
+  background: #000f29;
+}
+
+/* 製作過程總標題 */
+.r1-process-header {
+  padding: 96px 8% 48px;
+  max-width: 1320px; margin: 0 auto;
+  display: flex; align-items: baseline; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.r1-process-title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 300; color: #ffffff;
+  letter-spacing: -.01em;
+}
+.r1-process-sub {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .3em;
+  color: rgba(42,34,26,.3); text-transform: uppercase;
+}
+
+/* 每個製作階段容器 */
+.r1-phase {
+  padding: 0 8% 80px;
+  max-width: 1320px; margin: 0 auto;
+  /* 進場 */
+  opacity: 0; transform: translateY(36px);
+  transition: opacity .9s cubic-bezier(.22,1,.36,1),
+              transform .9s cubic-bezier(.22,1,.36,1);
+}
+.r1-phase.r1-in { opacity: 1; transform: translateY(0); }
+
+/* 階段頂部標題列 */
+.r1-phase-head {
+  display: flex; align-items: center; gap: 20px;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(42,34,26,.1);
+}
+/* ★ 步驟編號 — HTML 中修改 */
+.r1-phase-num {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em;
+  color: rgba(42,34,26,.22);
+}
+/* ★ 階段大標題 — HTML 中修改 */
+.r1-phase-title {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 300; color: #ffffff;
+  letter-spacing: -.01em;
+}
+/* ★ 階段英文副標 — HTML 中修改 */
+.r1-phase-en {
+  margin-left: auto;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .22em;
+  color: rgba(255, 255, 255, 0.25); text-transform: uppercase;
+}
+
+/* 圖文左右排列（圖 1/1.1 + 文 1） */
+.r1-step {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px; align-items: center;
+  margin-bottom: 56px;
+}
+/* 偶數行圖右文左 */
+.r1-step.r1-step--rev {
+  grid-template-columns: 1fr 1.1fr;
+}
+.r1-step.r1-step--rev .r1-step-img { order: 2; }
+.r1-step.r1-step--rev .r1-step-text { order: 1; }
+
+/*
+  ╔══════════════════════════════════════════╗
+  ║  ★ 製作過程圖片 — 換圖說明               ║
+  ║  各 .r1-step-img 內 <img src="..."> 換圖  ║
+  ║  命名建議：                               ║
+  ║    草圖:  creamic-1-sketch-1.jpg         ║
+  ║    試作:  creamic-1-proto-1.jpg          ║
+  ║    土坯:  creamic-1-clay-1.jpg           ║
+  ║    釉藥:  creamic-1-glaze-1.jpg          ║
+  ║    成品:  creamic-1-final-1.jpg          ║
+  ╚══════════════════════════════════════════╝ */
+.r1-step-img {
+  overflow: hidden;
+  border-radius: 4px;
+  background: #ddd8d0;
+  box-shadow: 0 16px 48px rgba(42,34,26,.12);
+}
+.r1-step-img img {
+  width: 100%; display: block;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  transition: transform .7s cubic-bezier(.22,1,.36,1);
+}
+.r1-step-img:hover img { transform: scale(1.04); }
+
+/* 直向圖用這個 class — 加在 .r1-step-img 上 */
+.r1-step-img--tall img { aspect-ratio: 3/4; }
+
+.r1-step-text {}
+/* ★ 步驟小標題 — HTML 中修改 */
+.r1-step-title {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.5vw, 30px);
+  font-weight: 300; color: #ffffff;
+  letter-spacing: .01em; margin-bottom: 14px;
+}
+/* ★ 步驟說明文字 — HTML 中修改 */
+.r1-step-desc {
+  font-size: 14.5px; line-height: 2.0;
+  color: rgba(255, 255, 255, 0.52);
+}
+
+/* 草圖三欄（全寬）*/
+.r1-sketches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.r1-sketch-img {
+  overflow: hidden; border-radius: 4px;
+  background: #ddd8d0;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s cubic-bezier(.22,1,.36,1),
+              transform .7s cubic-bezier(.22,1,.36,1);
+}
+.r1-sketch-img.r1-in { opacity: 1; transform: translateY(0); }
+.r1-sketch-img:nth-child(2) { transition-delay: .1s; }
+.r1-sketch-img:nth-child(3) { transition-delay: .2s; }
+.r1-sketch-img img {
+  width: 100%; display: block;
+  aspect-ratio: 4/3; object-fit: cover;
+  transition: transform .6s cubic-bezier(.22,1,.36,1);
+}
+.r1-sketch-img:hover img { transform: scale(1.04); }
+
+/* ★ 草圖小標籤文字 — HTML 修改 */
+.r1-sketch-label {
+  padding: 10px 14px;
+  font-family: var(--mono); font-size: 8px; letter-spacing: .2em;
+  color: rgba(255, 255, 255, 0.4); text-transform: uppercase;
+  background: #ede9e3;
+}
+
+/* 釉藥色票橫排（四欄） */
+.r1-glazes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 28px 0;
+}
+.r1-glaze-item {
+  overflow: hidden; border-radius: 4px;
+  background: #ddd8d0;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .7s cubic-bezier(.22,1,.36,1),
+              transform .7s cubic-bezier(.22,1,.36,1);
+}
+.r1-glaze-item.r1-in { opacity: 1; transform: translateY(0); }
+.r1-glaze-item:nth-child(2) { transition-delay: .08s; }
+.r1-glaze-item:nth-child(3) { transition-delay: .16s; }
+.r1-glaze-item:nth-child(4) { transition-delay: .24s; }
+.r1-glaze-item img {
+  width: 100%; display: block;
+  aspect-ratio: 1/1; object-fit: cover;
+}
+/* ★ 釉藥名稱標籤 — HTML 修改 */
+.r1-glaze-label {
+  padding: 8px 12px;
+  font-family: var(--mono); font-size: 8px; letter-spacing: .18em;
+  color: rgba(255, 255, 255, 0.45); text-transform: uppercase;
+  background: #ede9e3;
+}
+
+/* 雙欄小圖 */
+.r1-step-imgs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.r1-step-imgs .r1-step-img img { aspect-ratio: 1/1; }
+
+/* 分隔線 */
+.r1-phase-rule {
+  width: calc(100% - 16%); margin: 0 auto 0;
+  height: 1px; background: rgba(255, 255, 255, 0.187);
+}
+
+/* ─────────────────────────────────────────────
+   FINAL FULLBLEED — 成品全寬收尾大圖
+   ★ 換圖說明：
+      下方 style="background-image:url(...)" 改成
+      你的成品最終展示照
+      建議：creamic-1-final-cover.jpg（寬幅）
+   ───────────────────────────────────────────── */
+.r1-final-full {
+  position: relative;
+  width: 100%; height: 80vh; min-height: 400px;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.r1-final-full-bg {
+  position: absolute; inset: 0;
+  /* ╔══════════════════════════════════════╗
+     ║  ★ 成品收尾全版大圖換圖位置           ║
+     ║  把 url('images/creamic.jpg') 改成   ║
+     ║  你的最終成品代表照片路徑              ║
+     ║  建議尺寸：2400×1800px 以上（寬幅）    ║
+     ╚══════════════════════════════════════╝ */
+  background-image: url('images/creamic.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(.55);
+  transform: scale(1.03);
+  transition: transform 8s cubic-bezier(.22,1,.36,1);
+}
+.r1-final-full.r1-in .r1-final-full-bg { transform: scale(1); }
+.r1-final-full-text {
+  position: relative; z-index: 2;
+  text-align: center;
+}
+/* ★ 全版收尾標題 — HTML 修改 */
+.r1-final-full-title {
+  font-family: var(--serif);
+  font-size: clamp(40px, 7vw, 96px);
+  font-weight: 300; color: #fff;
+  letter-spacing: -.01em; line-height: 1.1;
+  margin-bottom: 14px;
+}
+/* ★ 全版收尾副標 — HTML 修改 */
+.r1-final-full-sub {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .3em;
+  color: rgba(255,255,255,.42); text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────
+   BACK BUTTON
+   ───────────────────────────────────────────── */
+.r1-back-wrap {
+  text-align: center;
+  padding: 64px 6% 72px;
+  background: #000f29;
+}
+/* back-page 沿用 style.css 原有光流按鈕，
+   但在淺色背景需要覆蓋顏色 */
+.r1-back-wrap .back-page {
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.06);
+}
+.r1-back-wrap .back-page::before {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.r1-back-wrap .back-page:hover {
+  color: #ffffff;
+  background: rgba(26, 27, 42, 0.12);
+}
+
+/* FOOTER 覆蓋（淺色頁面） */
+.r1-footer {
+  background: #000f29;
+  padding: 36px 8%;
+  text-align: center;
+}
+
+/* ─────────────────────────────────────────────
+   進場動畫通用
+   ───────────────────────────────────────────── */
+.r1-fade {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .85s cubic-bezier(.22,1,.36,1),
+              transform .85s cubic-bezier(.22,1,.36,1);
+}
+.r1-fade.r1-d1 { transition-delay: .15s; }
+.r1-fade.r1-d2 { transition-delay: .30s; }
+.r1-fade.r1-in  { opacity: 1; transform: translateY(0); }
+
+/* ─────────────────────────────────────────────
+   RWD 960px 平板
+   ───────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .r1-gallery { grid-template-columns: 1fr 1fr; }
+  .r1-gallery-item:nth-child(3) { grid-column: span 2; }
+  .r1-gallery-item:nth-child(3) img { aspect-ratio: 16/7; }
+
+  .r1-intro {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 64px 6%;
+  }
+
+  .r1-step,
+  .r1-step.r1-step--rev {
+    grid-template-columns: 1fr;
+  }
+  .r1-step.r1-step--rev .r1-step-img { order: 0; }
+  .r1-step.r1-step--rev .r1-step-text { order: 0; }
+
+  .r1-glazes { grid-template-columns: repeat(2, 1fr); }
+  .r1-works-header { flex-direction: column; align-items: flex-start; }
+}
+
+/* ─────────────────────────────────────────────
+   RWD 600px 手機
+   ───────────────────────────────────────────── */
+@media (max-width: 600px) {
+  /* Hero */
+  .r1-hero { height: 85vw; min-height: 300px; }
+  .r1-hero-content { padding: 0 5% 48px; }
+  .r1-hero-num { display: none; }
+  .r1-scroll-hint { display: none; }
+
+  /* Infobar 縱向 */
+  .r1-infobar { flex-direction: column; gap: 20px; padding: 24px 5%; }
+
+  /* 標題區間距縮小 */
+  .r1-section { padding: 56px 5%; }
+  .r1-works-header { padding: 56px 5% 32px; }
+  .r1-process-header { padding: 64px 5% 36px; }
+  .r1-phase { padding: 0 5% 56px; }
+
+  /* Gallery — 手機單欄，正方形 */
+  .r1-gallery { grid-template-columns: 1fr; gap: 2px; }
+  .r1-gallery-item:nth-child(3) { grid-column: span 1; }
+  .r1-gallery-item:nth-child(3) img { aspect-ratio: 3/4; }
+  .r1-gallery-caption { opacity: 1; transform: none; }
+
+  /* Intro 文字區 */
+  .r1-intro { padding: 48px 5%; gap: 32px; }
+
+  /* 草圖 — 手機單欄 */
+  .r1-sketches { grid-template-columns: 1fr; gap: 8px; }
+
+  /* 釉藥 — 手機二欄 */
+  .r1-glazes { grid-template-columns: 1fr 1fr; }
+
+  /* 步驟雙圖 — 手機單欄 */
+  .r1-step-imgs { grid-template-columns: 1fr; }
+
+  /* 全版收尾大圖縮短 */
+  .r1-final-full { height: 56vw; min-height: 260px; }
+
+  .r1-back-wrap { padding: 48px 5% 56px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     NAV（沿用 style.css 樣式）
+     ══════════════════════════════ -->
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand">
+    <span class="nav-brand-name">WANG MIN HSUAN</span>
+    <span class="nav-brand-sub">| CERAMIC ARTIST</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li>
+    <li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a>
+  <a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a>
+  <a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 區塊 1 — HERO 全版主視覺
+     ══════════════════════════════════════════════════════
+     ★【換圖】：找到 .r1-hero-bg 的 style 屬性
+               把 url('images/creamic.jpg') 換成你的圖
+               建議：creamic-1-hero.jpg（橫向大圖）
+     ★【換文字】：修改下方 h1、p 的文字內容
+     ══════════════════════════════════════════════════════ -->
+<div class="r1-hero" id="r1Hero">
+  <!-- ★ 主視覺背景圖 ↓↓↓↓↓↓↓↓↓↓↓ -->
+  <div class="r1-hero-bg" style="background-image:url('images/creamic1.jpg')"></div>
+  <div class="r1-hero-veil"></div>
+  <!-- 大型序號裝飾 -->
+  <div class="r1-hero-num">01</div>
+  <div class="r1-hero-content">
+    <!-- ★ Hero 小標籤（分類說明）→ 可改文字 -->
+    <div class="r1-hero-eyebrow">CERAMICS &amp; CRAFT · 2026</div>
+    <!-- ★ Hero 主標題 → 改成你的作品名稱 -->
+    <h1 class="r1-hero-title">
+      復甦
+      <!-- ★ 斜體副標 → 改成英文名稱 -->
+      <em>Recovery</em>
+    </h1>
+    <!-- ★ Hero 底部細節說明（技法 · 年份）→ 可修改 -->
+    <p class="r1-hero-meta">Clay &amp; Hand-building · 2026</p>
+  </div>
+  <!-- 滾動提示 -->
+  <div class="r1-scroll-hint">
+    <span>Scroll</span>
+    <div class="r1-scroll-arrow"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 區塊 3 — WORKS GALLERY 成品展示（三張大圖）
+     ══════════════════════════════════════════════════════
+     ★【換圖】：三個 <img src="..."> 分別換成：
+               圖 1: images/creamic-1-1.jpg（成品正面）
+               圖 2: images/creamic-1-2.jpg（成品側面/細節）
+               圖 3: images/creamic-1-3.jpg（成品情境照）
+               建議尺寸：1000×1333px（3:4 比例，直向）
+     ★【換文字】：.r1-gallery-cap-title / .r1-gallery-cap-sub
+     ══════════════════════════════════════════════════════ -->
+<div class="r1-works-header r1-fade">
+  <div class="r1-works-header-left">
+    <div class="r1-section-label">Finished Works</div>
+    <!-- ★ 展示區標題 → 可修改 -->
+    <h2 class="r1-section-h2">Series of works</h2>
+  </div>
+  <!-- 淡化大字裝飾 -->
+  <div class="r1-works-count">03</div>
+</div>
+
+<div class="r1-gallery">
+
+  <!-- ★ 成品圖 01 ↓↓↓↓↓↓↓↓↓↓↓ -->
+  <div class="r1-gallery-item">
+    <!-- ★ 換圖位置：把 src 換成 images/creamic-1-1.jpg -->
+    <img src="images/creamic-1.jpg" alt="復甦 成品 01">
+    <div class="r1-gallery-caption">
+    </div>
+  </div>
+
+  <!-- ★ 成品圖 02 ↓↓↓↓↓↓↓↓↓↓↓ -->
+  <div class="r1-gallery-item">
+    <span class="r1-gallery-idx">02</span>
+    <!-- ★ 換圖位置：把 src 換成 images/creamic-1-2.jpg -->
+    <img src="images/creamic-4.jpg" alt="復甦 成品 02">
+    <div class="r1-gallery-caption">
+      </div>
+  </div>
+
+  <!-- ★ 成品圖 03 ↓↓↓↓↓↓↓↓↓↓↓ -->
+  <div class="r1-gallery-item">
+    <span class="r1-gallery-idx">03</span>
+    <!-- ★ 換圖位置：把 src 換成 images/creamic-1-3.jpg -->
+    <img src="images/creamic-2.jpg" alt="復甦 成品 03">
+    <div class="r1-gallery-caption">
+    </div>
+  </div>
+
+</div><!-- /r1-gallery -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 區塊 4 — INTRO 作品說明文字
+     ══════════════════════════════════════════════════════
+     ★【換文字】：修改引言與說明段落
+     ══════════════════════════════════════════════════════ -->
+<div class="r1-intro">
+
+  <!-- 左側引言大字 -->
+  <div class="r1-intro-quote">
+    <!-- ★ 作品引言（一兩句話點睛）→ 修改這裡 -->
+    自然永恆<br>生命找到了<br>再生於世界中
+  </div>
+
+  <!-- 右側詳細說明 -->
+  <div class="r1-intro-right">
+    <!-- ★ 作品說明段落 1 → 修改這裡 -->
+    <p class="r1-intro-text">
+      創作理念<br>
+      以古生物鸚鵡螺為原型與自然重塑，探索生命與大地相依的共生關係。結合海洋與土地元素，
+      展現漫長演化中的堅韌與多變，並透過個人想像衍生出具備再生與復甦意象的系列生物。
+    </p>
+    <!-- ★ 作品說明段落 2 → 修改這裡（可刪除此段）-->
+    <p class="r1-intro-text">
+      釉藥加入火山岩石，調配與海洋像似深藍色，高溫燒製後留下微妙的礦物質感，與土坯表面的手捏生物紋理相互呼應，形成既粗礦又細膩的對話。
+    </p>
+    <!-- ★ 技法標籤列 → 修改標籤內容（可增減）-->
+    <div class="r1-tags">
+      <span class="r1-tag">土條成型</span>
+      <span class="r1-tag">手捏細修</span>
+      <span class="r1-tag">深藍釉</span>
+      <span class="r1-tag">1230°C</span>
+    </div>
+  </div>
+
+</div><!-- /r1-intro -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 區塊 5 — 製作過程
+     ══════════════════════════════════════════════════════ -->
+<div class="r1-rule"></div>
+<div class="r1-process-wrap">
+
+  <div class="r1-process-header r1-fade">
+    <!-- ★ 製作過程大標題 → 可修改 -->
+    <h2 class="r1-process-title">製作過程</h2>
+    <span class="r1-process-sub">Making Process</span>
+  </div>
+
+
+  <!-- ───────────────────────────────────────
+       ★ 製作過程 01 — 草圖發想
+       ─────────────────────────────────────── -->
+  <div class="r1-phase" id="phase01">
+    <div class="r1-phase-head">
+      <!-- ★ 步驟編號 → 一般不需修改 -->
+      <span class="r1-phase-num">01</span>
+      <!-- ★ 階段標題 → 可修改 -->
+      <h3 class="r1-phase-title">草圖發想</h3>
+      <span class="r1-phase-en">Concept Sketching</span>
+    </div>
+
+    <!-- ★ 草圖說明文字 → 修改這裡 -->
+    <p class="r1-step-desc r1-fade r1-d1" style="max-width:700px; margin-bottom:36px;">
+      以海為靈感發想，運用自然元素和深海中的奇怪生物在作品上。以不同紋理呈現殼體形態，觸鬚向上流動表現生命流動。
+     從自然界有機形體出發，描繪螺旋、海洋、流體等意象，最終確立以「螺形」為造型核心。
+    </p>
+
+    <!--
+      ★【換圖】草圖三張（橫向排列）
+        圖 1: images/creamic-1-sketch-1.jpg
+        圖 2: images/creamic-1-sketch-2.jpg
+        圖 3: images/creamic-1-sketch-3.jpg
+        建議尺寸：1200×900px（4:3 比例）
+    -->
+    <div class="r1-sketches">
+
+      <div class="r1-sketch-img">
+        <!-- ★ 草圖照片 01 ↓↓↓↓↓↓↓↓↓↓↓ -->
+        <img src="images/creamic-1-sketch-1.jpg" alt="草圖 01">
+        <!-- ★ 草圖小標籤 → 可修改 -->
+        <div class="r1-sketch-label">草圖 01</div>
+      </div>
+
+      <div class="r1-sketch-img">
+        <!-- ★ 草圖照片 02 ↓↓↓↓↓↓↓↓↓↓↓ -->
+        <img src="images/creamic-1-sketch-2.jpg" alt="草圖 02">
+        <!-- ★ 草圖小標籤 → 可修改 -->
+        <div class="r1-sketch-label">草圖 02</div>
+      </div>
+
+      <div class="r1-sketch-img">
+        <!-- ★ 草圖照片 03 ↓↓↓↓↓↓↓↓↓↓↓ -->
+        <img src="images/creamic-1-sketch-3.jpg" alt="草圖 03">
+        <!-- ★ 草圖小標籤 → 可修改 -->
+        <div class="r1-sketch-label">草圖 03</div>
+      </div>
+
+    </div><!-- /r1-sketches -->
+  </div><!-- /phase 01 -->
+
+
+  <div class="r1-phase-rule"></div>
+
+
+  <!-- ───────────────────────────────────────
+       ★ 製作過程 02 — 試作模型
+       ─────────────────────────────────────── -->
+  <div class="r1-phase" id="phase02" style="padding-top:64px;">
+    <div class="r1-phase-head">
+      <span class="r1-phase-num">02</span>
+      <!-- ★ 階段標題 → 可修改 -->
+      <h3 class="r1-phase-title">試作模型</h3>
+      <span class="r1-phase-en">Prototype</span>
+    </div>
+
+    <!-- 圖左文右 -->
+    <div class="r1-step">
+      <div class="r1-step-img">
+        <!--
+          ★【換圖】試作模型照片 1
+            src 換成 images/creamic-1-proto-1.jpg
+            建議尺寸：1200×900px（4:3）
+        -->
+        <img src="images/creamic-1-proto-1.jpg" alt="試作模型 01">
+      </div>
+      <div class="r1-step-text">
+        <!-- ★ 小標題 → 修改 -->
+        <h4 class="r1-step-title">初步形體確認</h4>
+        <!-- ★ 說明文字 → 修改 -->
+        <p class="r1-step-desc">
+          ★ 試作說明文字待補入。例如：以紙黏土或練泥製作縮小版模型，驗證草圖中的形體能否在實際製陶中實現，並調整各部位的重量分佈與重心。
+        </p>
+      </div>
+    </div>
+
+    <!-- 文左圖右（.r1-step--rev 讓圖在右）-->
+    <div class="r1-step r1-step--rev">
+      <div class="r1-step-img">
+        <!--
+          ★【換圖】試作模型照片 2
+            src 換成 images/creamic-1-proto-2.jpg
+        -->
+        <img src="images/creamic-1-proto-2.jpg" alt="試作模型 02 細節">
+      </div>
+      <div class="r1-step-text">
+        <!-- ★ 小標題 → 修改 -->
+        <h4 class="r1-step-title">細節修正</h4>
+        <!-- ★ 說明文字 → 修改 -->
+        <p class="r1-step-desc">
+          根據試作結果調整邊緣弧度與底座比例，確保燒製後不會因重心偏移而傾倒。
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /phase 02 -->
+
+
+  <div class="r1-phase-rule"></div>
+
+
+  <!-- ───────────────────────────────────────
+       ★ 製作過程 03 — 土坯製作
+       ─────────────────────────────────────── -->
+  <div class="r1-phase" id="phase03" style="padding-top:64px;">
+    <div class="r1-phase-head">
+      <span class="r1-phase-num">03</span>
+      <!-- ★ 階段標題 → 可修改 -->
+      <h3 class="r1-phase-title">土坯製作</h3>
+      <span class="r1-phase-en">Clay Body</span>
+    </div>
+
+    <!-- 圖左文右 -->
+    <div class="r1-step">
+      <div class="r1-step-img">
+        <!--
+          ★【換圖】土坯製作照片 1（輪拉）
+            src 換成 images/creamic-1-clay-1.jpg
+        -->
+        <img src="images/creamic-1-clay-1.jpg" alt="土坯 輪拉成型">
+      </div>
+      <div class="r1-step-text">
+        <!-- ★ 小標題 → 修改 -->
+        <h4 class="r1-step-title">土條成型</h4>
+        <!-- ★ 說明文字 → 修改 -->
+        <p class="r1-step-desc">
+          ★ 土坯說明待補入。例如：以拉胚機建立基本形，利用離心力在旋轉中拉出均勻的器壁厚度，是這次系列的基礎工序。
+        </p>
+      </div>
+    </div>
+
+    <!-- 文左雙圖右 -->
+    <div class="r1-step r1-step--rev">
+      <!--
+        ★【換圖】土坯過程小圖（兩張）
+          分別換成 images/creamic-1-clay-2.jpg
+                    images/creamic-1-clay-3.jpg
+      -->
+      <div class="r1-step-imgs">
+        <div class="r1-step-img">
+          <!-- ★ 手捏細節照片 01 ↓↓↓ -->
+          <img src="images/creamic.jpg" alt="手捏細節 01">
+        </div>
+        <div class="r1-step-img">
+          <!-- ★ 手捏細節照片 02 ↓↓↓ -->
+          <img src="images/creamic.jpg" alt="手捏細節 02">
+        </div>
+      </div>
+      <div class="r1-step-text">
+        <!-- ★ 小標題 → 修改 -->
+        <h4 class="r1-step-title">手捏細修</h4>
+        <!-- ★ 說明文字 → 修改 -->
+        <p class="r1-step-desc">
+          ★ 說明文字待補入。例如：拉胚乾燥至皮革硬度後，以手捏技法加入有機凸起紋理，使每件作品保有獨特的手感個性。
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /phase 03 -->
+
+
+  <div class="r1-phase-rule"></div>
+
+
+  <!-- ───────────────────────────────────────
+       ★ 製作過程 04 — 釉藥實驗與燒製
+       ─────────────────────────────────────── -->
+  <div class="r1-phase" id="phase04" style="padding-top:64px;">
+    <div class="r1-phase-head">
+      <span class="r1-phase-num">04</span>
+      <!-- ★ 階段標題 → 可修改 -->
+      <h3 class="r1-phase-title">釉藥實驗與燒製</h3>
+      <span class="r1-phase-en">Glaze &amp; Firing</span>
+    </div>
+
+    <!-- ★ 釉藥說明文字 → 修改 -->
+    <p class="r1-step-desc r1-fade r1-d1" style="max-width:700px; margin-bottom:32px;">
+      釉藥實驗是我最苦惱的環節，花最多時間調配配方，畢竟只要窯不乖乖，同個配方出來的顏色可能會不同。
+      我測試了20幾種配方，從青冰裂釉、黑金錳釉到金紅石藍釉，嘗試釉藥之間的搭配與厚度對色澤和質感的影響，最終選定金紅石藍釉以高溫 1230°C 燒製，混搭冰裂綠釉
+      呈現冷澀的礦物質感與深藍水流光澤。
+    </p>
+
+    <!--
+      ★【換圖】釉藥色票四張
+        分別換成：images/creamic-1-glaze-1.jpg
+                   images/creamic-1-glaze-2.jpg
+                   images/creamic-1-glaze-3.jpg
+                   images/creamic-1-glaze-4.jpg
+        建議尺寸：600×600px（1:1）
+    -->
+    <div class="r1-glazes">
+
+      <div class="r1-glaze-item">
+        <!-- ★ 釉藥照片 01 ↓↓↓ -->
+        <img src="images/creamic-1-glaze-1.jpg" alt="釉藥 01">
+        <!-- ★ 釉藥名稱標籤 → 修改 -->
+        <div class="r1-glaze-label">★ 釉藥名稱 01</div>
+      </div>
+
+      <div class="r1-glaze-item">
+        <!-- ★ 釉藥照片 02 ↓↓↓ -->
+        <img src="images/creamic-1-glaze-2.jpg" alt="釉藥 02">
+        <!-- ★ 釉藥名稱標籤 → 修改 -->
+        <div class="r1-glaze-label">★ 釉藥名稱 02</div>
+      </div>
+
+      <div class="r1-glaze-item">
+        <!-- ★ 釉藥照片 03 ↓↓↓ -->
+        <img src="images/creamic-1-glaze-3.jpg" alt="釉藥 03">
+        <!-- ★ 釉藥名稱標籤 → 修改 -->
+        <div class="r1-glaze-label">★ 釉藥名稱 03</div>
+      </div>
+
+      <div class="r1-glaze-item">
+        <!-- ★ 釉藥照片 04 ↓↓↓ -->
+        <img src="images/creamic.jpg" alt="釉藥 04">
+        <!-- ★ 釉藥名稱標籤 → 修改 -->
+        <div class="r1-glaze-label">★ 釉藥名稱 04</div>
+      </div>
+
+    </div><!-- /r1-glazes -->
+
+    <!-- 燒製圖文 -->
+    <div class="r1-step" style="margin-top:44px;">
+      <div class="r1-step-img">
+        <!--
+          ★【換圖】燒製過程照片
+            src 換成 images/creamic-1-fire-1.jpg
+        -->
+        <img src="images/creamic-1-fire-1.jpg" alt="燒製過程">
+      </div>
+      <div class="r1-step-text">
+        <!-- ★ 小標題 → 修改 -->
+        <h4 class="r1-step-title">素燒與釉燒</h4>
+        <!-- ★ 說明文字 → 修改 -->
+        <p class="r1-step-desc">
+          先以 800°C 素燒固化土坯，以噴釉的方式上色後再以 1230°C 進行釉燒。窯內溫度曲線對最終色澤影響深遠，每次開窯都是一次意外的驚喜。
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /phase 04 -->
+
+
+  <div class="r1-phase-rule"></div>
+
+
+  <!-- ───────────────────────────────────────
+       ★ 製作過程 05 — 成品
+       ─────────────────────────────────────── -->
+  <div class="r1-phase" id="phase05" style="padding-top:64px;">
+    <div class="r1-phase-head">
+      <span class="r1-phase-num">05</span>
+      <!-- ★ 階段標題 → 可修改 -->
+      <h3 class="r1-phase-title">成品</h3>
+      <span class="r1-phase-en">Final Works</span>
+    </div>
+
+    <!-- 圖左文右 -->
+    <div class="r1-step">
+      <div class="r1-step-img r1-step-img--tall">
+        <!--
+          ★【換圖】成品展示照片 1（建議直向）
+            src 換成 images/creamic-1-final-1.jpg
+            建議尺寸：900×1200px（3:4 比例）
+        -->
+        <img src="images/creamic-1-final-1.jpg" alt="成品 01">
+      </div>
+      <div class="r1-step-text">
+        <!-- ★ 小標題 → 修改 -->
+        <h4 class="r1-step-title">系列完成</h4>
+        <!-- ★ 說明文字 → 修改 -->
+        <p class="r1-step-desc">
+          ★ 成品說明待補入。例如：歷經三個月的製作，這組共六件作品透過觸感、裂紋與光澤，訴說著生命在脆弱中重生的力量。
+        </p>
+      </div>
+    </div>
+
+    <!-- 文左圖右 -->
+    <div class="r1-step r1-step--rev">
+      <div class="r1-step-img r1-step-img--tall">
+        <!--
+          ★【換圖】成品展示照片 2（細節）
+            src 換成 images/creamic-1-final-2.jpg
+        -->
+        <img src="images/creamic.jpg" alt="成品 細節">
+      </div>
+      <div class="r1-step-text">
+        <!-- ★ 小標題 → 修改 -->
+        <h4 class="r1-step-title">細節質感</h4>
+        <!-- ★ 說明文字 → 修改 -->
+        <p class="r1-step-desc">
+          ★ 說明文字待補入。例如：近距離觀察釉面，可見青灰釉在高溫冷卻後留下的細緻冰裂紋，與手捏紋理交織成獨特的視覺肌理。
+        </p>
+      </div>
+    </div>
+
+  </div><!-- /phase 05 -->
+
+
+</div><!-- /r1-process-wrap -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 區塊 6 — 成品全版收尾大圖
+     ══════════════════════════════════════════════════════
+     ★【換圖】：找 .r1-final-full-bg 的 style 屬性
+               把 url('images/creamic.jpg') 換成你的
+               最終成品寬幅代表照
+               建議：creamic-1-final-cover.jpg（橫向寬幅）
+     ★【換文字】：修改 h2 和 p 的文字
+     ══════════════════════════════════════════════════════ -->
+<div class="r1-final-full" id="r1FinalFull">
+  <!-- ★ 收尾全版大圖 ↓↓↓↓↓↓↓↓↓↓↓ -->
+  <div class="r1-final-full-bg" style="background-image:url('images/creamic.jpg')"></div>
+  <div class="r1-final-full-text">
+    <!-- ★ 收尾標題 → 修改 -->
+    <h2 class="r1-final-full-title">復甦<br><em style="font-style:italic; color:rgba(255,255,255,.5)">Recovery</em></h2>
+    <!-- ★ 收尾副標 → 修改 -->
+    <p class="r1-final-full-sub">Ceramics · 2026</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 返回鍵（返回到 ceramics 分類頁）
+     ══════════════════════════════════════════════════════ -->
+<div class="r1-back-wrap">
+  <a href="ceramics.html" class="back-page">← BACK TO CERAMICS</a>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="r1-footer">
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+
+<script>
+/* ── Hamburger ── */
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+
+/* ── Hero 進場縮放 ── */
+requestAnimationFrame(() => document.getElementById('r1Hero').classList.add('loaded'));
+
+/* ── IntersectionObserver 滾動進場動畫 ── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('r1-in');
+    io.unobserve(e.target);
+  });
+}, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+
+/* 觀察所有需要進場動畫的元素 */
+document.querySelectorAll([
+  '.r1-gallery-item',
+  '.r1-phase',
+  '.r1-sketch-img',
+  '.r1-glaze-item',
+  '.r1-fade',
+  '.r1-intro-quote',
+  '.r1-intro-right',
+  '.r1-final-full',
+].join(', ')).forEach(el => io.observe(el));
+
+/* ── 視差：Hero 與最終大圖背景 ── */
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  const heroBg = document.querySelector('.r1-hero-bg');
+  if (heroBg) heroBg.style.transform = `scale(1) translateY(${sy * 0.15}px)`;
+}, { passive: true });
+</script>
+</body>
+</html>
