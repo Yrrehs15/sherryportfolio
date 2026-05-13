@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKY LIGHT | WANG MIN HSUAN</title>
+
+<!-- ═══════════════════════════════════════════════
+     FONTS — 可替換字型
+     目前使用：Cormorant Garamond / DM Sans / Space Mono
+════════════════════════════════════════════════ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+
+<!-- ═══════════════════════════════════════════════
+     3D MODEL VIEWER — Google model-viewer 套件
+     官方文件：https://modelviewer.dev/
+════════════════════════════════════════════════ -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   ▌ CSS VARIABLES — 全站可調整數值彙整
+═══════════════════════════════════════════════════════════════ */
+:root {
+  --color-bg:           #0d0d0d;
+  --color-surface:      #141414;
+  --color-surface-2:    #1c1c1c;
+  --color-border:       #2a2a2a;
+  --color-text:         #e8e4dc;
+  --color-text-muted:   #888;
+  --color-accent:       #c8b99a;
+  --color-accent-2:     #6b8fa3;
+
+  --font-display:  'Cormorant Garamond', Georgia, serif;
+  --font-body:     'DM Sans', sans-serif;
+  --font-mono:     'Space Mono', monospace;
+
+  --max-width:          1100px;
+  --section-gap:        80px;
+  --side-padding:       6%;
+
+  --cover-height:       92vh;
+  --cover-title-size:   clamp(3rem, 8vw, 7rem);
+  --cover-sub-size:     clamp(0.85rem, 1.5vw, 1rem);
+
+  --nav-height:         64px;
+  --nav-bg:             rgba(13,13,13,0.95);
+
+  --card-radius:        4px;
+  --card-gap:           24px;
+
+  --reveal-duration:    0.75s;
+  --reveal-ease:        cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ★ GLOW BUTTON 動畫角度屬性 (從 style.css 移植) */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ══════════════════════════════════════════════
+   ★ GLOW BUTTON — 光流按鈕核心動畫
+   來源：style.css .glow-btn / .back-page / .back-home
+   @property 讓 conic-gradient 的角度可被 CSS 動畫插值
+══════════════════════════════════════════════ */
+@property --glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes glowSpin {
+  to { --glow-angle: 360deg; }
+}
+
+/* ══════════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+a { color: inherit; text-decoration: none; }
+
+/* ★ 細滾動條 — 與 style.css 相同 3px 寬 */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: #2a3f55; border-radius: 2px; }
+
+/* ══════════════════════════════════════════════
+   NAV — 導覽列
+══════════════════════════════════════════════ */
+.top-nav {
+  position: fixed; top: 0; left: 0; width: 100%;
+  height: var(--nav-height);
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--side-padding);
+  z-index: 1000;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+/* ★ 滾動後加深導覽列 (與 style.css .top-nav.scrolled 對應) */
+.top-nav.scrolled {
+  background: rgba(10,10,10,0.97);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+}
+.nav-brand { display: flex; align-items: baseline; gap: 8px; }
+.nav-brand-name {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+}
+.nav-brand-sub {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  color: var(--color-text-muted);
+  position: relative; padding-bottom: 4px;
+  transition: color 0.2s;
+}
+/* ★ 底線 hover 效果 — 與 style.css .nav-links a::after 對應 */
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1px; background: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.3s var(--ease);
+}
+.nav-links a:hover { color: var(--color-text); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+.hamburger span { display: block; width: 22px; height: 1px; background: var(--color-text); transition: 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+.mobile-menu {
+  position: fixed; top: var(--nav-height); left: 0; width: 100%;
+  background: rgba(10,10,10,0.96);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border);
+  display: flex; flex-direction: column;
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  z-index: 999;
+}
+.mobile-menu.open { max-height: 320px; }
+.mm-link {
+  padding: 16px var(--side-padding);
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  transition: color 0.25s;
+}
+.mm-link:hover { color: var(--color-text); }
+
+/* ══════════════════════════════════════════════
+   A 區 — 封面
+══════════════════════════════════════════════ */
+.wd-cover {
+  position: relative;
+  height: var(--cover-height);
+  margin-top: var(--nav-height);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+.wd-cover img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  object-position: center 40%;
+  opacity: 0.75;
+  transition: transform 8s ease;
+}
+.wd-cover:hover img { transform: scale(1.03); }
+.wd-cover-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(13,13,13,0.5) 70%,
+    var(--color-bg) 100%
+  );
+}
+.wd-cover-content {
+  position: absolute;
+  bottom: 10%;
+  left: 8%;
+  max-width: 700px;
+}
+.wd-cover-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--color-accent);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.wd-cover-tag::before {
+  content: '';
+  display: block;
+  width: 40px; height: 1px;
+  background: var(--color-accent);
+}
+.wd-cover-title {
+  font-family: var(--font-display);
+  font-size: var(--cover-title-size);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--color-text);
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+.wd-cover-sub {
+  font-size: var(--cover-sub-size);
+  color: var(--color-text-muted);
+  max-width: 480px;
+  line-height: 1.8;
+}
+
+/* ══════════════════════════════════════════════
+   B 區 — 主體內容
+══════════════════════════════════════════════ */
+.wd-body {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--section-gap) var(--side-padding);
+}
+
+/* 進場動畫 */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity var(--reveal-duration) var(--reveal-ease),
+              transform var(--reveal-duration) var(--reveal-ease);
+}
+.reveal-up.revealed { opacity: 1; transform: translateY(0); }
+
+/* 區塊標題 */
+.wd-section-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--color-accent-2);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 16px;
+}
+.wd-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+.wd-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 300;
+  color: var(--color-text);
+  margin-bottom: 32px;
+  letter-spacing: 0.03em;
+}
+.wd-text {
+  font-size: 0.93rem;
+  color: var(--color-text-muted);
+  max-width: 640px;
+  line-height: 1.9;
+  margin-bottom: var(--section-gap);
+}
+
+/* LOGO + 說明：左右並排 */
+.wd-logo-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: var(--section-gap);
+}
+.wd-logo-img {
+  aspect-ratio: 4/3;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+}
+.wd-logo-desc .wd-section-title { margin-bottom: 16px; }
+.wd-logo-desc p {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  line-height: 1.9;
+  margin-bottom: 16px;
+}
+.wd-spec-list {
+  list-style: none;
+  margin-top: 24px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.wd-spec-list li {
+  display: flex; align-items: baseline; gap: 12px;
+  font-size: 0.82rem; color: var(--color-text-muted);
+}
+.wd-spec-list li span:first-child {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+/* 名片 */
+.wd-cards-section { margin-bottom: var(--section-gap); }
+.wd-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--card-gap);
+  margin-bottom: 24px;
+}
+.wd-card-img {
+  aspect-ratio: 16/10;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+  transition: transform 0.4s var(--reveal-ease);
+}
+.wd-card-img:hover { transform: scale(1.015); }
+.wd-card-caption {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+.wd-card-caption strong {
+  display: block;
+  color: var(--color-text);
+  margin-bottom: 4px;
+  font-weight: 400;
+}
+
+/* 信封 */
+.wd-envelope-section { margin-bottom: var(--section-gap); }
+.wd-envelope-img {
+  aspect-ratio: 16/9;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  margin-bottom: 20px;
+  max-width: 780px;
+}
+.wd-envelope-caption {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  line-height: 1.85;
+}
+
+/* 車貼大圖 */
+.wd-wrap-section { margin-bottom: 48px; }
+.wd-wrap-img {
+  aspect-ratio: 21/9;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.wd-wrap-caption {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  line-height: 1.85;
+}
+
+/* ══════════════════════════════════════════════
+   3D 模型區 — 跑馬燈分隔 + 互動模型
+══════════════════════════════════════════════ */
+.wd-3d-section {
+  position: relative;
+  margin: 0 calc(-1 * var(--side-padding));
+  margin-bottom: var(--section-gap);
+  overflow: hidden;
+}
+.wd-3d-divider {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 28px 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.wd-3d-ticker {
+  display: flex;
+  animation: ticker 18s linear infinite;
+  white-space: nowrap;
+}
+.wd-3d-ticker span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--color-accent-2);
+  padding: 0 48px;
+  text-transform: uppercase;
+}
+.wd-3d-ticker span.dot {
+  color: var(--color-border);
+  padding: 0 8px;
+  font-size: 1rem;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 3D 模型容器 */
+.wd-3d-inner {
+  padding: 48px var(--side-padding);
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(107,143,163,0.07) 0%, transparent 70%),
+    var(--color-bg);
+  text-align: center;
+}
+.wd-3d-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  color: var(--color-accent-2);
+  margin-bottom: 16px;
+}
+.wd-3d-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 300;
+  color: var(--color-text);
+  margin-bottom: 8px;
+  letter-spacing: 0.06em;
+}
+.wd-3d-subtitle {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-bottom: 36px;
+  max-width: 500px;
+  margin-left: auto; margin-right: auto;
+  line-height: 1.8;
+}
+
+/* model-viewer 元件樣式 */
+model-viewer {
+  width: 100%;
+  height: 520px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  --poster-color: transparent;
+  max-width: 900px;
+  margin: 0 auto;
+  display: block;
+}
+/* model-viewer 載入進度條樣式 */
+model-viewer::part(default-progress-bar) {
+  background-color: var(--color-accent-2);
+  height: 2px;
+}
+
+/* 若還沒有模型檔，顯示佔位說明 */
+.wd-3d-placeholder {
+  width: 100%;
+  height: 520px;
+  max-width: 900px;
+  margin: 0 auto;
+  border: 1px dashed var(--color-accent-2);
+  border-radius: 8px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 16px;
+  background: rgba(107,143,163,0.04);
+  /* ★ 拖曳上傳 GLB 互動提示 */
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
+}
+.wd-3d-placeholder:hover,
+.wd-3d-placeholder.drag-over {
+  background: rgba(107,143,163,0.09);
+  border-color: var(--color-accent);
+}
+.wd-3d-placeholder-icon {
+  font-size: 3rem; opacity: 0.3;
+}
+.wd-3d-placeholder-text {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: var(--color-text-muted);
+  text-align: center;
+  line-height: 2;
+}
+.wd-3d-placeholder-text strong {
+  display: block;
+  color: var(--color-accent-2);
+  margin-bottom: 8px;
+  font-size: 0.72rem;
+}
+/* ★ 隱藏的 file input，讓佔位框可點擊上傳 */
+#glb-upload-input { display: none; }
+
+.wd-3d-hint {
+  margin-top: 20px;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 24px;
+  flex-wrap: wrap;
+}
+.wd-3d-hint span {
+  display: flex; align-items: center; gap: 6px;
+}
+.wd-3d-hint span::before {
+  content: '↻'; color: var(--color-accent-2);
+}
+
+/* ══════════════════════════════════════════════
+   ★ 返回按鈕 — 光流效果 (從 style.css 移植)
+   原本：矩形邊框 + 簡單 hover
+   更新：圓角膠囊 + conic-gradient 光流邊框動畫
+══════════════════════════════════════════════ */
+.wd-back-wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--side-padding) var(--section-gap);
+  text-align: center;        /* ← 讓按鈕水平置中 */
+}
+
+/* 套用 style.css 的 .back-page 光流樣式 */
+.back-page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 32px;
+  border-radius: 99px;       /* ← 膠囊形狀（對應 style.css） */
+  color: rgba(255,255,255,0.7);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.07);
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  isolation: isolate;        /* ← 建立堆疊上下文，讓 ::after 不影響外部 */
+  position: relative;
+  transition: color 0.3s, background 0.3s, transform 0.25s;
+}
+/* 靜態邊框：平時顯示 */
+.back-page::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 99px;
+  border: 1px solid rgba(255,255,255,0.22);
+  pointer-events: none;
+  transition: border-color 0.3s;
+}
+/* 光流效果：hover 才顯示，使用 conic-gradient + @property 動畫 */
+.back-page::after {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: 99px;
+  /* conic-gradient 從 --glow-angle 開始旋轉，製造流光感 */
+  background: conic-gradient(
+    from var(--glow-angle),
+    transparent 0%,
+    transparent 55%,
+    rgba(255,255,255,0.15) 65%,
+    rgba(255,255,255,0.95) 75%,
+    rgba(200,220,255,0.6) 82%,
+    transparent 92%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+  /* mask 技巧：只讓邊框位置顯示光流，內部保持透明 */
+  -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+  pointer-events: none;
+}
+.back-page:hover {
+  color: rgba(255,255,255,0.95);
+  background: rgba(255,255,255,0.14);
+  transform: translateY(-1px);
+}
+.back-page:hover::before { border-color: rgba(255,255,255,0.08); }
+/* hover 時啟動光流旋轉動畫 */
+.back-page:hover::after {
+  opacity: 1;
+  animation: glowSpin 1.6s linear infinite;
+}
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+footer {
+  border-top: 1px solid var(--color-border);
+  padding: 32px var(--side-padding);
+  text-align: center;
+}
+.copyright {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.16); /* ★ 對應 style.css .copyright 透明度 */
+}
+
+/* ══════════════════════════════════════════════
+   RWD
+══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  :root {
+    --section-gap:  56px;
+    --side-padding: 5%;
+  }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .wd-logo-row { grid-template-columns: 1fr; gap: 32px; }
+  .wd-cards-grid { grid-template-columns: 1fr; }
+  model-viewer { height: 380px; }
+  .wd-3d-placeholder { height: 380px; }
+}
+@media (max-width: 480px) {
+  :root { --cover-height: 75vh; }
+  .back-page { padding: 11px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAV — 導覽列
+════════════════════════════════════════ -->
+<nav class="top-nav" id="navbar">
+  <div class="nav-brand">
+    <span class="nav-brand-name">WANG MIN HSUAN</span>
+    <span class="nav-brand-sub">| CERAMIC ARTIST</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li>
+    <li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home"        class="mm-link">HOME</a>
+  <a href="index.html#ceramics"    class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a>
+  <a href="about.html"             class="mm-link">ABOUT</a>
+  <a href="index.html#contact"     class="mm-link">CONTACT</a>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     A 區 — 封面
+════════════════════════════════════════ -->
+<section class="wd-cover">
+  <img src="images/graphic-2.png" alt="SKY LIGHT 主視覺">
+  <div class="wd-cover-overlay"></div>
+  <div class="wd-cover-content">
+    <div class="wd-cover-tag">GRAPHIC DESIGN &nbsp;·&nbsp; 2026</div>
+    <h1 class="wd-cover-title">SKY LIGHT</h1>
+    <p class="wd-cover-sub">
+      Corporate identity design for a maritime communications company —<br>
+      integrating satellite systems, ocean navigation, and aerial connectivity.
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     B 區 — 主體內容
+════════════════════════════════════════ -->
+<div class="wd-body">
+
+  <!-- ── B-1 LOGO + 說明 ── -->
+  <div class="wd-logo-row reveal-up">
+    <div class="wd-logo-img">
+      <img src="images/logo-skylight.png" alt="SKY LIGHT LOGO">
+    </div>
+    <div class="wd-logo-desc">
+      <div class="wd-section-label">BRAND IDENTITY</div>
+      <h2 class="wd-section-title">LOGO</h2>
+      <p>
+        The SKY LIGHT logo merges a satellite dish silhouette with an ocean wave,
+        visualising the bridge between aerial data relay and maritime operations.
+        The wordmark is set in a geometric sans with fine tracking.
+      </p>
+      <p>
+        色彩系統選用深海藍與高亮米白，呼應公司主業：遠洋通訊與衛星定位。
+      </p>
+      <ul class="wd-spec-list">
+        <li><span>CLIENT</span>    <span>SKY LIGHT Communications</span></li>
+        <li><span>SCOPE</span>     <span>Brand Identity · Print · Vehicle Wrap</span></li>
+        <li><span>TOOLS</span>     <span>Adobe Illustrator · Photoshop · Blender</span></li>
+        <li><span>YEAR</span>      <span>2026</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── B-2 名片 ── -->
+  <div class="wd-cards-section reveal-up">
+    <div class="wd-section-label">STATIONERY</div>
+    <h2 class="wd-section-title">名片設計</h2>
+    <div class="wd-cards-grid">
+      <div class="wd-card-item">
+        <div class="wd-card-img">
+          <img src="images/card-front.png" alt="名片正面">
+        </div>
+        <div class="wd-card-caption">
+          <strong>正面 — FRONT</strong>
+          標準 90 × 55 mm，採全版深海藍印刷底，燙金 LOGO，細線燙銀分隔。
+        </div>
+      </div>
+      <div class="wd-card-item">
+        <div class="wd-card-img">
+          <img src="images/card-back.png" alt="名片背面">
+        </div>
+        <div class="wd-card-caption">
+          <strong>背面 — BACK</strong>
+          背面以單色鋼藍呈現衛星軌跡紋理，右下角印 QR code。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── B-3 信封 ── -->
+  <div class="wd-envelope-section reveal-up">
+    <div class="wd-section-label">STATIONERY</div>
+    <h2 class="wd-section-title">信封設計</h2>
+    <div class="wd-envelope-img">
+      <img src="images/envelope.png" alt="信封設計">
+    </div>
+    <p class="wd-envelope-caption">
+      DL 規格信封（110 × 220 mm），封口貼印 LOGO 完封蠟封效果，
+      正面留白以保留手寫收件人姓名的彈性。
+    </p>
+  </div>
+
+  <!-- ── B-4 車貼大圖 ── -->
+  <div class="wd-wrap-section reveal-up">
+    <div class="wd-section-label">VEHICLE WRAP</div>
+    <h2 class="wd-section-title">車貼設計</h2>
+    <div class="wd-wrap-img">
+      <img src="images/car-wrap.png" alt="車身貼設計展開圖">
+    </div>
+    <p class="wd-wrap-caption">
+      針對公司車隊設計的全車身貼膜方案。以深海藍為底，
+      衛星訊號波紋延伸至車側，大面積留白強化速度感與現代科技形象。
+    </p>
+  </div>
+
+</div><!-- /.wd-body -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     ▌ 3D 模型區 — 跑馬燈分隔 + 互動模型
+     ▌
+     ▌ ╔═══════════════════════════════════════════════════════════╗
+     ▌ ║         BLENDER UV 材質貼圖匯出完整教學                   ║
+     ▌ ╚═══════════════════════════════════════════════════════════╝
+     ▌
+     ▌ ★ 問題根源：為什麼 GLB 匯出後材質變灰 / 消失？
+     ▌ ─────────────────────────────────────────────────────────
+     ▌ GLB 格式只能讀取「直接接到 Principled BSDF → Base Color」
+     ▌ 的圖片節點。你的節點設定是：
+     ▌
+     ▌   [Texture Coord] → [Mapping] → [貼紙.png]
+     ▌                                         ↘
+     ▌                              [Mix] → [Mix] → [Principled BSDF]
+     ▌                                         ↗
+     ▌                              [車子.png]
+     ▌
+     ▌ 這種多層混合 (Mix Node) 的節點樹 GLB 無法直接輸出 → 需要 BAKE
+     ▌
+     ▌ ★ 解決方法：Texture Bake（烘焙貼圖）
+     ▌ ─────────────────────────────────────────────────────────
+     ▌
+     ▌ 【STEP 1】確認 Render Engine = Cycles
+     ▌   Properties → Render Properties → Render Engine → Cycles
+     ▌   (EEVEE 無法 Bake！一定要選 Cycles)
+     ▌   Device 可選 GPU Compute 加速（如果有顯卡）
+     ▌
+     ▌ 【STEP 2】為每個材質新增一個「烘焙目標圖」
+     ▌   a. 進入 Shader Editor（節點編輯器）
+     ▌   b. 新增節點：Add → Texture → Image Texture
+     ▌   c. 在 Image Texture 節點裡點「+ New」
+     ▌      → 命名為 baked_car_body（或你喜歡的名字）
+     ▌      → Width / Height：建議 4096 × 4096（高畫質）
+     ▌        車貼細節多的話可用 8192 × 8192
+     ▌      → Color: 黑色，Alpha: 勾選
+     ▌   d. 把這個 Image Texture 節點「選取」（點一下讓它有選中框）
+     ▌      但「不要」連接到任何輸出 → 這是烘焙的目標畫布
+     ▌
+     ▌   ⚠ 重要：每個材質都要做這個步驟（車身/貼紙/輪胎各別）
+     ▌     如果你有多個材質槽（Material Slot），每個都要建立並選取
+     ▌     對應的 Image Texture 烘焙目標
+     ▌
+     ▌ 【STEP 3】確認 UV 展開正確
+     ▌   a. 選取車子物件 → Tab 進入 Edit Mode
+     ▌   b. 全選（A）→ UV → Smart UV Project 或 Unwrap
+     ▌      如果已經有正確的 UV 可跳過
+     ▌   c. 確認 UV 沒有重疊（特別是不同材質的部分）
+     ▌
+     ▌ 【STEP 4】執行 Bake
+     ▌   a. 選取要烘焙的物件（車子）
+     ▌   b. Properties → Render Properties → 往下找 Bake 區塊
+     ▌   c. Bake Type：選 Diffuse（只烘焙顏色）
+     ▌      → 取消勾選 Direct / Indirect，只保留 Color
+     ▌        這樣烘焙出來的是純顏色，不含光影（GLB 自己有打光）
+     ▌   d. 點「Bake」按鈕
+     ▌      → 等待烘焙完成（Cycles 會算，時間依電腦而定）
+     ▌   e. 烘焙完後，在 Image Texture 節點點「Save」存檔
+     ▌      → 建議存 PNG，放到 images/ 資料夾
+     ▌
+     ▌   ⚠ 如果烘焙出來是灰色：
+     ▌     → 確認 Image Texture 節點是「被選取」的狀態（亮框）
+     ▌     → 確認 Bake Type 是 Diffuse 且只勾 Color
+     ▌     → 確認材質有正確 UV（查看 UV Editor）
+     ▌
+     ▌ 【STEP 5】把烘焙圖接到 Principled BSDF
+     ▌   a. 烘焙完後，把 Image Texture（已烘焙）的 Color 輸出
+     ▌      直接接到 Principled BSDF 的 Base Color
+     ▌   b. 把原本複雜的 Mix/Mapping 節點組全部中斷連接
+     ▌      （只保留一個 Image Texture → Principled BSDF）
+     ▌   c. 這樣 GLB 就能正確讀取材質了
+     ▌
+     ▌ 【STEP 6】匯出 GLB
+     ▌   File → Export → glTF 2.0 (.glb/.gltf)
+     ▌   Format：GLB（Binary，所有資源打包進單一檔案）
+     ▌   匯出選項必須勾選：
+     ▌     ✓ Meshes
+     ▌     ✓ Materials
+     ▌     ✓ Apply Modifiers（套用 Subdivision 等 Modifier）
+     ▌     ✓ UVs
+     ▌     ✓ Normals
+     ▌   貼圖選項：
+     ▌     ✓ Export Textures（確保勾選）
+     ▌     Format：Auto 或 PNG
+     ▌   存到 images/ 資料夾，例如 images/car-skylight.glb
+     ▌
+     ▌ 【STEP 7】放入網頁
+     ▌   把下方 <model-viewer> 的 src 改為你的檔名後，
+     ▌   刪掉 .wd-3d-placeholder 那段即可顯示 3D 模型。
+     ▌   有多個材質物件的話也沒問題，GLB 會一起打包。
+     ▌
+     ▌ ★ 快速測試：把 .glb 拖曳到 https://gltf.report/
+     ▌   可以預覽材質是否正確，有問題可在那裡檢查節點
+════════════════════════════════════════════════════════════════════ -->
+<section class="wd-3d-section">
+
+  <!-- 跑馬燈分隔條 -->
+  <div class="wd-3d-divider">
+    <div class="wd-3d-ticker">
+      <span>3D VISUALIZATION</span><span class="dot">·</span>
+      <span>BLENDER MODEL</span><span class="dot">·</span>
+      <span>VEHICLE WRAP PREVIEW</span><span class="dot">·</span>
+      <span>INTERACTIVE VIEW</span><span class="dot">·</span>
+      <span>DRAG TO ROTATE</span><span class="dot">·</span>
+      <span>3D VISUALIZATION</span><span class="dot">·</span>
+      <span>BLENDER MODEL</span><span class="dot">·</span>
+      <span>VEHICLE WRAP PREVIEW</span><span class="dot">·</span>
+      <span>INTERACTIVE VIEW</span><span class="dot">·</span>
+      <span>DRAG TO ROTATE</span><span class="dot">·</span>
+      <span>3D VISUALIZATION</span><span class="dot">·</span>
+      <span>BLENDER MODEL</span><span class="dot">·</span>
+      <span>VEHICLE WRAP PREVIEW</span><span class="dot">·</span>
+      <span>INTERACTIVE VIEW</span><span class="dot">·</span>
+      <span>DRAG TO ROTATE</span><span class="dot">·</span>
+      <span>3D VISUALIZATION</span><span class="dot">·</span>
+      <span>BLENDER MODEL</span><span class="dot">·</span>
+      <span>VEHICLE WRAP PREVIEW</span><span class="dot">·</span>
+      <span>INTERACTIVE VIEW</span><span class="dot">·</span>
+      <span>DRAG TO ROTATE</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <!-- 3D 模型內容 -->
+  <div class="wd-3d-inner">
+    <div class="wd-3d-label">BLENDER × THREE.JS</div>
+    <h2 class="wd-3d-title">INTERACTIVE 3D MODEL</h2>
+    <p class="wd-3d-subtitle">
+      在 Blender 建模的車身貼膜全尺寸預覽 —
+      拖曳旋轉、滾輪縮放，360° 檢視貼膜效果。
+    </p>
+
+    <!--
+    ═══════════════════════════════════════════════════════
+    ★ 完成 Bake 後：
+       1. 把下面整個 <div class="wd-3d-placeholder"> 區塊刪掉
+       2. 把下方 <model-viewer> 的註解符號移除（取消 HTML 注釋）
+       3. 把 src 改成你的 .glb 路徑，例如 images/car-skylight.glb
+       4. 如果有 poster（預覽圖），也改成對應的 .jpg 路徑
+
+    <model-viewer
+      id="car-model-viewer"
+      src="images/car-skylight.glb"
+      alt="SKY LIGHT 車貼 3D 模型"
+      camera-controls
+      auto-rotate
+      auto-rotate-delay="2000"
+      rotation-per-second="20deg"
+      shadow-intensity="1.2"
+      shadow-softness="0.8"
+      exposure="1.0"
+      environment-image="neutral"
+      poster="images/car-wrap-poster.jpg"
+      loading="eager"
+      reveal="auto"
+    >
+    </model-viewer>
+    ═══════════════════════════════════════════════════════ -->
+
+    <!--
+    ★ 佔位框：完成 Bake + 拿到 .glb 後，把下面這整段刪掉
+       然後取消上方 <model-viewer> 的注釋
+    -->
+    <input type="file" id="glb-upload-input" accept=".glb,.gltf">
+    <div class="wd-3d-placeholder" id="glb-placeholder">
+      <div class="wd-3d-placeholder-icon">⬡</div>
+      <div class="wd-3d-placeholder-text">
+        <strong>PUT YOUR .GLB FILE HERE</strong>
+        完成 Blender Bake 後拖曳 .glb 到此，或點擊選取檔案<br>
+        ─ 或 ─ 修改上方 src="images/YOUR-CAR-MODEL.glb"<br>
+        詳細步驟請見原始碼中的教學註記 ↑
+      </div>
+    </div>
+
+    <!-- ★ 本地預覽用的 model-viewer（由 JS 動態填入 src） -->
+    <model-viewer
+      id="local-model-viewer"
+      alt="SKY LIGHT 車貼 3D 模型預覽"
+      camera-controls
+      auto-rotate
+      auto-rotate-delay="2000"
+      rotation-per-second="20deg"
+      shadow-intensity="1.2"
+      shadow-softness="0.8"
+      exposure="1.0"
+      environment-image="neutral"
+      style="display:none;"
+    ></model-viewer>
+
+    <div class="wd-3d-hint" id="model-hint">
+      <span>拖曳旋轉</span>
+      <span>滾輪縮放</span>
+      <span>雙指平移</span>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- 返回按鈕 -->
+<div class="wd-back-wrap">
+  <a href="graphic.html" class="back-page">← BACK TO GRAPHIC DESIGN</a>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     C 區 — Footer
+════════════════════════════════════════ -->
+<footer>
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+
+<!-- ═══════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════ -->
+<script>
+/* ── 漢堡選單 ── */
+const ham   = document.getElementById('hamburger');
+const mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mm-link').forEach(a =>
+  a.addEventListener('click', () => {
+    ham.classList.remove('open');
+    mMenu.classList.remove('open');
+  })
+);
+
+/* ── 導覽列滾動變色 (與 style.css .top-nav.scrolled 對應) ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+/* ── 進場動畫 ── */
+const ro = new IntersectionObserver(entries =>
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('revealed');
+  }),
+  { threshold: 0.1 }
+);
+document.querySelectorAll('.reveal-up').forEach(el => ro.observe(el));
+
+/* ══════════════════════════════════════════════════════════════
+   ★ 本地 GLB 預覽 — 拖曳 / 點擊上傳，即時在 model-viewer 顯示
+   ═ 用途：匯出 .glb 後可以直接拖曳到這個頁面測試材質是否正確
+   ═       不需要架伺服器，直接用瀏覽器就能看
+══════════════════════════════════════════════════════════════ */
+const placeholder  = document.getElementById('glb-placeholder');
+const fileInput    = document.getElementById('glb-upload-input');
+const localViewer  = document.getElementById('local-model-viewer');
+
+/* 點擊佔位框 → 開啟檔案選取 */
+placeholder.addEventListener('click', () => fileInput.click());
+
+/* 處理選取的檔案 */
+fileInput.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (file) loadGLB(file);
+});
+
+/* 拖曳事件 */
+placeholder.addEventListener('dragover', e => {
+  e.preventDefault();
+  placeholder.classList.add('drag-over');
+});
+placeholder.addEventListener('dragleave', () => {
+  placeholder.classList.remove('drag-over');
+});
+placeholder.addEventListener('drop', e => {
+  e.preventDefault();
+  placeholder.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && (file.name.endsWith('.glb') || file.name.endsWith('.gltf'))) {
+    loadGLB(file);
+  }
+});
+
+/* 讀取 GLB 並設定到 model-viewer */
+function loadGLB(file) {
+  const url = URL.createObjectURL(file);
+  localViewer.src = url;
+  localViewer.style.display = 'block';
+  placeholder.style.display = 'none';
+  /* ↑ 如果要換成靜態路徑的 model-viewer，把這段拿掉即可 */
+}
+</script>
+
+</body>
+</html>
