@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turn Sushi Master | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+/* ── 製作過程：四步驟橫排 ── */
+.gd-process-flow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 2em 0 0;
+  position: relative;
+}
+.gd-process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.gd-process-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #0a1a2a;
+}
+.gd-process-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .8s ease;
+}
+.gd-process-step:hover .gd-process-img img { transform: scale(1.05); }
+.gd-process-arrow {
+  position: absolute;
+  top: calc(50% - 32px);
+  right: -18px;
+  font-size: 1.4rem;
+  color: rgba(255,255,255,0.25);
+  z-index: 2;
+  pointer-events: none;
+  line-height: 1;
+}
+.gd-process-caption {
+  margin-top: 14px;
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: rgba(255,255,255,0.45);
+  text-align: center;
+  line-height: 1.6;
+}
+.gd-process-caption span {
+  color: rgba(255,255,255,0.3);
+  font-size: 10px;
+}
+
+/* ── 建模圖：灰圖 + 渲染圖並排 ── */
+.gd-model-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 1.5em 0 0;
+}
+.gd-model-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gd-model-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #0a1a2a;
+}
+.gd-model-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .8s ease;
+}
+.gd-model-card:hover .gd-model-img img { transform: scale(1.03); }
+.gd-model-label {
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.7;
+}
+
+/* ── Icon 物件板：png 透明，無背景框 ── */
+.gd-icon-board {
+  margin: 1.5em 0 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.gd-icon-board img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+/* ── RWD ── */
+@media (max-width: 860px) {
+  .gd-process-flow { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .gd-process-arrow { display: none; }
+  .gd-model-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 500px) {
+  .gd-process-flow { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand"><span class="nav-brand-name">WANG MIN HSUAN</span><span class="nav-brand-sub">| CERAMIC ARTIST</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li><li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li><li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a><a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a><a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<div class="gd-hero">
+  <div class="gd-hero-bg" style="background-image:url('images/game-2.jpg')"></div>
+  <div class="gd-hero-overlay"></div>
+  <div class="gd-hero-content">
+    <div class="gd-hero-tag">GAME ART — PROJECT #2</div>
+    <h1 class="gd-hero-title">Turn Sushi Master </h1>
+    <p class="gd-hero-sub">GoDOT Game ·  2025</p>
+  </div>
+</div>
+
+<div class="gd-main">
+
+  <div class="gd-media">
+    <div class="gd-player" id="gdPlayer2">
+      <!-- 影片（預設顯示）-->
+      <video class="gd-player-item active" id="gdi2-v0"
+        src="images/turn sushi master.mp4" controls loop playsinline
+        style="object-fit:cover;"></video>
+      <!-- 截圖1 -->
+      <img class="gd-player-item" id="gdi2-i0" src="images/game-2.jpg" alt="封面截圖">
+      <!-- 截圖2 -->
+      <img class="gd-player-item" id="gdi2-i1" src="images/game-2-1.jpg" alt="遊戲截圖">
+    </div>
+
+    <div class="gd-steam-strip">
+      <div class="gd-steam-row">
+        <div class="gd-steam-thumb active" data-target="gdi2-v0">
+          <img src="images/game-2.jpg" alt="遊戲影片">
+          <div class="gd-steam-vid-overlay"></div>
+        </div>
+        <div class="gd-steam-thumb" data-target="gdi2-i0">
+          <img src="images/game-2.jpg" alt="截圖1">
+        </div>
+        <div class="gd-steam-thumb" data-target="gdi2-i1">
+          <img src="images/game-2-1.jpg" alt="截圖2">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gd-info">
+    <h2 class="gd-title">Turn Sushi Master</h2>
+    <div class="gd-meta">
+      <div class="gd-meta-row"><span class="gd-meta-key">類型</span><span class="gd-meta-val"> 2D / 娛樂計分</span></div>
+      <div class="gd-meta-row"><span class="gd-meta-key">製作時間</span><span class="gd-meta-val">1 / 0 5 · 2025</span></div>
+      <div class="gd-meta-row"><span class="gd-meta-key">引擎</span><span class="gd-meta-val">GODOT Game</span></div>
+      <div class="gd-meta-row"><span class="gd-meta-key">開發人員</span><span class="gd-meta-val">程式：石獅 小理 | 美術：扁不 雪莉 
+        |企劃：魯魯熊 小馬</span></div>
+    </div>
+    <p class="gd-blurb"> 轉換輸送方向把壽司運給自己吧!但要小心危險的章魚燒炸彈！嚴格的店主還會不時把你翻桌...？。</p>
+    <a href="https://lulubearowo.itch.io/turn-sushi" target="_blank" class="gd-play-btn">
+      <span>▶</span><span>PLAY DEMO</span>
+    </a>
+  </div>
+
+</div>
+
+<div class="gd-divider"></div>
+
+<div class="gd-body">
+<h3 class="gd-section-title">關於遊戲</h3>
+  <p class="gd-text">
+    遊戲玩法：旋轉轉盤方向，在避開章魚燒炸彈的同時，將美味壽司餵給飢腸轆轆的顧客。<br>
+    操作方式：使用 W/A/S/D 鍵控制轉盤方向。
+  </p>
+
+  <!-- 製作過程 -->
+  <h3 class="gd-section-title">製作過程</h3>
+  <p class="gd-text">專案背景：本作品開發於校園社團舉辦的 3 天 Game Jam 活動（開放校內外人士參與），由團隊共同協作打造。<br>
+主要職責：獨立負責遊戲的場景環境設計（Environment Design）與圖標資產製成（Icon Asset Creation）。</p>
+  <p class="gd-text" style="margin-top:1em;">設計迭代與發想<br>
+在初期規劃階段，我協助整合團隊想法並收斂核心概念。原定以「旋轉壽司等候區」為背景，但原型測試時因程式技術限制，團隊果斷將玩法調整為 3×3 網格軌道，並引入可切換方向的中央轉盤，視角也順應由俯視改為仰視角度。<br>
+
+場景規劃與執行<br>
+與程式設計師確認技術可行性後，我獨立負責全遊戲場景的規劃與美術製成，包含座位區、壽司出餐檯及垃圾桶等物件擺設，確保視覺與新玩法完美契合。</p>
+
+  <!-- 4張發想過程圖 -->
+  <div class="gd-process-flow">
+    <div class="gd-process-step">
+      <div class="gd-process-img">
+        <img src="images/game-2-process-1.jpg" alt="草稿與程式規劃">
+      </div>
+      <div class="gd-process-arrow">→</div>
+      <div class="gd-process-caption">視覺草圖 / 程式撰寫</div>
+    </div>
+    <div class="gd-process-step">
+      <div class="gd-process-img">
+        <img src="images/game-2-process-2.jpg" alt="初版畫面">
+      </div>
+      <div class="gd-process-arrow">→</div>
+      <div class="gd-process-caption">初始畫面<br><span>(background drawn by Bian Bu)</span></div>
+    </div>
+    <div class="gd-process-step">
+      <div class="gd-process-img">
+        <img src="images/game-2-process-3.jpg" alt="重新設計整體遊戲">
+      </div>
+      <div class="gd-process-arrow">→</div>
+      <div class="gd-process-caption">遊戲整體重構與優化</div>
+    </div>
+    <div class="gd-process-step gd-process-step--last">
+      <div class="gd-process-img">
+        <img src="images/game-2-process-4.jpg" alt="匯入程式後的最終成品">
+      </div>
+      <div class="gd-process-caption">程式整合與最終成品<br>
+導入程式美術資產後之最終遊戲畫面。</div>
+    </div>
+  </div>
+
+  <!-- 建模圖：灰圖 + 渲染圖 -->
+  <h3 class="gd-section-title" style="margin-top:3em;">場景建模</h3>
+  <div class="gd-model-row">
+    <div class="gd-model-card">
+      <div class="gd-model-img">
+        <img src="images/game-2-model-wire.jpg" alt="Rhino 線框建模">
+      </div>
+      <div class="gd-model-label">3D 建模歷程（ Rhino 製作）</div>
+    </div>
+    <div class="gd-model-card">
+      <div class="gd-model-img">
+        <img src="images/game-2-model-render.jpg" alt="渲染場景細節">
+      </div>
+      <div class="gd-model-label">最終渲染細節展示，以明橙色為主色調。.</div>
+    </div>
+  </div>
+
+  <!-- Icon 物件製作 -->
+  <h3 class="gd-section-title" style="margin-top:3em;">物件設計</h3>
+  <p class="gd-text">美術資產創作：場景物件、UI 圖標與角色設計</p>
+  <div class="gd-icon-board">
+    <img src="images/game-2-icons.png" alt="UI Icon 與物件素材">
+     <img src="images/game-2-icons-1.png" alt="UI Icon 與物件素材">
+  </div>
+
+  <!-- 遊戲截圖 -->
+  <h3 class="gd-section-title" style="margin-top:3em;">遊戲截圖</h3>
+  <div class="gd-gallery">
+    <div class="gd-gallery-item"><img src="images/game-2-22.jpg" alt="截圖1"></div>
+    <div class="gd-gallery-item"><img src="images/game-2-1.jpg" alt="截圖2"></div>
+  </div>
+
+</div>
+
+<div class="gd-back-wrap"><a href="game.html" class="back-page">← BACK TO GAME ART</a></div>
+<footer class="contact-section" style="padding:40px 6%"><p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p></footer>
+
+<script>
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); }));
+
+const player = document.getElementById('gdPlayer2');
+document.querySelectorAll('.gd-steam-thumb').forEach(thumb => {
+  thumb.addEventListener('click', () => {
+    document.querySelectorAll('.gd-steam-thumb').forEach(t => t.classList.remove('active'));
+    player.querySelectorAll('.gd-player-item').forEach(i => {
+      i.classList.remove('active');
+      if (i.tagName === 'VIDEO') i.pause();
+    });
+    thumb.classList.add('active');
+    const target = player.querySelector('#' + thumb.dataset.target);
+    if (target) target.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

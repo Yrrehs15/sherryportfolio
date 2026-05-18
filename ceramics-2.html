@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ★ 頁籤標題 → 修改這裡 -->
+<title>水與火 Water & Fire | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!--
+  ╔═══════════════════════════════════════════════════════════════════╗
+  ║              ★ 字體說明（Google Fonts）                           ║
+  ╠═══════════════════════════════════════════════════════════════════╣
+  ║  Cormorant Garamond  → 英文 Serif 標題 / Recovery 斜體           ║
+  ║  Space Mono          → 標籤 / 數字 / 眉標小字                    ║
+  ║  Noto Serif TC       → 中文大字（水與火）                         ║
+  ╚═══════════════════════════════════════════════════════════════════╝
+-->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Mono&family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+
+<style>
+/* ╔═══════════════════════════════════════════════════════════════════╗
+   ║       ★★★  CERAMICS-2 設計系統速查表  ★★★                      ║
+   ║  （cr2- prefix）所有可調數值都標有 ← ★ 說明）                    ║
+   ╚═══════════════════════════════════════════════════════════════════╝ */
+
+/* ════════════════════════════════════════
+   ★【全站共用字體變數】
+   ════════════════════════════════════════ */
+:root {
+  --serif: 'Cormorant Garamond', Georgia, serif; /* ← ★ 英文標題字體 */
+  --mono:  'Space Mono', monospace;              /* ← ★ 標籤/數字字體 */
+  --ease:  cubic-bezier(.22,1,.36,1);            /* ← ★ 通用緩動曲線（不需改）*/
+
+  /* ════════════════════════════════════════
+     ★【A 區：色彩系統】— 修改這裡改全頁顏色
+     ════════════════════════════════════════ */
+  --cr2-navy:     #935118;              /* ← ★ 主背景最深藍 */
+  --cr2-navy2:    #532c00;              /* ← ★ 次背景深藍（略淡）*/
+  --cr2-accent:   #fff3a8;             /* ← ★ 強調藍（標籤/邊線）*/
+  --cr2-hi:       #ffebcd;             /* ← ★ 標題白 */
+  --cr2-mid:      rgba(255, 255, 255, 0.886); /* ← ★ 本文白（半透明）*/
+  --cr2-lo:       rgba(160,185,240,.45); /* ← ★ 輔助低調文字 */
+  --cr2-border:   rgba(90,130,220,.15);  /* ← ★ 邊線顏色 */
+}
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  background: var(--cr2-navy);
+  color: var(--cr2-mid);
+  margin: 0; padding: 0;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   ★ 區域 A — HERO 全版主視覺
+   ════════════════════════════════════════════════════════════════
+   ★【換圖】→ HTML 中 .cr2-hero-bg 的 style="background-image:url(...)"
+   ★【文字調整】→ 各 .cr2-* class 下方有 ← ★ 說明
+   ════════════════════════════════════════════════════════════════ */
+.cr2-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;               /* ← ★ Hero 高度（100vh=全螢幕）*/
+  min-height: 560px;           /* ← ★ Hero 最小高度 */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Hero 背景圖 ── */
+.cr2-hero-bg {
+  position: absolute; inset: 0;
+  /*
+    ╔══════════════════════════════════════════════╗
+    ║  ★【換圖】Hero 背景大圖                       ║
+    ║  在 HTML 的 style="background-image:url(...)  ║
+    ║  換成你的作品大圖路徑                           ║
+    ║  建議尺寸：2400×1350px（16:9 橫向）            ║
+    ╚══════════════════════════════════════════════╝ */
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.08) translate3d(0,0,0); /* ★ 進場縮放初始；translate3d = GPU 加速 */
+  transition: transform 9s var(--ease);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.cr2-hero.loaded .cr2-hero-bg {
+  transform: scale(1) translate3d(0,0,0); /* ★ 進場後縮小到正常大小 */
+}
+
+/* ── Hero 上層遮罩（漸層暗角）── */
+.cr2-hero-veil {
+  position: absolute; inset: 0;
+  /*
+    ★ 遮罩由上往下的漸層（數字越大越暗）
+    ★ 調整第四個 rgba 數字：0=透明, 1=不透明
+  */
+  background: linear-gradient(to bottom,
+    rgba(2,16,31, .52) 0%,   /* ← ★ 頂部暗度 */
+    rgba(2,16,31, .18) 38%,  /* ← ★ 中上透明度 */
+    rgba(2,16,31, .25) 62%,  /* ← ★ 中下透明度 */
+    rgba(2,16,31, .75) 100%  /* ← ★ 底部暗度 */
+  );
+  pointer-events: none; z-index: 1;
+}
+
+/* ── Hero 暈映霧（中心透、四周暗）── */
+.cr2-hero-fog {
+  position: absolute; inset: 0;
+  /*
+    ★ ellipse 後的 % → 中心透明區大小（越大越外推）
+    ★ rgba 第4位數字 → 各層透明度
+  */
+  background: radial-gradient(
+    ellipse 60% 52% at center,
+    rgba(2,16,31, 0.06) 0%,   /* ← ★ 中心透明度 */
+    rgba(2,16,31, 0.36) 52%,  /* ← ★ 中段過渡 */
+    rgba(31, 21, 2, 0.68) 100%  /* ← ★ 四邊暗角 */
+  );
+  opacity: 1;                  /* ← ★ 整體霧感（0=無, 1=最濃）*/
+  pointer-events: none; z-index: 2;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+/* ── Hero 文字容器（置中）── */
+.cr2-hero-content {
+  position: relative; z-index: 3;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 0 8%;
+}
+
+/* ── 眉標（CERAMICS · 2025）── */
+.cr2-hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 9px;           /* ← ★ 眉標字體大小 */
+  letter-spacing: .42em;    /* ← ★ 眉標字間距 */
+  color: rgba(255, 255, 255, 0.539); /* ← ★ 眉標顏色/透明度 */
+  text-transform: uppercase;
+  margin-bottom: 30px;       /* ← ★ 眉標與標題之間的距離 */
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  opacity: 0; animation: cr2Up .7s .3s var(--ease) forwards;
+}
+.cr2-hero-eyebrow::before,
+.cr2-hero-eyebrow::after {
+  content: ''; display: block;
+  width: 26px;               /* ← ★ 眉標兩側線段長度 */
+  height: 1px;
+  background: rgba(255,255,255,.28); /* ← ★ 眉標線段顏色 */
+}
+
+/* ── Hero 大標題容器 ── */
+.cr2-hero-title {
+  margin: 0;
+  opacity: 0; animation: cr2Up .95s .55s var(--ease) forwards;
+}
+
+/* ── 水與火 中文大字 ── */
+.cr2-cjk-main {
+  display: block;
+  font-family: 'Noto Serif TC', 'Cormorant Garamond', Georgia, serif; /* ← ★ 中文字體 */
+  font-weight: 200;          /* ← ★ 中文字重（200=細, 300=較細, 400=正常）*/
+  font-size: clamp(70px, 13vw, 118px); /* ← ★ 字體大小 clamp(最小, 響應, 最大) */
+  color: #fff;               /* ← ★ 標題顏色 */
+  letter-spacing: .88em;     /* ← ★ 字間距（配合裝飾線視覺平衡）*/
+  text-indent: .88em;        /* ← ★ 首字縮排（等於字間距，避免視覺偏移）*/
+  line-height: 1;
+  text-shadow: 0 0 140px rgba(91,140,247,.22), 0 2px 48px rgba(0,0,0,.5);
+                             /* ← ★ 文字光暈（第1：藍色發光；第2：陰影）*/
+}
+
+/* ── 裝飾橫線（復甦同款）── */
+.cr2-cjk-wrap {
+  display: flex; align-items: center; justify-content: center;
+}
+.cr2-deco-line {
+  display: block;
+  width: 180px;              /* ← ★ 裝飾線長度 */
+  height: 1.5px;             /* ← ★ 裝飾線粗細 */
+  background: rgba(255,255,255,.50); /* ← ★ 裝飾線顏色/透明度 */
+  margin: 0 46px;            /* ← ★ 線與文字的距離 */
+  flex-shrink: 0;
+  transform: scaleX(0); transform-origin: center;
+  transition: transform .9s var(--ease) 1.0s;
+}
+.cr2-deco-line--left  { transform-origin: right; }
+.cr2-deco-line--right { transform-origin: left; }
+.cr2-hero.loaded .cr2-deco-line { transform: scaleX(1); }
+
+/* ── Water & Fire 英文斜體副標 ── */
+.cr2-en-sub {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic; font-weight: 300;
+  font-size: clamp(26px, 5vw, 28px);  /* ← ★ 英文副標字體大小 */
+  color: rgba(255,255,255,.40);        /* ← ★ 英文副標顏色/透明度 */
+  letter-spacing: .48em;               /* ← ★ 英文副標字間距 */
+  margin-top: 80px;                    /* ← ★ 中文與英文之間距離 */
+  line-height: 1.1;
+}
+
+/* ── 底部媒材說明（Clay · 2025）── */
+.cr2-hero-meta {
+  font-family: var(--mono);
+  font-size: 9px;             /* ← ★ 媒材說明字體大小 */
+  letter-spacing: .30em;      /* ← ★ 媒材說明字間距 */
+  color: rgba(255,255,255,.26); /* ← ★ 媒材說明顏色 */
+  text-transform: uppercase;
+  margin-top: 20spx;            /* ← ★ 英文副標與媒材說明間距 */
+  opacity: 0; animation: cr2Up .7s .88s var(--ease) forwards;
+}
+
+/* ── 滾動提示 ── */
+.cr2-scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: cr2Up .6s 1.1s var(--ease) forwards;
+}
+.cr2-scroll-hint span {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .3em;
+  color: rgba(255,255,255,.22); text-transform: uppercase;
+}
+.cr2-scroll-arrow {
+  width: 1px; height: 54px;
+  background: rgba(255, 21, 21, 0.1);
+  position: relative; overflow: hidden;
+}
+.cr2-scroll-arrow::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 45%;
+  background: linear-gradient(to bottom, transparent, rgba(91,140,247,.7), transparent);
+  animation: cr2Drop 2.4s ease-in-out infinite;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   ★ 區域 B — 創作理念（左：大引言 ｜ 右：標題 + 內文）
+   ════════════════════════════════════════════════════════════════
+   ★ 此區整體最大寬度：--cr2-intro-maxw
+   ★ 左欄引言大字：.cr2-b-quote
+   ★ 右欄小標題：.cr2-b-subtitle
+   ★ 右欄內文：.cr2-b-text
+   ════════════════════════════════════════════════════════════════ */
+.cr2-intro-section {
+  width: 100%;
+  background: var(--cr2-navy2);         /* ← ★ B 區背景色 */
+  padding: 100px 10% 96px;              /* ← ★ 上 | 左右 | 下 內距 */
+}
+
+.cr2-intro-inner {
+  max-width: 1200px;                    /* ← ★ B 區最大寬度 */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.7fr;    /* ← ★ 左欄:右欄 比例（數字越大右欄越寬）*/
+  gap: 40px;                            /* ← ★ 左右欄間距 */
+  align-items: center;
+}
+
+/* 左欄：大引言文字 */
+.cr2-b-quote {
+  border-left: 1.5px solid var(--cr2-accent); /* ← ★ 左豎線顏色（改 --cr2-accent）*/
+  padding-left: 36px;                          /* ← ★ 豎線與文字的距離 */
+  font-family: var(--serif);
+  font-size: clamp(24px, 3vw, 32px);           /* ← ★ 引言大字字體大小 */
+  font-weight: 300;
+  color: var(--cr2-hi);                        /* ← ★ 引言大字顏色 */
+  letter-spacing: .48em;                       /* ← ★ 引言字間距 */
+  line-height: 4.8;                            /* ← ★ 引言行高（間距感）*/
+  opacity: 0; transform: translateX(-28px);
+  transition: opacity .95s var(--ease), transform .95s var(--ease);
+}
+.cr2-b-quote.cr2-in { opacity: 1; transform: translateX(0); }
+
+/* 右欄容器 */
+.cr2-b-right {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .95s .18s var(--ease), transform .95s .18s var(--ease);
+}
+.cr2-b-right.cr2-in { opacity: 1; transform: translateY(0); }
+
+/* 右欄：小標題（創作理念）*/
+.cr2-b-subtitle {
+  font-family: var(--mono);
+  font-size: 20px;              /* ← ★ 小標題字體大小 */
+  letter-spacing: .50em;        /* ← ★ 小標題字間距 */
+  color: var(--cr2-accent);     /* ← ★ 小標題顏色（改 --cr2-accent）*/
+  text-transform: uppercase;
+  margin-bottom: 18px;          /* ← ★ 小標題與內文間距 */
+}
+
+/* 右欄：說明文字 */
+.cr2-b-text {
+  font-size: 18px;              /* ← ★ 內文字體大小（電腦版）*/
+  line-height: 2.4;             /* ← ★ 內文行高 */
+  letter-spacing: .04em;        /* ← ★ 內文字間距 */
+  color: var(--cr2-mid);        /* ← ★ 內文顏色 */
+  margin-bottom: 24px;          /* ← ★ 段落間距 */
+}
+.cr2-b-text:last-child { margin-bottom: 0; }
+
+
+/* ════════════════════════════════════════════════════════════════
+   ★ 區域 C — 三張滿版大圖並排
+   ════════════════════════════════════════════════════════════════
+   ★ 圖片比例：.cr2-c-img img 的 aspect-ratio
+   ★ 圖片間距：.cr2-c-grid 的 gap
+   ════════════════════════════════════════════════════════════════ */
+.cr2-gallery-section {
+  width: 100%;
+  background: #a8a8a8;              /* ← ★ 三圖區塊背景（純黑讓圖更聚焦）*/
+}
+
+.cr2-c-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* ← ★ 三欄（1fr = 等寬）*/
+  gap: 3px;                              /* ← ★ 圖與圖之間的縫隙 */
+}
+
+.cr2-c-item {
+  position: relative;
+  overflow: hidden;
+  background: #0a1e40;
+  opacity: 0; transform: translateY(48px);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.cr2-c-item.cr2-in { opacity: 1; transform: translateY(0); }
+.cr2-c-item:nth-child(2) { transition-delay: .18s; }
+.cr2-c-item:nth-child(3) { transition-delay: .36s; }
+
+.cr2-c-item img {
+  width: 100%; display: block;
+  aspect-ratio: 3/4;            /* ← ★ 三圖比例（3/4=直向, 4/3=橫向）*/
+  object-fit: cover;
+  transition: transform .9s var(--ease);
+}
+.cr2-c-item:hover img { transform: scale(1.05); }
+
+/* 圖片底部hover光暈 */
+.cr2-c-item::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top,
+    rgba(2,16,31,.6) 0%,
+    transparent 50%);
+  opacity: 0;
+  transition: opacity .5s;
+  pointer-events: none;
+}
+.cr2-c-item:hover::after { opacity: 1; }
+
+
+/* ════════════════════════════════════════════════════════════════
+   ★ 區域 D — 製作過程（草圖發想 + PNG 背景大圖）
+   ════════════════════════════════════════════════════════════════
+   版面結構：
+     .cr2-process-section  → 相對定位容器，PNG 大圖絕對定位在右側背景
+     .cr2-process-bg-png   → PNG 大圖，固定在整個 D 區右側
+     .cr2-process-inner    → 左側內容區（01 草圖 + 02 文字）
+   ════════════════════════════════════════════════════════════════ */
+.cr2-process-section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg,
+    rgba(2,16,31, 0)    0%,
+    rgba(3,22,52, .97) 25%,
+    rgba(3,22,52, .97) 70%,
+    rgb(0, 7, 26)  100%
+  );
+  padding: 110px 8% 100px;
+}
+
+/* ★ PNG 大圖：貼在整個 D 區右側，作為背景裝飾 */
+.cr2-process-bg-png {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: -10%;
+  width: 100%;                    /* ← ★ 右側佔螢幕寬度（調大=圖更寬）*/
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.cr2-process-bg-png img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right center;
+  opacity: 0.92;                 /* ← ★ 透明度（1=不透明）*/
+}
+/* 左側漸層遮罩：讓圖與文字自然融合 */
+.cr2-process-bg-png::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right,
+    rgba(3,22,52,.98) 0%,
+    rgba(3,22,52,.55) 30%,
+    rgba(3,22,52,.10) 65%,
+    rgba(3,22,52,0)   100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ★ inner 內容在 PNG 上方 */
+.cr2-process-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;            /* ← ★ 製作過程最大寬度 */
+  margin: 0 auto;
+}
+
+/* D 區：section 大標題 */
+.cr2-d-header {
+  margin-bottom: 64px;
+  max-width: 60%;                /* ← ★ 標題區只佔左側 */
+  opacity: 0; transform: translateY(30px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.cr2-d-header.cr2-in { opacity: 1; transform: translateY(0); }
+
+.cr2-d-section-label {
+  font-family: var(--mono);
+  font-size: 9px;               /* ← ★ D區小標籤字體大小 */
+  letter-spacing: .40em;        /* ← ★ D區小標籤字間距 */
+  color: var(--cr2-accent);     /* ← ★ D區小標籤顏色 */
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 14px;
+}
+.cr2-d-section-label::after {
+  content: ''; display: block;
+  width: 30px; height: 1px;
+  background: var(--cr2-accent);
+}
+
+.cr2-d-section-title {
+  font-family: var(--serif);
+  font-size: clamp(30px, 4.5vw, 58px); /* ← ★ D區大標題字體大小 */
+  font-weight: 300;
+  color: var(--cr2-hi);
+  letter-spacing: .18em; line-height: 1.1; /* ← ★ 字間距（原.02em，已拉大至.18em）*/
+}
+
+/* D 區：分隔線 */
+.cr2-d-divider {
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent, var(--cr2-accent) 20%,
+    var(--cr2-border) 50%,
+    var(--cr2-accent) 80%, transparent);
+  opacity: .3;
+  margin: 60px 0;               /* ← ★ 分隔線上下空白 */
+}
+
+/*
+  ════════════════════════════════════════════════════════════════
+  ★【D 區 01 草圖發想】圖左 + 文右 橫排佈局
+  ════════════════════════════════════════════════════════════════
+  .cr2-sketch-row → 圖左、文右的 grid 容器
+  .cr2-sketch-img → 左側圖片容器
+  .cr2-sketch-text→ 右側文字容器
+
+  ★【調整說明】
+  grid-template-columns → 左欄(圖)與右欄(文)的比例
+    1fr 1.2fr → 圖:文 = 1:1.2（圖稍窄）
+    1fr 1fr   → 等寬
+    1.2fr 1fr → 圖比文更寬
+  gap → 圖與文之間的距離（px）
+  ════════════════════════════════════════════════════════════════
+*/
+/* ─── 草圖：圖左＋文右 grid 容器 ─── */
+.cr2-sketch-row {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;  /* ← ★ 圖欄:文欄 比例 */
+  gap: 72px;                            /* ← ★ 圖與文之間的距離 */
+  align-items: center;
+  margin-top: 48px;                     /* ← ★ 草圖往下移的距離 */
+  margin-bottom: 60px;
+  max-width: 90%;                       /* ← ★ 擴大寬度，排版更寬鬆 */
+}
+
+/*
+  ── 草圖雙圖並排內層 grid（第一欄內部兩張草圖）──
+  ★ .cr2-sketch-img-pair → 容納兩張草圖並排
+  ★ grid-template-columns: 1fr 1fr → 兩張等寬並排
+  ★ gap → 兩圖間距
+*/
+.cr2-sketch-img-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;    /* ← ★ 兩張草圖等寬並排 */
+  gap: 20px;                          /* ← ★ 兩草圖之間的間距 */
+  order: 1;
+}
+
+/* ─── 草圖：左側圖片容器 ─── */
+.cr2-sketch-img {
+  /* 圖片在左（order:1），文字在右（order:2）*/
+  order: 1;
+  overflow: hidden;
+  /*
+    ★【圖片框形狀調整】
+    border-radius: 6px;  → 略圓角（預設）
+    border-radius: 0;    → 正方形直角（完全去圓角）
+    border-radius: 50%;  → 圓形（特殊用途）
+    → 目前設定：0px（正方形框）
+  */
+  border-radius: 4px;         /* ← ★ 改圖片圓角（0=方形, 6px=略圓）*/
+  background: #091730;
+  /*
+    ★【陰影調整】
+    box-shadow 格式：X偏移 Y偏移 模糊半徑 顏色
+    數字越大陰影越大越發散
+  */
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);  /* ← ★ 圖片陰影 */
+}
+
+/*
+  ★【草圖圖片比例調整】
+  aspect-ratio → 圖片裁切比例
+    1/1   → 正方形（Square）
+    4/3   → 橫向（標準）
+    3/4   → 直向
+    2/3   → 高長方形（直向窄版）← 目前設定
+    16/9  → 寬螢幕橫向
+  → 目前設定：2/3（高長方形）
+*/
+.cr2-sketch-img img {
+  width: 100%; display: block;
+  aspect-ratio: 3/4;           /* ← ★ 直向長方形 */
+  object-fit: cover;
+  transition: transform .8s var(--ease);
+}
+.cr2-sketch-img:hover img { transform: scale(1.04); }
+
+/* ─── 草圖：右側文字容器 ─── */
+.cr2-sketch-text {
+  order: 2;  /* 文字在右 */
+  /* 右側文字從右邊滑入 */
+  opacity: 0; transform: translateX(28px);
+  transition: opacity .9s .12s var(--ease), transform .9s .12s var(--ease);
+}
+.cr2-sketch-text.cr2-in { opacity: 1; transform: translateX(0); }
+
+/* D 區：階段標題列（01 草圖發想）*/
+.cr2-phase-head {
+  display: flex; align-items: center; gap: 18px;
+  margin-bottom: 44px;
+  padding-bottom: 18px;
+  max-width: 80%;                /* ← ★ 擴大至包含英文標籤的範圍 */
+  border-bottom: 1px solid var(--cr2-border);
+}
+.cr2-phase-num {
+  font-family: var(--mono);
+  font-size: 12px;              /* ← ★ 階段編號字體大小 */
+  letter-spacing: .30em;        /* ← ★ 階段編號字間距 */
+  color: var(--cr2-accent);     /* ← ★ 階段編號顏色 */
+}
+.cr2-phase-title {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 40px); /* ← ★ 階段標題字體大小 */
+  font-weight: 300;
+  color: var(--cr2-hi);
+  letter-spacing: .18em;
+}
+.cr2-phase-en {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 9px;               /* ← ★ 英文副標字體大小 */
+  letter-spacing: .22em;
+  color: var(--cr2-lo);
+  text-transform: uppercase;
+}
+
+/* D 區：說明文字 */
+.cr2-d-desc {
+  font-size: 18px;              /* ← ★ 製作過程說明文字大小 */
+  line-height: 2.4;             /* ← ★ 說明文字行高 */
+  letter-spacing: .03em;        /* ← ★ 說明文字字間距 */
+  color: var(--cr2-mid);
+  max-width: 780px;
+  margin-bottom: 40px;
+}
+
+/* D 區：圖文左右排 */
+.cr2-d-step {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr; /* ← ★ 圖:文 比例 */
+  gap: 64px;                          /* ← ★ 圖與文之間的距離 */
+  align-items: center;
+  margin-bottom: 60px;
+}
+/* 反向排（文在左、圖在右）*/
+.cr2-d-step--rev {
+  grid-template-columns: 1fr 1.15fr;
+}
+.cr2-d-step--rev .cr2-d-step-img { order: 2; }
+.cr2-d-step--rev .cr2-d-step-text { order: 1; }
+
+/* D 區：一般照片（有圓角、有裁切框）*/
+.cr2-d-step-img {
+  overflow: hidden;
+  border-radius: 6px;           /* ← ★ 圖片圓角大小（0=直角）*/
+  background: #091730;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45); /* ← ★ 圖片陰影 */
+  opacity: 0; transform: translateX(-36px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease), box-shadow .4s;
+}
+.cr2-d-step--rev .cr2-d-step-img { transform: translateX(36px); }
+.cr2-d-step-img.cr2-in { opacity: 1; transform: translateX(0) !important; }
+.cr2-d-step-img:hover { box-shadow: 0 28px 72px rgba(0,0,0,.6); }
+.cr2-d-step-img img {
+  width: 100%; display: block;
+  aspect-ratio: 4/3;            /* ← ★ 圖片比例（4/3橫向，3/4直向）*/
+  object-fit: cover;
+  transition: transform .8s var(--ease);
+}
+.cr2-d-step-img:hover img { transform: scale(1.04); }
+
+/*
+  ════════════════════════════════════════════════════
+  ★【PNG 透明去背圖】— D區 細節大圖（無框、不裁切）
+  ════════════════════════════════════════════════════
+  ★ 使用方式：在 HTML 加 class="cr2-d-step-img cr2-d-step-img--png"
+  ★ 在 style="" 裡填以下 CSS 變數來調整：
+      --png-x: 50%       水平置中點（0%靠左~100%靠右，預設50%）
+      --png-y: 50%       垂直置中點（0%靠上~100%靠下，預設50%）
+      --png-scale: 1     縮放（1=原大, 0.85=縮小, 1.15=放大）
+      --png-offset-x: 0px 額外左右偏移（正值右移，負值左移）
+  ════════════════════════════════════════════════════
+*/
+.cr2-d-step-img--png {
+  background: transparent !important;  /* ★ 透明背景 */
+  overflow: visible !important;         /* ★ 允許圖超出容器 */
+  box-shadow: none !important;          /* ★ 無陰影 */
+  border: none !important;
+  will-change: transform;
+}
+.cr2-d-step-img--png img {
+  width: 100%;
+  aspect-ratio: unset !important;
+  object-fit: contain !important;       /* ★ contain = 完整顯示不裁切 */
+  object-position: unset !important;
+  transform:
+    translateX(var(--png-offset-x, 0px))
+    scale(var(--png-scale, 1));
+  transform-origin: var(--png-x, 50%) var(--png-y, 50%);
+  transition: transform .8s var(--ease);
+}
+.cr2-d-step-img--png:hover img {
+  transform:
+    translateX(var(--png-offset-x, 0px))
+    scale(calc(var(--png-scale, 1) * 1.04));
+}
+
+/*
+  ════════════════════════════════════════════════════════════════
+  ★【D 區 02 細節大圖】右側貼邊全出血版型
+  ════════════════════════════════════════════════════════════════
+  .cr2-d-step--bleed → 突破 .cr2-process-inner 的 max-width 限制
+    左側文字維持在原本版面內距範圍
+    右側圖片延伸到視窗右邊，貼齊右邊緣
+
+  ★【版型說明】
+  整個 bleed 容器用 100vw 並向左偏移 8%（與 process 的左內距對齊），
+  然後 grid 左欄（文字）佔 38%，右欄（圖）佔其餘全部到邊。
+
+  ★【調整說明】
+  --bleed-text-width → 左側文字欄寬度（改 vw 或 % 值）
+                       越大文字欄越寬，圖片就越窄
+  ★ 圖片高度 → .cr2-bleed-img img { height: Xvh }
+               越大圖越高
+  ★ 縮放 → img style 的 --png-scale 數字
+  ════════════════════════════════════════════════════════════════
+*/
+.cr2-d-step--bleed {
+  /*
+    突破 max-width 容器，直接使用視窗寬度
+    margin-left 負值 = 吃回 cr2-process-inner 的 margin:auto 空白
+    padding-left = 對齊原本的左側 8% 內距
+  */
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  /* ★ 負值上下 margin 讓容器頂部/底部貼齊 .cr2-process-section 的邊
+     = 吃回 cr2-process-section 的 padding-top / padding-bottom */
+  margin-top: -90px;        /* ← ★ 改成與 cr2-process-section padding-top 相同的值（負值）*/
+  margin-bottom: -80px;     /* ← ★ 改成與 cr2-process-section padding-bottom 相同的值（負值）*/
+  padding-left: 15%;          /* ← ★ 左側文字區域的左內距（對齊 process 區）*/
+  padding-right: 0;           /* ★ 右側不留內距，圖片貼到右邊緣 */
+  padding-top: 0;
+  padding-bottom: 0;
+  display: grid;
+  grid-template-columns:
+    minmax(0, 30vw)           /* ← ★ 左欄（文字）寬度（vw 單位，38vw≈螢幕38%）*/
+    1fr;                       /* 右欄（圖）佔剩餘空間到右邊緣 */
+  gap: 0;                      /* 文字與圖之間無間距，讓圖緊貼視窗邊 */
+  align-items: center;        /* ★ 讓右欄圖片垂直置中顯示 */
+  overflow: hidden;
+  margin-bottom: -80px;
+}
+
+/* 左側文字（右邊留一些空氣感，垂直置中）*/
+.cr2-bleed-text {
+  order: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* ★ 文字垂直置中 */
+  padding-right: 5%;         /* ← ★ 文字區域右側的留白（避免貼到圖）*/
+  padding-top: 80px;         /* ← ★ 文字區域上內距（讓文字不貼頂）*/
+  padding-bottom: 80px;      /* ← ★ 文字區域下內距 */
+  opacity: 0; transform: translateX(-36px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.cr2-bleed-text.cr2-in { opacity: 1; transform: translateX(0); }
+
+/* 右側圖片容器（全高度，貼到右邊緣）*/
+.cr2-bleed-img {
+  order: 2;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: none !important;   /* ★ 無框陰影 */
+  border: none !important;
+  border-radius: 0 !important;   /* ★ 右邊無圓角，貼齊視窗邊 */
+  /* ★ 高度配合圖片自然大小 */
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0; transform: translateX(50px);
+  transition: opacity .9s .1s var(--ease), transform .9s .1s var(--ease);
+}
+.cr2-bleed-img.cr2-in { opacity: 1; transform: translateX(0); }
+/* 覆蓋 cr2-d-step-img--png 的 overflow:visible 讓裁切生效 */
+.cr2-bleed-img.cr2-d-step-img--png { overflow: hidden !important; }
+/* 覆蓋 cr2-d-step-img--png img 的 transform */
+.cr2-bleed-img.cr2-d-step-img--png img {
+  transform: scale(var(--png-scale, 1)) !important;
+  transform-origin: left center !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   ★ D 區 02 — 純文字區塊（圖在整個 D 區右側背景）
+   ════════════════════════════════════════════════════════════════ */
+.cr2-d-step-text-only {
+  max-width: 75%;                /* ← ★ 文字橫跨版面大部分寬度（手繪稿全寬文字區）*/
+  padding-bottom: 80px;
+  margin-top: 40px;
+}
+
+/* 02 文字進場動畫（重用 bleed-text class）*/
+.cr2-bleed-text {
+  opacity: 0; transform: translateX(-36px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.cr2-bleed-text.cr2-in { opacity: 1; transform: translateX(0); }
+
+/* ── RWD 手機 ── */
+@media (max-width: 960px) {
+  .cr2-process-bg-png { width: 70%; opacity: 0.4; }
+  .cr2-d-step-text-only { max-width: 100%; }
+}
+@media (max-width: 600px) {
+  /* 草圖：手機單欄 */
+  .cr2-sketch-row { grid-template-columns: 1fr; gap: 28px; }
+  .cr2-process-bg-png { display: none; }
+  .cr2-d-step-text-only { max-width: 100%; }
+}
+
+
+
+
+/* 假設你的選擇器名稱是 .some-class */
+.some-class { 
+    opacity: 0; transform: translateX(28px);
+    transition: opacity 0.9s 0.12s var(--ease), transform 0.9s 0.12s var(--ease);
+}
+.cr2-d-step--rev .cr2-d-step-text { transform: translateX(-28px); }
+.cr2-d-step-text.cr2-in { opacity: 1; transform: translateX(0) !important; }
+
+.cr2-d-step-title {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.6vw, 32px); /* ← ★ 步驟小標題字體大小 */
+  font-weight: 300;
+  color: var(--cr2-hi);
+  letter-spacing: .01em;
+  margin-bottom: 16px;
+}
+.cr2-d-step-desc {
+  font-size: 18px;              /* ← ★ 步驟說明文字大小 */
+  line-height: 2.4;             /* ← ★ 步驟說明行高 */
+  letter-spacing: .03em;
+  color: var(--cr2-mid);
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   ★ 區域 E — 結尾全版大圖（同 ceramics-1 收尾排版）
+   ════════════════════════════════════════════════════════════════
+   ★【換圖】→ HTML 中 .cr2-final-bg 的 style="background-image:url(...)"
+   ★【返回按鈕位置】→ .cr2-back-btn 的 bottom: 值
+   ════════════════════════════════════════════════════════════════ */
+.cr2-final-section {
+  position: relative;
+  width: 100%; height: 80vh;    /* ← ★ 結尾大圖高度 */
+  min-height: 440px;            /* ← ★ 結尾大圖最小高度 */
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* 結尾大圖背景 */
+.cr2-final-bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.06) translate3d(0,0,0); /* ★ GPU 加速 */
+  transition: transform 9s var(--ease);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.cr2-final-section.cr2-in .cr2-final-bg {
+  transform: scale(1.04) translate3d(0,0,0);
+}
+
+/* 結尾霧感遮罩 */
+.cr2-final-fog {
+  position: absolute; inset: 0;
+  background: radial-gradient(
+    ellipse 55% 48% at center,
+    rgba(2,16,31, 0.12) 0%,   /* ← ★ 中心透明度 */
+    rgba(2,16,31, 0.42) 55%,  /* ← ★ 中段過渡 */
+    rgba(2,16,31, 0.72) 100%  /* ← ★ 邊緣暗角 */
+  );
+  opacity: 1;                  /* ← ★ 整體霧感（0=無, 1=最濃）*/
+  pointer-events: none; z-index: 1;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+/* 結尾底部漸層（銜接footer）*/
+.cr2-final-grad {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
+  background: linear-gradient(to bottom, transparent, var(--cr2-navy));
+  pointer-events: none; z-index: 2;
+}
+
+/* 結尾文字容器 */
+.cr2-final-text {
+  position: relative; z-index: 3; text-align: center;
+  pointer-events: none;
+}
+
+
+/* 結尾小副標 */
+.cr2-final-sub {
+  font-family: var(--mono);
+  font-size: 10px;              /* ← ★ 結尾副標字體大小 */
+  letter-spacing: .88em; text-indent: .88em;
+  color: rgba(255,255,255,.30);
+  text-transform: uppercase;
+  margin-top: 30px;
+}
+
+/* 結尾 水與火 大字（同Hero字體）*/
+.cr2-final-cjk-wrap {
+  display: flex; align-items: center; justify-content: center;
+}
+.cr2-final-title-cjk {
+  display: block;
+  font-family: 'Noto Serif TC', 'Cormorant Garamond', Georgia, serif;
+  font-weight: 200;
+  font-size: clamp(70px, 13vw, 118px); /* ← ★ 結尾中文大字大小（同Hero）*/
+  color: #fff;
+  letter-spacing: .88em; text-indent: .88em;
+  line-height: 1;
+  text-shadow: 0 0 140px rgba(91,140,247,.22), 0 2px 48px rgba(0,0,0,.5);
+}
+
+/* 結尾裝飾線 */
+.cr2-final-deco-line {
+  display: block;
+  width: 180px;                /* ← ★ 結尾裝飾線長度（同Hero）*/
+  height: 1.5px;
+  background: rgba(255,255,255,.50);
+  margin: 0 10px;
+  flex-shrink: 0;
+  transform: scaleX(0); transform-origin: center;
+  transition: transform .9s var(--ease) .4s;
+}
+.cr2-final-deco-line--left  { transform-origin: right; }
+.cr2-final-deco-line--right { transform-origin: left; }
+.cr2-final-section.cr2-in .cr2-final-deco-line { transform: scaleX(1); }
+
+/* 結尾英文斜體 */
+.cr2-final-en-sub {
+  display: block;
+  font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(26px, 5vw, 28px);  /* ← ★ 結尾英文字體大小 */
+  color: rgba(255,255,255,.40);
+  letter-spacing: .48em; text-indent: .48em;
+  margin-top: 80px; line-height: 1.1;
+}
+
+/*
+  ★【返回按鈕】— 大圖上方，水平置中固定不動
+  ★ 位置調整：bottom 值越大越往上
+  ★ 左右：left:50% + translateX(-50%) = 水平置中
+  ★ 光流效果由 style.css .back-page 控制，這裡只管定位
+*/
+.cr2-back-btn {
+  position: absolute;
+  bottom: 14%;                 /* ← ★ 按鈕距底部距離（% 或 px）*/
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  white-space: nowrap;
+  isolation: isolate;          /* ★ 建立堆疊上下文，讓光流 z-index:-1 正確裁在按鈕內 */
+}
+/* ★ hover 時保留水平置中 + 微上浮，不能只寫 translateY 否則 translateX 被蓋掉 */
+.cr2-back-btn:hover {
+  transform: translateX(-50%) translateY(-1px) !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   ★ 底部版權 Footer
+   ════════════════════════════════════════════════════════════════ */
+.cr2-footer {
+  background: var(--cr2-navy);  /* ← ★ Footer背景色 */
+  display: flex; align-items: center; justify-content: center;
+  padding: 28px 6%;
+  border-top: 1px solid var(--cr2-border);
+}
+.cr2-copyright {
+  font-family: var(--mono);
+  font-size: 8px;               /* ← ★ Copyright字體大小 */
+  letter-spacing: .22em;        /* ← ★ Copyright字間距 */
+  color: rgba(255, 255, 255, 0.838); /* ← ★ Copyright顏色 */
+  text-transform: uppercase;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   ★ 通用動畫 Keyframes + 進場 fade class
+   ════════════════════════════════════════════════════════════════ */
+@keyframes cr2Up {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes cr2Drop {
+  0%   { transform:translateY(-100%); opacity:0; }
+  30%  { opacity:1; }
+  70%  { opacity:1; }
+  100% { transform:translateY(200%); opacity:0; }
+}
+
+.cr2-fade {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .85s var(--ease), transform .85s var(--ease);
+}
+.cr2-fade.cr2-d1 { transition-delay: .15s; }
+.cr2-fade.cr2-d2 { transition-delay: .30s; }
+.cr2-fade.cr2-in { opacity: 1; transform: translateY(0); }
+
+
+/* ════════════════════════════════════════════════════════════════
+   ★ 返回按鈕：只補 GPU 效能，不覆蓋 style.css 光流動畫
+   ★ 光流（conic-gradient glowSpin）完全由 style.css 控制
+   ════════════════════════════════════════════════════════════════ */
+.back-page {
+  isolation: isolate;       /* ★ 確保光流 z-index:-1 層正確裁切在按鈕內 */
+  will-change: transform;   /* ★ 預告瀏覽器此元素會 transform */
+}
+.back-page::after {
+  will-change: opacity, --glow-angle; /* ★ 讓 glowSpin 動畫預先建立 GPU 合成層 */
+}
+
+/* ════════════════════════════════════════════════════════════════
+   ★ RWD — 960px 平板版
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  /* B 區：單欄 */
+  .cr2-intro-inner {
+    grid-template-columns: 1fr; /* ← ★ 平板改單欄 */
+    gap: 48px;
+    padding: 64px 6% 60px;
+  }
+  .cr2-intro-section { padding: 64px 6% 60px; }
+
+  /* C 區：三圖變兩圖 + 第三張滿版 */
+  .cr2-c-grid { grid-template-columns: 1fr 1fr; }
+  .cr2-c-item:nth-child(3) {
+    grid-column: span 2;
+  }
+  .cr2-c-item:nth-child(3) img { aspect-ratio: 16/7; }
+
+  /* D 區：圖文單欄 */
+  .cr2-d-step,
+  .cr2-d-step--rev {
+    grid-template-columns: 1fr;
+  }
+  .cr2-d-step--rev .cr2-d-step-img,
+  .cr2-d-step--rev .cr2-d-step-text { order: unset; }
+  .cr2-d-step-img, .cr2-d-step-text { transform: none !important; }
+  .cr2-process-section { padding: 64px 6%; }
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   ★ RWD — 600px 手機版
+   ════════════════════════════════════════════════════════════════
+   ★ 手機版字體大小調整在這裡
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  /* A 區：Hero */
+  .cr2-hero { height: 90vw; min-height: 340px; }
+  .cr2-hero-content { padding: 0 5%; }
+  .cr2-cjk-main  { font-size: clamp(48px, 16vw, 100px); } /* ← ★ 手機中文大字 */
+  .cr2-en-sub    { font-size: clamp(22px, 8vw, 50px); }    /* ← ★ 手機英文副標 */
+  .cr2-hero-meta { font-size: 8px; }
+  .cr2-scroll-hint { display: none; }
+  .cr2-deco-line { width: 60px; margin: 0 16px; }          /* ★ 手機裝飾線縮短 */
+
+  /* B 區：Intro */
+  .cr2-intro-section { padding: 52px 5% 48px; }
+  .cr2-intro-inner { gap: 32px; }
+  .cr2-b-quote { font-size: clamp(20px, 5.5vw, 28px); line-height: 3.5; padding-left: 20px; }
+  .cr2-b-text  { font-size: 15px; }                        /* ← ★ 手機內文字體 */
+  .cr2-b-subtitle { font-size: 16px; }
+
+  /* C 區：三圖 → 單欄 */
+  .cr2-c-grid  { grid-template-columns: 1fr; gap: 2px; }
+  .cr2-c-item:nth-child(3) { grid-column: span 1; }
+  .cr2-c-item:nth-child(3) img { aspect-ratio: 3/4; }
+
+  /* D 區：製作過程 */
+  .cr2-process-section { padding: 52px 5%; }
+  .cr2-d-desc  { font-size: 15px; }                        /* ← ★ 手機說明文字 */
+  .cr2-d-step-desc { font-size: 15px; }
+  .cr2-d-step  { gap: 36px; }
+
+  /* E 區：結尾大圖 */
+  .cr2-final-section { height: 65vw; min-height: 280px; }
+  .cr2-final-title-cjk { font-size: clamp(48px, 14vw, 90px); } /* ← ★ 手機結尾大字 */
+  .cr2-final-en-sub    { font-size: clamp(20px, 7vw, 44px); }
+  .cr2-final-deco-line { width: 60px; margin: 0 8px; }
+
+  /* Footer */
+  .cr2-footer { padding: 24px 5%; }
+  .cr2-copyright { font-size: 7px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV（導覽列，來自 style.css）══ -->
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand">
+    <span class="nav-brand-name">WANG MIN HSUAN</span>
+    <span class="nav-brand-sub">| CERAMIC ARTIST</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li>
+    <li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a>
+  <a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a>
+  <a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 區域 A — HERO 全版主視覺
+     ══════════════════════════════════════════════════════
+     ★【換圖】→ 改下方 style="background-image:url(...)" 的圖片路徑
+     ★【文字】→ 修改 .cr2-cjk-main（水與火）/ .cr2-en-sub（英文）
+     ★【媒材說明】→ 修改 .cr2-hero-meta 文字
+     ══════════════════════════════════════════════════════ -->
+<div class="cr2-hero" id="cr2Hero">
+
+  <!-- ★【換圖】A 區背景大圖 ↓ -->
+  <div class="cr2-hero-bg" style="background-image:url('images/creamic-2-fire.jpg')"></div>
+  <div class="cr2-hero-veil"></div>
+  <div class="cr2-hero-fog"></div>
+
+  <div class="cr2-hero-content">
+
+    <!-- ★ 眉標文字 → 修改（如：CERAMICS · CRAFT · 2025）-->
+    <div class="cr2-hero-eyebrow">CERAMICS &amp; CRAFT · 2025</div>
+
+    <h1 class="cr2-hero-title">
+      <!--
+        ★【裝飾線 + 水與火 大字】
+        .cr2-cjk-wrap 是 flex 容器，讓線+字在同一行
+        ★ 調整線長度/顏色 → CSS .cr2-deco-line 區塊
+      -->
+      <span class="cr2-cjk-wrap">
+        <span class="cr2-deco-line cr2-deco-line--left"></span>
+        <!-- ★ 水與火 中文大字 → 修改文字 -->
+        <span class="cr2-cjk-main">水與火</span>
+        <span class="cr2-deco-line cr2-deco-line--right"></span>
+      </span>
+      <!-- ★ 英文副標 → 修改文字 -->
+      <span class="cr2-en-sub">Water &amp; Fire</span>
+    </h1>
+  </div>
+
+  <!-- 滾動提示 -->
+  <div class="cr2-scroll-hint">
+    <span>Scroll</span>
+    <div class="cr2-scroll-arrow"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 區域 B — 創作理念
+     ══════════════════════════════════════════════════════
+     ★ 左欄大引言 → 修改 .cr2-b-quote 文字
+     ★ 右欄小標題 → 修改 .cr2-b-subtitle 文字
+     ★ 右欄說明段落 → 修改 .cr2-b-text 文字
+     ══════════════════════════════════════════════════════ -->
+<div class="cr2-intro-section">
+  <div class="cr2-intro-inner">
+
+    <!-- 左欄：大引言（竖线 + 大字）-->
+    <div class="cr2-b-quote" id="cr2BQuote">
+      <!-- ★ 引言大字 → 修改（建議4~8字，配合 letter-spacing）-->
+      水火交織成陶
+    </div>
+
+    <!-- 右欄：標題 + 說明 -->
+    <div class="cr2-b-right" id="cr2BRight">
+      <!-- ★ 小標題 → 修改 -->
+      <div class="cr2-b-subtitle">創作理念</div>
+      <!-- ★ 說明段落 1 → 修改 -->
+      <p class="cr2-b-text">
+        水與火兩種極端的元素，水塑形泥土，火在高溫中燒製成陶器，
+        這種矛盾卻又不可分割的關係，是我在製作陶的過程中深刻體會到的。
+      </p>
+      <!-- ★ 說明段落 2 → 修改（可刪）-->
+      <p class="cr2-b-text">
+        透過作品把水和火具現化融入陶中，探索兩種截然相反的力量如何在一件作品中共存、
+        對話，並最終凝固成一種既脆弱又永恆的形體。
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 區域 C — 三張滿版大圖並排
+     ══════════════════════════════════════════════════════
+     ★【換圖】→ 修改各 <img src="..."> 路徑
+     ★【裁切位置】→ 在 <img> 加 style="object-position: X Y"
+         center top    → 顯示圖片上方
+         center center → 置中（預設）
+         center 30%    → 略偏上
+     ★ 圖片比例 → CSS .cr2-c-item img 的 aspect-ratio
+     ══════════════════════════════════════════════════════ -->
+<div class="cr2-gallery-section">
+  <div class="cr2-c-grid">
+
+    <!-- ★ C 區圖01 → 換圖 src，改 object-position 調裁切 -->
+    <div class="cr2-c-item">
+      <img src="images/creamic-2-1.jpg" alt="水與火 作品 01"
+           style="object-position: center center;">
+           <!-- ↑ ★ 圖01 裁切位置（X 水平 Y 垂直）-->
+    </div>
+
+    <!-- ★ C 區圖02 → 換圖 src -->
+    <div class="cr2-c-item">
+      <img src="images/creamic-2-2.jpg" alt="水與火 作品 02"
+           style="object-position: center center;">
+           <!-- ↑ ★ 圖02 裁切位置 -->
+    </div>
+
+    <!-- ★ C 區圖03 → 換圖 src -->
+    <div class="cr2-c-item">
+      <img src="images/creamic-2-3.jpg" alt="水與火 作品 03"
+           style="object-position: center center;">
+           <!-- ↑ ★ 圖03 裁切位置 -->
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 區域 D — 製作過程
+     ══════════════════════════════════════════════════════
+     ★ D區共兩個步驟：
+       01 草圖發想：圖在右、文在左（.cr2-d-step--rev）
+       02 細節大圖：PNG透明圖在右下、文在左（.cr2-d-step--rev 加 --png）
+     ★【換圖】→ 各 <img src="..."> 換路徑
+     ★【PNG圖位置/縮放】→ 在 .cr2-d-step-img--png 的 style="" 裡改 CSS 變數
+     ══════════════════════════════════════════════════════ -->
+<div class="cr2-process-section">
+
+  <!-- ★ PNG 大圖：整個 D 區右側背景裝飾 -->
+  <div class="cr2-process-bg-png">
+    <img src="images/creamic-2-detail-1.png" alt="">
+  </div>
+
+  <div class="cr2-process-inner">
+
+    <!-- D 區整體大標題 -->
+    <div class="cr2-d-header cr2-fade" id="cr2DHeader">
+      <!-- ★ D區小標籤 → 修改 -->
+      <div class="cr2-d-section-label">Process</div>
+      <!-- ★ D區大標題 → 修改 -->
+      <h2 class="cr2-d-section-title">製作過程</h2>
+    </div>
+
+
+    <!-- ── 01 草圖發想（圖左小框 + 文字在右）── -->
+    <div class="cr2-phase-head cr2-fade">
+      <span class="cr2-phase-num">01</span>
+      <h3 class="cr2-phase-title">草圖發想</h3>
+      <span class="cr2-phase-en">Concept Sketching</span>
+    </div>
+
+    <!-- 圖左 + 文右橫排 -->
+    <div class="cr2-sketch-row" id="cr2Step01">
+      <!--
+        ★ 兩張草圖並排（高長方形小框，左側）
+        ★【換圖】改各 src 路徑
+        ★【比例調整】→ CSS .cr2-sketch-img img 的 aspect-ratio（目前：2/3 高長方形）
+        ★【兩圖間距】→ CSS .cr2-sketch-img-pair 的 gap 值
+      -->
+      <div class="cr2-sketch-img-pair">
+        <!-- 第一張草圖 -->
+        <div class="cr2-sketch-img cr2-d-step-img">
+          <img src="images/creamic-2-sketch.jpg" alt="草圖發想 01"
+               style="object-position: center center;">
+        </div>
+        <!-- 第二張草圖 → ★【換圖】改 src 路徑 -->
+        <div class="cr2-sketch-img cr2-d-step-img">
+          <img src="images/creamic-2-sketch-2.jpg" alt="草圖發想 02"
+               style="object-position: center center;">
+        </div>
+      </div>
+
+      <!-- 文字說明（右側，垂直置中對齊圖片）-->
+      <div class="cr2-sketch-text cr2-d-step-text">
+       
+        <!-- ★ 草圖說明文字 → 修改 -->
+        <p class="cr2-d-step-desc">
+          參考水、火型態，以自然不規律的彎曲交融，具象呈現水流動與火燃燒的形體特徵。
+         
+        </p>
+      </div>
+    </div>
+
+
+    <div class="cr2-d-divider"></div>
+
+
+    <!-- ── 02 細節大圖（PNG 透明圖，無框，右側貼邊；文在左）── -->
+    <div class="cr2-phase-head cr2-fade" style="max-width:80%;">
+      <span class="cr2-phase-num">02</span>
+      <!-- ★ 階段標題 → 修改 -->
+      <h3 class="cr2-phase-title">細節修正</h3>
+      <span class="cr2-phase-en">Detail Refinement</span>
+    </div>
+
+    <!--
+      ★【D-02 說明】
+      文字在左側（約佔 55% 寬度），PNG 大圖在整個 D 區右側背景已設定
+    -->
+    <div class="cr2-d-step-text-only" id="cr2Step02">
+
+      <!-- 全寬：文字說明橫跨版面 -->
+      <div class="cr2-d-step-text cr2-bleed-text" id="cr2Step02Txt" style="max-width:100%;">
+      
+        <p class="cr2-d-step-desc" style="max-width:100%; font-size:17px; line-height:2.6; letter-spacing:.05em;">
+          以土條盤築法逐層堆疊，邊製作邊等待土體風乾定型。<br>
+          水系造型需保留流動感而不垂塌，火系造型則強調向上竄升的張力，<br>
+          兩者在同一件作品上的比例拿捏尤為關鍵。
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</div><!-- /process-section -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 區域 E — 結尾全版大圖（同 ceramics-1 排版）
+     ══════════════════════════════════════════════════════
+     ★【換圖】→ 改下方 style="background-image:url(...)" 的路徑
+     ★【文字】→ 修改 .cr2-final-title-cjk（水與火）
+     ★【返回按鈕連結】→ 改 href="ceramics.html"
+     ★【按鈕位置】→ CSS .cr2-back-btn 的 bottom: 值
+     ══════════════════════════════════════════════════════ -->
+<div class="cr2-final-section" id="cr2Final">
+
+  <!-- ★【換圖】結尾大圖 ↓ -->
+  <div class="cr2-final-bg" id="cr2FinalBg" style="background-image:url('images/creamic-2-final.jpg')"></div>
+
+  <div class="cr2-final-fog"></div>
+  <div class="cr2-final-grad"></div>
+
+  <!-- 中心文字 -->
+  <div class="cr2-final-text">
+    <span class="cr2-final-cjk-wrap">
+      <span class="cr2-final-deco-line cr2-final-deco-line--left"></span>
+      <!-- ★ 結尾中文大字 → 修改 -->
+      <span class="cr2-final-title-cjk">水與火</span>
+      <span class="cr2-final-deco-line cr2-final-deco-line--right"></span>
+    </span>
+    <!-- ★ 結尾英文 → 修改 -->
+    <span class="cr2-final-en-sub">Water &amp; Fire</span>
+    <!-- ★ 結尾小副標 → 修改（可刪）-->
+    <p class="cr2-final-sub">Ceramics · 2025</p>
+  </div>
+
+  <!--
+    ★【返回按鈕】
+    ★ 換連結：改 href
+    ★ 換文字：改按鈕文字
+    ★ 位置：CSS .cr2-back-btn 的 bottom 值
+  -->
+  <a href="ceramics.html" class="back-page cr2-back-btn">← BACK TO CERAMICS</a>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★ 底部版權
+     ══════════════════════════════════════════════════════
+     ★ 版權文字 → 修改 .cr2-copyright 的文字
+     ══════════════════════════════════════════════════════ -->
+<div class="cr2-footer">
+  <!-- ★ Copyright 文字 → 修改 -->
+  <p class="cr2-copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</div>
+
+
+<script>
+/* ═══════════════════════════════════════════════
+   ★ JS 說明：以下所有 JavaScript 動畫控制
+   ═══════════════════════════════════════════════ */
+
+/* ── Hamburger 手機選單 ── */
+const ham = document.getElementById('hamburger');
+const mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mMenu.classList.toggle('open');
+});
+document.querySelectorAll('.mm-link').forEach(a =>
+  a.addEventListener('click', () => {
+    ham.classList.remove('open');
+    mMenu.classList.remove('open');
+  })
+);
+
+/* ── Hero 進場縮放（載入後觸發）── */
+requestAnimationFrame(() => {
+  document.getElementById('cr2Hero').classList.add('loaded');
+});
+
+/* ═══════════════════════════════════════════════
+   ★ IntersectionObserver 進場動畫
+   ★ threshold：0.06 = 元素出現 6% 就觸發（越小越早）
+   ★ rootMargin：底部 -32px = 元素進入視窗 32px 才觸發
+   ═══════════════════════════════════════════════ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('cr2-in');
+    io.unobserve(e.target);
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -32px 0px' });
+
+/* 觀察這些元素（加入 cr2-in class 後觸發 CSS 動畫）*/
+document.querySelectorAll(
+  '.cr2-c-item, .cr2-b-quote, .cr2-b-right, .cr2-fade, .cr2-final-section'
+).forEach(el => io.observe(el));
+
+/* 圖文左右滑入 */
+const ioStep = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('cr2-in');
+    ioStep.unobserve(e.target);
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.cr2-d-step-img, .cr2-d-step-text, .cr2-sketch-img, .cr2-sketch-text, .cr2-bleed-text, .cr2-bleed-img').forEach(el => ioStep.observe(el));
+
+/* ═══════════════════════════════════════════════
+   ★ 視差滾動（Hero 背景 + Final 背景）
+   ★ 優化：translate3d 觸發 GPU，passive:true 不阻塞滾動
+   ★ 視差係數（0.17）→ 越大視差感越強（建議 0.10~0.25）
+   ═══════════════════════════════════════════════ */
+let rafPending = false;
+const heroBg   = document.querySelector('.cr2-hero-bg');
+const finalBg  = document.getElementById('cr2FinalBg');
+const finalSec = document.getElementById('cr2Final');
+
+window.addEventListener('scroll', () => {
+  if (rafPending) return;
+  rafPending = true;
+  requestAnimationFrame(() => {
+    const scrollY = window.scrollY;
+
+    /* Hero 背景往下微移（視差效果）*/
+    if (heroBg) {
+      heroBg.style.transform = `scale(1) translate3d(0, ${scrollY * 0.17}px, 0)`;
+                               /* ↑ ★ 視差係數 0.17（越大越動）*/
+    }
+
+    /* Final 結尾區塊視差（入視窗後往上漂浮）*/
+    if (finalBg && finalSec) {
+      const rect = finalSec.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      if (rect.top < viewH && rect.bottom > 0) {
+        const offset = (rect.top + rect.height / 2) - viewH / 2;
+        finalBg.style.transform = `scale(1.06) translate3d(0, ${offset * 0.08}px, 0)`;
+                                  /* ↑ ★ Final視差係數 0.08（比Hero小，更穩）*/
+      }
+    }
+
+    rafPending = false;
+  });
+}, { passive: true });
+</script>
+</body>
+</html>

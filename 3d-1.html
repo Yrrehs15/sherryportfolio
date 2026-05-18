@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form & Motion | WANG MIN HSUAN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════
+   全域變數 — style.css 深海藍色系
+   ═══════════════════════════════════════════════════ */
+:root {
+  /* ── 字體 ── */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'Space Mono', monospace;
+
+  /* ── style.css 色系 ── */
+  --dark:          #05182d;
+  --dark2:         #021224;
+  --clr-bg:        #05182d;
+  --clr-surface:   #071d36;
+  --clr-surface2:  #0a2440;
+  --clr-border:    rgba(255,255,255,0.07);
+  --clr-text:      rgba(255,255,255,0.85);
+  --clr-muted:     rgba(255,255,255,0.38);
+  --clr-accent:    rgba(255,255,255,0.75);   /* 白色強調（nav / label）*/
+  --clr-accent-hi: #c8b89a;                  /* 金色強調色（裝飾用）*/
+  --clr-accent2:   #7eb8d4;                  /* 藍色強調色 */
+  --clr-glow:      rgba(200,184,154,0.18);
+  --clr-glow2:     rgba(126,184,212,0.25);
+
+  /* ── 文字大小 ── */
+  --fs-hero:      clamp(2.8rem, 8vw, 7rem);
+  --fs-hero-sub:  clamp(0.7rem, 1.5vw, 1rem);
+  --fs-section:   clamp(1.4rem, 3vw, 2.2rem);
+  --fs-body:      clamp(0.88rem, 1.5vw, 1rem);
+  --fs-caption:   0.75rem;
+  --fs-tag:       0.72rem;
+  --fs-nav:       0.65rem;
+
+  /* ── 字重 ── */
+  --fw-light:   300;
+  --fw-regular: 400;
+
+  /* ── 行距 ── */
+  --lh-heading: 1.05;
+  --lh-body:    1.85;
+  --lh-tight:   1.2;
+
+  /* ── 字距 ── */
+  --ls-wide:   0.22em;
+  --ls-medium: 0.12em;
+  --ls-normal: 0.02em;
+
+  /* ── 間距 ── */
+  --sp-section: clamp(80px, 12vw, 140px);
+  --sp-inner:   clamp(32px, 5vw, 64px);
+  --sp-gap:     clamp(16px, 2.5vw, 32px);
+  --nav-h:      64px;
+
+  /* ── 邊框圓角 ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  /* ── 動畫曲線 ── */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 0.25s;
+  --dur-med:  0.55s;
+  --dur-slow: 1.1s;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: var(--font-body);
+  font-weight: var(--fw-light);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  overflow-x: hidden;
+}
+img { display: block; width: 100%; object-fit: cover; }
+a { text-decoration: none; color: inherit; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: #1a3350; border-radius: 2px; }
+
+/* ══════════════════════════════════════════════
+   NAV — style.css 風格
+   ══════════════════════════════════════════════ */
+.top-nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h); z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%;
+  transition: background .4s, box-shadow .4s;
+}
+.top-nav.scrolled {
+  background: rgba(5,24,45,0.92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.07);
+}
+.nav-brand { display: flex; align-items: baseline; gap: 6px; }
+.nav-brand-name {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: var(--ls-wide);
+  color: #fff; text-transform: uppercase;
+}
+.nav-brand-sub {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: var(--ls-medium);
+  color: var(--clr-muted);
+}
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: var(--ls-wide);
+  text-transform: uppercase; color: var(--clr-muted);
+  position: relative; padding-bottom: 4px; transition: color .3s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1px; background: currentColor;
+  transform: scaleX(0); transition: transform .3s var(--ease);
+}
+.nav-links a:hover { color: #fff; }
+.nav-links a:hover::after { transform: scaleX(1); }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 22px; height: 1px;
+  background: rgba(255,255,255,0.7); transition: all .3s;
+}
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px,4px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px,-4px); }
+.mobile-menu {
+  display: none; position: fixed;
+  top: var(--nav-h); left: 0; right: 0;
+  background: rgba(5,24,45,0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 24px 6%; flex-direction: column; gap: 20px; z-index: 999;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--font-mono); font-size: 12px;
+  letter-spacing: var(--ls-wide); text-transform: uppercase;
+  color: var(--clr-muted); transition: color .25s;
+}
+.mobile-menu a:hover { color: #fff; }
+
+/* ══════════════════════════════════════════════
+   HERO — 主視覺區（全版大圖背景 + 上飛粒子 + 放大動畫）
+   ══════════════════════════════════════════════ */
+.hero {
+  position: relative; width: 100%; height: 100vh; min-height: 600px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+
+/* ── 底色（圖片載入前的底）── */
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: #031629;
+}
+
+/* ── 全版背景圖（無任何濾鏡/遮罩）── */
+/* 可調：background-image 路徑 | background-position 調裁切位置 */
+.hero-bg-img {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('images/td-11.jpg');
+  background-size: cover;
+  background-position: center center;
+  /* 可調：入場放大 scale 1.08 → 1.0 | 時長 1.8s */
+  animation: heroBgZoom 1.8s 0s cubic-bezier(0.22,1,0.36,1) forwards;
+  transform-origin: center center;
+}
+@keyframes heroBgZoom {
+  from { transform: scale(1.08); opacity: 0.85; }
+  to   { transform: scale(1.0);  opacity: 1; }
+}
+
+/* ── 深色疊加層：完全關閉 ── */
+.hero-overlay { display: none; }
+
+/* ── 噪點質感：關閉 ── */
+.hero-noise { display: none; }
+
+/* ── 光暈球：關閉 ── */
+.hero-orb { display: none; }
+
+/* ── 邊緣霧化遮罩（四邊）── */
+/* 可調：左右寬度 clamp(60px,12vw,160px) | 深度 rgba 透明度 0.75 */
+.hero-edge-left,
+.hero-edge-right {
+  position: absolute; top: 0; bottom: 0;
+  width: clamp(60px, 12vw, 160px);
+  z-index: 4; pointer-events: none;
+}
+.hero-edge-left {
+  left: 0;
+  /* 可調：起點透明度 0.75（越大越深）| 中間淡出點 60% */
+  background: linear-gradient(to right,
+    rgba(3,22,41,0.75) 0%,
+    rgba(3,22,41,0.35) 45%,
+    transparent 100%);
+}
+.hero-edge-right {
+  right: 0;
+  background: linear-gradient(to left,
+    rgba(3,22,41,0.75) 0%,
+    rgba(3,22,41,0.35) 45%,
+    transparent 100%);
+}
+
+/* 可調：上下高度 120px | 底部透明度 0.65 */
+.hero-edge-top,
+.hero-edge-bottom {
+  position: absolute; left: 0; right: 0;
+  height: 120px;
+  z-index: 4; pointer-events: none;
+}
+.hero-edge-top {
+  top: 0;
+  /* 可調：頂部深度 0.55 */
+  background: linear-gradient(to bottom, rgba(3,22,41,0.55) 0%, transparent 100%);
+}
+.hero-edge-bottom {
+  bottom: 0;
+  /* 可調：底部深度 0.65 */
+  background: linear-gradient(to top, rgba(3,22,41,0.65) 0%, transparent 100%);
+}
+
+/* ══════════════════════════════════════
+   上飛粒子系統（展台飛揚感）
+══════════════════════════════════════ */
+#heroParticles {
+  position: absolute; inset: 0; z-index: 3;
+  pointer-events: none; overflow: hidden;
+}
+/* 粒子元素（JS 生成）*/
+/* 可調：共通 border-radius — 50% 圓 | 20% 菱形 */
+.hero-particle {
+  position: absolute;
+  border-radius: 50%;
+  animation: riseParticle linear infinite;
+  opacity: 0;
+}
+/* 可調：上升距離 -280px | 透明度曲線 */
+@keyframes riseParticle {
+  0%   { opacity: 0;   transform: translateY(0)      scale(0.4); }
+  15%  { opacity: 0.8; transform: translateY(-40px)   scale(1); }
+  70%  { opacity: 0.35;transform: translateY(-180px)  scale(0.75); }
+  100% { opacity: 0;   transform: translateY(-280px)  scale(0.2); }
+}
+
+/* ── Hero 文字容器 ── */
+.hero-content {
+  position: relative; z-index: 5;
+  text-align: center;
+  padding: 0 clamp(20px, 8%, 80px);
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* 眉標 修改 */ 
+/* 可調：font-size 9px | letter-spacing .35em | color rgba(255,255,255,0.45) */
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .35em;
+  color: rgba(255,255,255,0.45); text-transform: uppercase;
+  margin-bottom: 100px;
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  opacity: 0; animation: fadeUp .7s .6s var(--ease) forwards;
+}
+/* 可調：裝飾線寬度 26px */
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block; width: 26px; height: 1px;
+  background: rgba(255,255,255,0.30);
+}
+
+/* 主標題 */
+/* 可調：font-size via --fs-hero（clamp 2.8rem→7rem）| font-weight 300 | letter-spacing -.02em */
+.hero-title {
+   font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 3rem);
+  font-weight: 200;
+  line-height: 1.5;
+  color: #fff; 
+  letter-spacing: 0.28em;
+  margin-bottom: 200px;
+  text-align: center;
+  /* 可調：text-shadow — 僅輕微文字邊緣陰影，不產生深色霧感 */
+  text-shadow:
+    0 1px 6px rgba(0,0,0,0.55),
+    0 0 20px rgba(0,0,0,0.30);
+  opacity: 0; animation: fadeUp .9s .8s var(--ease) forwards;
+}
+/* 可調：斜體顏色 rgba(255,255,255,0.55) */
+.hero-title em { font-style: normal; 
+  color: rgb(255, 255, 255); 
+  display: block; margin-top: 4px; }
+
+/* 分隔線 */
+/* 可調：寬 60px | 高 1px | 顏色金色漸層 */
+.hero-rule {
+  position: absolute; bottom: 120px; left: 48.8%;
+  width: 60px; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(200,184,154,0.65), transparent);
+  margin: 0 auto clamp(16px,2.5vw,24px);
+  opacity: 0; animation: fadeUp .6s 1.0s var(--ease) forwards;  
+    margin-top: 500px;
+}
+
+
+
+/* Scroll 提示 */
+.hero-scroll {
+  position: absolute; bottom: 36px; left: 50%;
+  transform: translateX(-50%); z-index: 6;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: fadeUp .6s 1.4s var(--ease) forwards;
+}
+.hero-scroll span {
+  font-family: var(--font-mono); 
+  font-size: 8px;
+  letter-spacing: .3em; color: rgba(255,255,255,0.22); text-transform: uppercase;
+}
+.scroll-line-track {
+  width: 1px; height: 52px;
+  background: rgba(255,255,255,0.12);
+  position: relative; overflow: hidden; border-radius: 1px;
+}
+.scroll-line-fill {
+  position: absolute; top: 0; left: 0; right: 0; height: 50%;
+  background: linear-gradient(to bottom, transparent, rgba(126,184,212,0.7), transparent);
+  animation: lineFall 2.2s ease-in-out infinite;
+}
+@keyframes lineFall {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  30%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════════
+   Reveal 動畫 — ceramics-1 風格（左/右/上 滑入）
+   ══════════════════════════════════════════════ */
+.reveal-up {
+  opacity: 0; transform: translateY(36px);
+  transition: opacity .85s var(--ease), transform .85s var(--ease);
+  transition-delay: var(--delay, 0s);
+}
+.reveal-up.revealed { opacity: 1; transform: translateY(0); }
+
+.reveal-left {
+  opacity: 0; transform: translateX(-36px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+  transition-delay: var(--delay, 0s);
+}
+.reveal-left.revealed { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0; transform: translateX(36px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+  transition-delay: var(--delay, 0s);
+}
+.reveal-right.revealed { opacity: 1; transform: translateX(0); }
+
+/* 延遲 helper */
+.delay-1 { --delay: 0.1s; }
+.delay-2 { --delay: 0.2s; }
+.delay-3 { --delay: 0.3s; }
+.delay-4 { --delay: 0.45s; }
+
+/* ══════════════════════════════════════════════
+   分隔線
+   ══════════════════════════════════════════════ */
+.section-divider {
+  width: calc(100% - clamp(48px,16%,160px));
+  margin: 0 auto; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+/* ══════════════════════════════════════════════
+   共用 section 排版
+   ══════════════════════════════════════════════ */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-tag); 
+  letter-spacing: var(--ls-wide);
+  color: rgba(255,255,255,0.35); 
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 14px;
+}
+.section-label::after {
+  content: ''; display: block; width: 30px; height: 1px;
+  background: rgba(255,255,255,0.25);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section); font-weight: var(--fw-light);
+  line-height: var(--lh-tight); letter-spacing: var(--ls-medium);
+  color: #fff; margin-bottom: var(--sp-gap);
+}
+
+/* ══════════════════════════════════════════════
+   B. 主介紹區
+   ══════════════════════════════════════════════ */
+.intro-section {
+  padding: var(--sp-section) clamp(24px,8%,80px);
+  max-width: 1280px; margin: 0 auto;
+}
+.intro-grid {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(32px,5vw,72px); align-items: start;
+  margin-top: clamp(32px,4vw,56px);
+}
+.intro-img-wrap {
+  position: relative; overflow: hidden;
+  border-radius: var(--radius-md); aspect-ratio: 4/3;
+  background: var(--clr-surface);
+}
+.intro-img-wrap img { height: 100%; transition: transform .8s var(--ease); }
+.intro-img-wrap:hover img { transform: scale(1.04); }
+.intro-img-wrap::after {
+  content: ''; position: absolute; inset: 0;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-md); pointer-events: none;
+}
+.intro-text-wrap { display: flex; flex-direction: column; justify-content: center; }
+.intro-body {
+  font-family: var(--font-display);
+  font-size: 16px; line-height: 1.8;
+  letter-spacing: .05em; 
+   margin-bottom: 36px;
+   margin-TOP: 20px;
+  color: rgba(255,255,255,0.5); margin-top: 20px;
+}
+/* 三張建模圖 */
+.model-trio {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: var(--sp-gap); margin-top: clamp(40px,6vw,80px);
+}
+.model-trio-item {
+  position: relative; overflow: hidden;
+  border-radius: var(--radius-md); aspect-ratio: 3/4;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  opacity: 0; transform: translateY(36px);
+  transition: opacity .8s var(--ease), transform .8s var(--ease), border-color .3s;
+}
+.model-trio-item.revealed { opacity: 1; transform: translateY(0); }
+.model-trio-item:nth-child(2) { transition-delay: .12s; }
+.model-trio-item:nth-child(3) { transition-delay: .24s; }
+.model-trio-item:hover { border-color: rgba(255,255,255,0.15); }
+.model-trio-item img { height: 100%; transition: transform .7s var(--ease); }
+.model-trio-item:hover img { transform: scale(1.06); }
+.model-trio-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 10px 14px;
+  background: linear-gradient(transparent, rgba(5,24,45,0.88));
+  font-family: var(--font-mono); font-size: var(--fs-caption);
+  letter-spacing: var(--ls-medium); color: var(--clr-muted);
+}
+
+/* ══════════════════════════════════════════════
+   C. 攝影機 & 光影渲染說明
+   ══════════════════════════════════════════════ */
+.render-section {
+  padding: var(--sp-section) clamp(24px,8%,80px);
+  max-width: 1280px; margin: 0 auto;
+}
+.render-grid {
+  display: grid; grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(32px,5vw,72px);
+  /* 可調：align-items start → 讓圖頂對齊右欄第一個卡片頂部 */
+  align-items: start;
+  margin-top: clamp(32px,4vw,56px);
+}
+.render-img-wrap {
+  position: relative; border-radius: var(--radius-md);
+  overflow: hidden; aspect-ratio: 16/10;
+  background: var(--clr-surface);
+  /* 可調：margin-top 0 確保頂部對齊，不額外下移 */
+  margin-top: 0;
+}
+.render-img-wrap img { height: 100%; }
+.render-overlay {
+  position: absolute; top: 16px; left: 16px;
+  font-family: var(--font-mono); font-size: 0.62rem; /*攝影機*/
+  letter-spacing: var(--ls-wide);
+  color: rgba(255,255,255,0.55);
+  background: rgba(5,24,45,0.75);
+  padding: 4px 10px; border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.render-params { display: flex; flex-direction: column; gap: 16px; margin-top: 0; }
+.render-param-item {
+  display: flex; gap: 20px;
+  padding: 20px; border-radius: var(--radius-md);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: border-color .3s, background .3s;
+}
+.render-param-item:hover {
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.05);
+}
+.render-param-num {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: rgba(255,255,255,0.28); flex-shrink: 0; padding-top: 2px;
+}
+.render-param-title {
+  font-family: var(--font-display); font-size: 1.05rem;
+  font-weight: var(--fw-light); letter-spacing: var(--ls-medium);
+  color: rgba(255,255,255,0.85); margin-bottom: 6px;
+}
+.render-param-desc { 
+  font-size: var(--fs-caption); 
+  color: rgba(255, 255, 255, 0.468);
+  letter-spacing: .06em;
+  line-height: 1.7; }
+
+/* ══════════════════════════════════════════════
+   D. 草圖 / 建模 / 成品 + PNG 展示 + 返回
+   ══════════════════════════════════════════════ */
+.product-section {
+  padding: var(--sp-section) clamp(24px,8%,80px);
+  max-width: 1280px; margin: 0 auto;
+}
+.product-trio {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: var(--sp-gap); margin-top: clamp(32px,4vw,56px);
+}
+.product-card {
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius-md); overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: transform var(--dur-med) var(--ease), border-color .3s;
+}
+.product-card:hover { transform: translateY(-6px); border-color: rgba(255, 255, 255, 0.637); }
+.product-card-img {
+  aspect-ratio: 1/1; overflow: hidden; position: relative;
+  background: var(--clr-surface2);
+}
+.product-card-img img { height: 100%; transition: transform .7s var(--ease); }
+.product-card:hover .product-card-img img { transform: scale(1.07); }
+.product-card-body { padding: 20px 18px; }
+.product-card-step {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  letter-spacing: var(--ls-wide); color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+}
+.product-card-title {
+  font-family: var(--font-display); font-size: 1.15rem;
+  font-weight: var(--fw-light); letter-spacing: var(--ls-medium);
+  color: rgba(255,255,255,0.88); margin-bottom: 8px;
+}
+.product-card-desc { 
+  font-size: var(--fs-caption); 
+  letter-spacing: .05em; 
+  color: rgba(255, 255, 255, 0.527);
+   line-height: 1.7; 
+}
+
+/* PNG 展示區（圖 + 文左右）*/
+/* 可調：margin-top 整個 ring 區塊下移距離（目前 clamp(100px,14vw,160px)）*/
+.ring-showcase {
+  /* 可調：margin-top 間隔距離（目前 clamp(160px, 20vw, 240px)）*/
+  margin-top: clamp(200px, 20vw, 240px);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(32px,5vw,80px); align-items: center;
+}
+.ring-img-container {
+  position: relative; display: flex;
+  align-items: center; justify-content: center;
+  /* 可調：min-height 讓容器有足夠空間放光環特效 */
+  min-height: 340px;
+}
+
+/* ══ 科技感旋轉光環（重做，不露透明邊）══ */
+/* 外層旋轉光弧 */
+/* 可調：inset -40px（光環大小）| blur 16px（柔化）| 旋轉速度 rotateConic 6s */
+.ring-glow-ring {
+  position: absolute;
+  /* 可調：inset 決定光環相對圖片的擴展尺寸 */
+  inset: -40px;
+  border-radius: 50%;
+  /* 可調：顏色①藍 rgba(126,184,212,0.5) | 顏色②金 rgba(200,184,154,0.4) | 透明帶寬度 */
+  background: conic-gradient(
+    from 0deg,
+    transparent            0deg,
+    rgba(126,184,212,0.0)  30deg,
+    rgba(126,184,212,0.45) 70deg,
+    rgba(200,184,154,0.55) 110deg,
+    rgba(126,184,212,0.30) 150deg,
+    transparent            190deg,
+    transparent            300deg,
+    rgba(126,184,212,0.20) 340deg,
+    transparent            360deg
+  );
+  /* 可調：旋轉速度 8s（越小越快）*/
+  animation: rotateConic 8s linear infinite;
+  /* 可調：blur 模糊柔化光弧 16px */
+  filter: blur(16px);
+  /* 遮罩：只讓環形部分顯示，完全消除透明邊框感 */
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 42px),
+    #fff calc(100% - 40px),
+    #fff 100%
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 42px),
+    #fff calc(100% - 40px),
+    #fff 100%
+  );
+}
+
+/* 細線光弧（內圈，科技感精細線條）*/
+/* 可調：inset -16px | border-width 1px | 顏色 rgba | 旋轉速度 4s reverse */
+.ring-glow-ring-line {
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  /* 可調：線條顏色漸層，from 的角度決定起始點 */
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(126,184,212,0.7) 20%,
+    rgba(200,184,154,0.8) 35%,
+    transparent 50%,
+    transparent 100%
+  ) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  /* 可調：反向旋轉 4s | 越小越快 */
+  animation: rotateConic 4s linear infinite reverse;
+}
+
+/* 中央輻射光暈（取代舊 ring-glow-inner，不佔圖片空間）*/
+/* 可調：radial-gradient 顏色 rgba(126,184,212,0.15) | 動畫週期 3s */
+.ring-glow-inner {
+  position: absolute;
+  width: 65%; height: 65%;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(126,184,212,0.15) 0%,
+    rgba(200,184,154,0.08) 40%,
+    transparent 70%
+  );
+  /* 可調：pulse 縮放 scale(0.9)→scale(1.1) | 週期 3.5s */
+  animation: innerPulse 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes rotateConic { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes innerPulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  50%       { opacity: 1;   transform: scale(1.1); }
+}
+
+/* 戒指圖片（去背 PNG，完全無邊框感）*/
+.ring-img-wrap {
+  position: relative; z-index: 2;
+  /* 可調：width 讓圖片在容器中的佔比 */
+  width: min(380px, 100%);
+  background: transparent;
+  /* 無 padding、無 overflow:hidden，讓 mix-blend-mode 完整作用 */
+  padding: 0;
+  overflow: visible;
+}
+/* 去背 PNG 完整處理 */
+/* 可調：drop-shadow 三層光暈顏色與模糊距離 */
+/* 可調：飄浮 translateY ±10px | 週期 4.5s */
+.ring-img-wrap img {
+  width: 100%; height: auto;
+  object-fit: contain;
+  display: block;
+  /* 去背核心：lighten 讓白底完全消失於深色背景 */
+  mix-blend-mode: lighten;
+  /* 可調：層①藍光 blur 40px spread | 層②金光 blur 18px | 層③頂部藍邊 */
+  filter:
+    drop-shadow(0  20px 40px rgba(80,160,220,0.50))
+    drop-shadow(0   4px 18px rgba(200,184,154,0.35))
+    drop-shadow(0  -4px 20px rgba(126,184,212,0.25));
+  /* 可調：飄浮幅度 ±10px | 週期 4.5s ease-in-out */
+  animation: ringFloat 4.5s ease-in-out infinite;
+}
+/* 可調：飄浮幅度 ±10px | 週期 4.5s */
+@keyframes ringFloat {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-10px); }
+}
+
+/* 漂浮粒子 */
+.ring-particles { position: absolute; inset: -20px; pointer-events: none; z-index: 1; }
+.particle {
+  position: absolute; width: 3px; height: 3px;
+  border-radius: 50%; animation: floatParticle linear infinite; opacity: 0;
+}
+@keyframes floatParticle {
+  0%   { opacity: 0; transform: translateY(0) scale(0); }
+  20%  { opacity: 0.7; transform: translateY(-20px) scale(1); }
+  80%  { opacity: 0.4; transform: translateY(-80px) scale(0.6); }
+  100% { opacity: 0; transform: translateY(-120px) scale(0); }
+}
+
+/* 文字說明 */
+.ring-text-wrap {}
+.ring-text-title {
+  font-family: var(--font-display); font-size: clamp(1.4rem,2.5vw,2rem);
+  font-weight: var(--fw-light); line-height: var(--lh-tight);
+  letter-spacing: var(--ls-medium); color: rgba(255,255,255,0.88); margin-bottom: 70px;
+}
+.ring-text-body { font-size: 14px; line-height: 1.9; color: rgba(255, 255, 255, 0.715); }
+.ring-specs { display: flex; flex-direction: column; gap: 10px; margin-top: 35px; }
+.ring-spec-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+  font-size: var(--fs-caption);
+}
+.ring-spec-key { font-family: var(--font-mono); letter-spacing: var(--ls-medium); color: var(--clr-muted); }
+.ring-spec-val { color: rgba(255,255,255,0.65); }
+
+/* ══════════════════════════════════════════════
+   流光返回按鈕 — 保留原版 shimmer，升級光流框
+   ( @property + conic-gradient from style.css )
+   ══════════════════════════════════════════════ */
+@property --glow-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@keyframes glowSpin { to { --glow-angle: 360deg; } }
+
+.back-wrap {
+  display: flex; justify-content: center;
+  margin-top: clamp(60px,8vw,100px); margin-bottom: 20px;
+}
+/* 使用 back-btn 類，但改成光流版設計 */
+/* 可調：font-size 9px | letter-spacing .24em | padding 10px 28px（縮小）*/
+.back-btn {
+   margin-TOP: 200px;
+  position: relative;
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  padding: 9px 28px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.05);
+  border: none;
+  text-decoration: none; cursor: pointer; isolation: isolate;
+  transition: color .35s, background .35s, transform .25s;
+}
+/* 邊框層 */
+.back-btn::before {
+  content: ''; position: absolute; inset: 0;
+  border-radius: 99px;
+  border: 1px solid rgba(255,255,255,0.22);
+  transition: border-color .35s; pointer-events: none;
+}
+/* 光流層 */
+.back-btn::after {
+  content: ''; position: absolute; inset: -1px; border-radius: 99px;
+  background: conic-gradient(
+    from var(--glow-angle),
+    transparent 0%, transparent 55%,
+    rgba(255,255,255,0.15) 65%,
+    rgba(255,255,255,0.95) 75%,
+    rgba(200,220,255,0.6) 82%,
+    transparent 92%, transparent 100%
+  );
+  opacity: 0; transition: opacity .3s; z-index: -1;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  padding: 1px; pointer-events: none;
+}
+.back-btn:hover { color: rgba(255,255,255,0.95); background: rgba(255,255,255,0.13); transform: translateY(-1px); }
+.back-btn:hover::before { border-color: rgba(255,255,255,0.08); }
+.back-btn:hover::after { opacity: 1; animation: glowSpin 1.6s linear infinite; }
+.back-btn-arrow { font-size: 1rem; transition: transform var(--dur-fast); }
+.back-btn:hover .back-btn-arrow { transform: translateX(-4px); }
+
+/* ══════════════════════════════════════════════
+   E. FOOTER
+   ══════════════════════════════════════════════ */
+.footer {
+  padding: 40px clamp(24px,8%,80px);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--dark2);
+}
+.copyright {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: var(--ls-medium); color: rgba(255, 255, 255, 0.664);
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════════
+   RWD — 768px 手機
+   ══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  /* 可調（手機）：orb 縮小 */
+  .hero-orb-1 { width: 220px; height: 220px; }
+  .hero-orb-2 { width: 180px; height: 180px; }
+  /* 可調（手機）：邊緣遮罩縮窄 */
+  .hero-edge-left, .hero-edge-right { width: 48px; }
+  .hero-edge-top { height: 100px; }
+  .hero-edge-bottom { height: 160px; }
+  .intro-grid { grid-template-columns: 1fr; gap: 24px; }
+  .intro-img-wrap { aspect-ratio: 16/10; }
+  .model-trio { grid-template-columns: 1fr; gap: 16px; }
+  .model-trio-item { aspect-ratio: 16/9; }
+  .render-grid { grid-template-columns: 1fr; gap: 24px; }
+  .product-trio { grid-template-columns: 1fr; gap: 16px; }
+  .product-card-img { aspect-ratio: 16/9; }
+  .ring-showcase { grid-template-columns: 1fr; gap: 32px; }
+  /* 可調（手機）：戒指圖最大寬度 */
+  .ring-img-wrap { max-width: 260px; margin: 0 auto; }
+  .footer { padding: 20px 24px; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .intro-grid, .render-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .product-trio { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .ring-showcase { gap: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="top-nav" id="navbar">
+  <div class="nav-brand">
+    <span class="nav-brand-name">WANG MIN HSUAN</span>
+    <span class="nav-brand-sub">| CERAMIC ARTIST</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li>
+    <li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a>
+  <a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a>
+  <a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     A. HERO — 全版背景圖 + 上飛粒子 + 大標題
+══════════════════════════════════════════ -->
+<section class="hero" id="home">
+  <!-- 背景底色 -->
+  <div class="hero-bg"></div>
+  <!-- 全版背景圖（td-1.jpg 渲染場景）-->
+  <!-- 可調：src 路徑 → 換成主視覺渲染場景圖 -->
+  <div class="hero-bg-img"></div>
+  <!-- 深色疊加層 -->
+  <div class="hero-overlay"></div>
+  <!-- 噪點質感 -->
+  <div class="hero-noise"></div>
+
+  <!-- 光暈球 -->
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <!-- 上飛粒子容器（JS 注入）-->
+  <div id="heroParticles"></div>
+
+  <!-- 邊緣陰影遮罩 -->
+  <div class="hero-edge-left"></div>
+  <div class="hero-edge-right"></div>
+  <div class="hero-edge-top"></div>
+  <div class="hero-edge-bottom"></div>
+
+  <!-- 文字層（置中大標題）-->
+  <div class="hero-content">
+    <div class="hero-eyebrow">3D MODELING  ·  RHINO · 2024</div>
+    <h1 class="hero-title">CALCITE WARP GATE<br><em>ABYSSAL RUINS</em></h1>
+    <div class="hero-rule"></div>
+   
+  </div>
+
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <div class="scroll-line-track">
+      <div class="scroll-line-fill"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     B. 主介紹區
+══════════════════════════════════════════ -->
+<section class="intro-section">
+
+  <div class="intro-grid">
+    <!-- 左：大圖（左滑入）-->
+    <div class="intro-img-wrap reveal-left">
+      <img src="images/td-1.jpg" alt="Calcite Ring Stand Main">
+    </div>
+    <!-- 右：介紹（右滑入）-->
+    <div class="intro-text-wrap reveal-right delay-2">
+      <div class="section-label">OVERVIEW</div>
+      <h2 class="section-title">About Work<br>
+      <p class="intro-body">
+       本作品為結合 3D 列印與 LED 燈光技術的戒指展示架。製程從初期概念草圖出發，
+       逐步收斂至幾何塊面；並將早期較為繁複的構圖，精簡為單面的塊面排列，藉此優化 3D 列印的成形效率與 LED 電路的硬體配置。
+      </p>
+      <p class="intro-body" style="margin-top:16px;">
+       戒指造型以塊面呼應整體設計。
+       在場景呈現上，揚棄後製合成，選擇直接於 Rhino 中建構完整空間：運用重複的幾何元素向背景延伸，
+       並透過精準的鏡頭視角與景深調校，打造出具備強烈空間縱深的實景渲染。
+      </p>
+    </div>
+  </div>
+
+  <!-- 三張建模照片 -->
+  <div class="model-trio" style="margin-top: clamp(40px,6vw,80px);">
+    <div class="model-trio-item">
+      <img src="images/td-1-1.jpg" alt="建模圖1">
+      <div class="model-trio-caption">MODELING — VIEW 01</div>
+    </div>
+    <div class="model-trio-item">
+      <img src="images/td-1-2.jpg" alt="建模圖2">
+      <div class="model-trio-caption">MODELING — VIEW 02</div>
+    </div>
+    <div class="model-trio-item">
+      <img src="images/td-1-3.jpg" alt="建模圖3">
+      <div class="model-trio-caption">MODELING — VIEW 03</div>
+    </div>
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════
+     C. 攝影機架設 & 光影渲染說明
+══════════════════════════════════════════ -->
+<section class="render-section">
+
+  <div class="section-label reveal-up">TECHNICAL</div>
+  <h2 class="section-title reveal-up delay-1">Camera Setup & Lighting Design</h2>
+
+  <div class="render-grid">
+    <!-- 左：圖片（左滑入）-->
+    <div class="render-img-wrap reveal-left delay-1">
+      <img src="images/td-1-camera.jpg" alt="Camera & Lighting Setup">
+      <div class="render-overlay">RHINO VIEWPORT</div>
+    </div>
+    <!-- 右：說明（右滑入）-->
+    <div class="render-params reveal-right delay-2">
+      <div class="render-param-item">
+        <div class="render-param-num">01</div>
+        <div>
+          <div class="render-param-title">鏡頭構圖</div>
+          <p class="render-param-desc">
+            畫面運用重複的幾何塊面自背景延伸，配合鏡頭視角與景深調校，建構強烈的空間感。
+            構圖上高度聚焦於戒指舞台——將其置於地平線稍低處，並透過微俯視角切入，在拉開空間張力的同時，自然引導視覺核心。
+        </div>
+      </div>
+      <div class="render-param-item">
+        <div class="render-param-num">02</div>
+        <div>
+          <div class="render-param-title">主光源</div>
+          <p class="render-param-desc">
+            呼應戒指展示架本身的自發光結構，在渲染時同步調校主光源與環境光。
+            整體氛圍刻意模擬遊戲中的傳送門或遺跡場景的科幻感。
+          </p>
+        </div>
+      </div>
+      <div class="render-param-item">
+        <div class="render-param-num">03</div>
+        <div>
+          <div class="render-param-title">環境光與細部發光</div>
+          <p class="render-param-desc">
+            為了極大化中央主體的光澤與表面紋理，在模型結構內部精準配置環境補光，
+            並透過自發光模擬，讓邊緣與質地隨著光影變化綻放細緻的通透感。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ══════════════════════════════════════════
+     D. 草圖 / 建模 / 成品 + 戒指展示 + 返回
+══════════════════════════════════════════ -->
+<section class="product-section">
+
+  <div class="section-label reveal-up">PROCESS</div>
+  <h2 class="section-title reveal-up delay-1">Sketch · Model · Product</h2>
+
+  <!-- 三欄卡片 -->
+  <div class="product-trio">
+    <div class="product-card reveal-up delay-1">
+      <div class="product-card-img">
+        <img src="images/td-1-sketch.jpg" alt="草圖">
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-step">STEP 01 &nbsp;·&nbsp; SKETCH</div>
+        <div class="product-card-title">初步概念草圖</div>
+        <p class="product-card-desc">
+          在設計初期繪製了大量概念草圖，藉由多種堆疊形式與幾何結構，深度探索戒指展示架的視覺可能性。
+        </p>
+      </div>
+    </div>
+
+    <div class="product-card reveal-up delay-2">
+      <div class="product-card-img">
+        <img src="images/td-1-model.jpg" alt="建模">
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-step">STEP 02 &nbsp;·&nbsp; MODELING</div>
+        <div class="product-card-title">Rhino 建模</div>
+        <div class="product-card-desc">
+          最後設計提煉為單面幾何塊面排列。
+          能契合 3D 列印的分層堆疊特性與內部的 LED 燈具線路整合預留了精準的硬體空間。
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal-up delay-3">
+      <div class="product-card-img">
+        <img src="images/td-1-final.jpg" alt="成品">
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-step">STEP 03 &nbsp;·&nbsp; FINAL</div>
+        <div class="product-card-title">3D 列印成品</div>
+        <div class="product-card-desc">
+          實體作品採用 3D 列印成形並嵌入 LED 燈組，並使用特殊噴漆上色營造鉍礦般的色彩。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PNG 戒指展示區 -->
+  <div class="ring-showcase reveal-up">
+    <!-- 左：戒指圖 + 流光 -->
+    <div class="ring-img-container">
+      <div class="ring-glow-ring"></div>
+      <div class="ring-glow-ring-line"></div>
+      <div class="ring-glow-inner"></div>
+      <div class="ring-particles" id="ringParticles"></div>
+      <div class="ring-img-wrap">
+        <img src="images/td-1-ring.png" alt="Ring Design — PNG">
+      </div>
+    </div>
+    <!-- 右：說明 -->
+    <div class="ring-text-wrap">
+      <div class="section-label" style="margin-bottom:12px;">PRODUCT DETAIL</div>
+      <h3 class="ring-text-title">Calcite Ring<br><em style="font-family:var(--font-display);
+        font-style:italic;color:rgba(255,255,255,0.45);"></em></h3>
+      <p class="ring-text-body">
+        戒指造型深度呼應展示架的幾何美學，將塊面幾何纹理環繞延展於表面。
+        與相同元素展示架建構出具備系列感和完整度的視覺系統。
+      </p>
+      <div class="ring-specs">
+        <div class="ring-spec-item">
+          <span class="ring-spec-key">SOFTWARE</span>
+          <span class="ring-spec-val">Rhino 7</span>
+        </div>
+        <div class="ring-spec-item">
+          <span class="ring-spec-key">MATERIAL</span>
+          <span class="ring-spec-val">PLA — Polished Silver</span>
+        </div>
+        <div class="ring-spec-item">
+          <span class="ring-spec-key">PROCESS</span>
+          <span class="ring-spec-val">FDM 3D Printing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 流光返回按鈕（保留原版 shimmer + 升級光流框）-->
+  <div class="back-wrap reveal-up">
+    <a href="3d.html" class="back-btn">
+      <span class="back-btn-arrow">←</span>
+      <span>BACK TO 3D MODELING</span>
+    </a>
+  </div>
+
+</section>
+
+<!-- E. FOOTER -->
+<footer class="footer">
+  <p class="copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</footer>
+
+<script>
+/* ── Nav scroll effect ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+
+/* ── Hamburger ── */
+const ham = document.getElementById('hamburger');
+const mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mMenu.classList.toggle('open');
+  document.body.style.overflow = mMenu.classList.contains('open') ? 'hidden' : '';
+});
+document.querySelectorAll('.mm-link').forEach(a => a.addEventListener('click', () => {
+  ham.classList.remove('open');
+  mMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}));
+
+/* ── IntersectionObserver 進場動畫 ──
+   同時支援 reveal-up / reveal-left / reveal-right 和 model-trio-item
+*/
+const io = new IntersectionObserver(entries =>
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('revealed');
+    io.unobserve(e.target);
+  }),
+  { threshold: 0.08, rootMargin: '0px 0px -24px 0px' }
+);
+document.querySelectorAll(
+  '.reveal-up, .reveal-left, .reveal-right, .model-trio-item'
+).forEach(el => io.observe(el));
+
+/* ══════════════════════════════════════════════
+   Hero 上飛粒子系統（展台飛揚感）
+   可調數值全部列於此處：
+   ══════════════════════════════════════════════ */
+(function initHeroParticles() {
+  const container = document.getElementById('heroParticles');
+  if (!container) return;
+
+  /* ── 可調參數 ── */
+  const TOTAL     = window.innerWidth < 768 ? 30 : 55;  /* 粒子總數（手機/桌機）*/
+  const COLORS    = [                                     /* 粒子顏色池 */
+    'rgba(126,184,212,',   /* 藍色系 */
+    'rgba(200,184,154,',   /* 金色系 */
+    'rgba(180,220,255,',   /* 淺藍系 */
+    'rgba(255,255,255,',   /* 純白系 */
+  ];
+  const SIZE_MIN  = 1.5;   /* 粒子最小尺寸 px */
+  const SIZE_MAX  = 4.5;   /* 粒子最大尺寸 px */
+  const DUR_MIN   = 3.5;   /* 最短動畫秒數 */
+  const DUR_MAX   = 8.0;   /* 最長動畫秒數 */
+  const DELAY_MAX = 6.0;   /* 最大初始延遲秒數（錯開出現）*/
+  const X_MIN     = 15;    /* 水平範圍左邊界 % */
+  const X_MAX     = 85;    /* 水平範圍右邊界 % */
+  /* 底部起始位置（集中在下方 1/3 區域，模擬從展台飛出）*/
+  const Y_BOT_MIN = 50;    /* 底部 % — 起點下限 */
+  const Y_BOT_MAX = 80;    /* 底部 % — 起點上限 */
+
+  for (let i = 0; i < TOTAL; i++) {
+    const el = document.createElement('div');
+    el.className = 'hero-particle';
+
+    const size    = SIZE_MIN + Math.random() * (SIZE_MAX - SIZE_MIN);
+    const x       = X_MIN + Math.random() * (X_MAX - X_MIN);
+    const yBot    = Y_BOT_MIN + Math.random() * (Y_BOT_MAX - Y_BOT_MIN);
+    const dur     = DUR_MIN + Math.random() * (DUR_MAX - DUR_MIN);
+    const delay   = -(Math.random() * DELAY_MAX); /* 負延遲讓粒子立即分散出現 */
+    const alpha   = 0.5 + Math.random() * 0.5;
+    const clr     = COLORS[Math.floor(Math.random() * COLORS.length)];
+    /* 少數粒子改成菱形 */
+    const shape   = Math.random() < 0.25 ? '20%' : '50%';
+    /* 少數粒子有微弱發光 */
+    const glow    = Math.random() < 0.3
+      ? `0 0 ${4 + Math.random()*6}px ${clr}0.6)` : 'none';
+
+    Object.assign(el.style, {
+      width:           size + 'px',
+      height:          size + 'px',
+      left:            x + '%',
+      top:             yBot + '%',
+      borderRadius:    shape,
+      background:      clr + alpha + ')',
+      boxShadow:       glow,
+      animationDuration:  dur + 's',
+      animationDelay:     delay + 's',
+    });
+    container.appendChild(el);
+  }
+})();
+
+/* ── 戒指漂浮粒子 ── */
+(function spawnParticles() {
+  const container = document.getElementById('ringParticles');
+  if (!container) return;
+  const count = 20;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const x        = 10 + Math.random() * 80;
+    const size     = 2 + Math.random() * 3;
+    const duration = 3 + Math.random() * 4;
+    const delay    = Math.random() * 4;
+    Object.assign(p.style, {
+      left: x + '%', bottom: '5%',
+      width: size + 'px', height: size + 'px',
+      animationDuration: duration + 's',
+      animationDelay: delay + 's',
+      background: i % 3 === 0 ? 'rgba(126,184,212,0.75)' : 'rgba(200,184,154,0.65)',
+    });
+    container.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>
