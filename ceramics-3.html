@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ★ 頁籤標題 → 修改 -->
+<title>BOX CAT | WANG MIN HSUAN</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║              字體載入說明                                     ║
+  ║  Cormorant Garamond → 英文 Serif 大標（--serif）              ║
+  ║  DM Sans            → 本文字體（--body）                      ║
+  ║  Space Mono         → 標籤/數字（--mono）                     ║
+  ║  Noto Serif TC      → 中文大字（.r3-cjk-main）                ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&family=Space+Mono&family=Noto+Serif+TC:wght@200;300;400&display=swap" rel="stylesheet">
+
+<style>
+/*
+╔═══════════════════════════════════════════════════════════════════╗
+║            ★★★  ceramics-3 設計系統速查  ★★★                     ║
+╠═══════════════════════════════════════════════════════════════════╣
+║  【顏色】                                                          ║
+║    --r3-navy   背景主色（深藍）                                    ║
+║    --r3-navy2  次背景色（較深）                                    ║
+║    --r3-accent 強調色（標籤/邊線）                                 ║
+║    --r3-hi     標題白色                                            ║
+║    --r3-mid    本文半透明白                                        ║
+║    --r3-lo     輔助文字（低調）                                    ║
+║    --r3-border 邊線                                               ║
+║  【區域說明】                                                      ║
+║    A - Hero         全版大圖+標題+裝飾線+半透明遮罩                ║
+║    B - Intro        創作理念（左引言/右內文）                       ║
+║    C - Gallery      三張大圖並排                                   ║
+║    D - Process      製作過程（草圖+半成品+Final Work）              ║
+║    E - Final Full   結尾全版大圖                                   ║
+╚═══════════════════════════════════════════════════════════════════╝
+*/  
+
+/* ════════════════════════════════════════
+   ★【A】顏色系統 — 改這裡影響全頁色調
+   ════════════════════════════════════════ */
+:root {
+  --r3-navy:    #b39777;           /* ← ★ 主背景色（深藍） */
+  --r3-navy2:   #1c3a00c8;            /* ← ★ 次背景色（更深） */
+  --r3-accent:  #fffae0;            /* ← ★ 強調色（標籤/邊線/小標）*/
+  --r3-hi:      #fff4c0;            /* ← ★ 標題白色 */
+  --r3-mid:     rgba(255,255,255,.83); /* ← ★ 本文白色透明度 */
+  --r3-lo:      #90b3ffb4;          /* ← ★ 輔助文字（低調）*/
+  --r3-border:  #fffadf57; /* ← ★ 邊線顏色 */
+}
+body { background: var(--r3-navy); color: var(--r3-mid); }
+
+/* ════════════════════════════════════════
+   ★【A】HERO — 全版大圖 + 置中文字 + 遮罩
+   ════════════════════════════════════════ */
+.r3-hero {
+  position: relative;
+  width: 100%; height: 100vh; min-height: 560px; /* ← ★ Hero 高度（100vh = 整個視窗高）*/
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ★【A】Hero 背景大圖
+   【換圖】改下方 HTML 裡 style="background-image:url(...)" */
+.r3-hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transform: scale(1.08) translate3d(0,0,0);
+  transition: transform 9s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+.r3-hero.loaded .r3-hero-bg { transform: scale(1) translate3d(0,0,0); }
+
+/* ★【A】半透明漸層遮罩（上下漸暗，中心留亮）
+   調整 rgba 最後數字 → 0=透明 1=全遮 */
+.r3-hero-veil {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(3,18,46,.55) 0%,    /* ← ★ 頂部遮罩濃度 */
+    rgba(3,18,46,.18) 35%,   /* ← ★ 中上段 */
+    rgba(3,18,46,.25) 65%,   /* ← ★ 中下段 */
+    #673200 100%   /* ← ★ 底部遮罩濃度 */
+  );
+}
+
+/* ★【A】霧狀四周暗角遮罩（電影感邊框）
+   ellipse 後的 % 越大 → 中心透明區越寬 */
+.r3-hero-fog {
+  position: absolute; inset: 0;
+  background: radial-gradient(
+    ellipse 60% 52% at center,
+    rgba(3,18,46,.08) 0%,    /* ← ★ 中心透明度（0=清晰）*/
+    rgba(3,18,46,.38) 52%,   /* ← ★ 中段過渡 */
+    rgba(61, 32, 0, 0.7) 100%   /* ← ★ 四邊暗角 */
+  );
+  opacity: 1;                /* ← ★ 整體霧感強度（0=無霧, 1=最濃）*/
+  pointer-events: none; z-index: 1;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+}
+
+/* ★【A】Hero 內容：置中對齊 */
+.r3-hero-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 0 8%;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* ★【A】眉標（小標籤）
+   letter-spacing → 字間距（em 單位，越大越開）
+   color → rgba 最後數字 = 透明度 */
+.r3-hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 9px;           /* ← ★ 眉標字體大小 */
+  letter-spacing: .42em;    /* ← ★ 眉標字間距 */
+  color: rgba(255,255,255,.38); /* ← ★ 眉標顏色透明度 */
+  text-transform: uppercase;
+  margin-bottom: 30px;      /* ← ★ 眉標與標題的距離 */
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  opacity: 0; animation: r3Up .7s .3s cubic-bezier(.22,1,.36,1) forwards;
+}
+.r3-hero-eyebrow::before, .r3-hero-eyebrow::after {
+  content: ''; display: block;
+  width: 26px;              /* ← ★ 眉標裝飾短線長度 */
+  height: 1px;
+  background: rgba(255,255,255,.28);
+}
+
+/* Hero 標題動畫容器 */
+.r3-hero-title { margin: 0; opacity: 0; animation: r3Up .95s .55s cubic-bezier(.22,1,.36,1) forwards; }
+
+/* ★【A】中文大字（主標）
+   font-size → clamp(最小, 響應vw, 最大)
+   letter-spacing → 字間距（.90em 配合裝飾線）
+   text-indent → 配合 letter-spacing，讓整體視覺置中 */
+.r3-cjk-main {
+  display: block;
+  font-family: 'Noto Serif TC', 'Cormorant Garamond', Georgia, serif; /* ← ★ 中文字體 */
+  font-weight: 200;
+  font-size: clamp(80px, 14vw, 120px); /* ← ★ 中文大字大小（最小/響應/最大）*/
+  color: #fff;
+  letter-spacing: .80em;    /* ← ★ 中文字間距 */
+  text-indent: .90em;       /* ← ★ 配合字間距視覺置中 */
+  line-height: 1;
+  text-shadow: 0 0 140px rgba(91,140,247,.2), 0 2px 48px rgba(0,0,0,.5);
+}
+
+/* ★【A】裝飾橫線（兩側）
+   width → 線長度（px）
+   height → 線粗細（px）
+   background → 顏色+透明度
+   margin → 線與文字距離 */
+.r3-cjk-wrap {
+  display: flex; align-items: center; justify-content: center;
+}
+.r3-deco-line {
+  display: block;
+  width: 200px;                       /* ← ★ 裝飾線長度 */
+  height: 1.5px;                      /* ← ★ 裝飾線粗細 */
+  background: rgba(255,255,255,.52);  /* ← ★ 裝飾線透明度 */
+  margin: 0 50px;                     /* ← ★ 線與文字距離（上下/左右）*/
+  flex-shrink: 0;
+  transform: scaleX(0); transform-origin: center;
+  transition: transform .9s cubic-bezier(.22,1,.36,1) 1.0s;
+}
+.r3-deco-line--left  { transform-origin: right; }
+.r3-deco-line--right { transform-origin: left; }
+.r3-hero.loaded .r3-deco-line { transform: scaleX(1); }
+
+/* ★【A】英文副標（斜體）
+   font-size → 大小
+   letter-spacing → 字間距 */
+.r3-en-sub {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic; font-weight: 300;
+  font-size: clamp(28px, 5.5vw, 30px); /* ← ★ 英文副標大小 */
+  color: rgba(255,255,255,.42);          /* ← ★ 英文副標透明度 */
+  letter-spacing: .5em;                 /* ← ★ 英文副標字間距 */
+  margin-top: 30px;                     /* ← ★ 中英文之間距離 */
+  line-height: 1.1;
+}
+
+
+
+/* 捲動提示 */
+.r3-scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: r3Up .6s 1.1s cubic-bezier(.22,1,.36,1) forwards;
+}
+.r3-scroll-hint span {
+  font-family: var(--mono); font-size: 8px; letter-spacing: .3em;
+  color: rgba(255,255,255,.22); text-transform: uppercase;
+}
+.r3-scroll-arrow {
+  width: 1px; height: 54px; background: rgba(255,255,255,.1);
+  position: relative; overflow: hidden;
+}
+.r3-scroll-arrow::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 45%;
+  background: linear-gradient(to bottom, transparent, #fff4c0);
+  animation: r3Drop 2.4s ease-in-out infinite;
+}
+
+
+/* ════════════════════════════════════════
+   ★【B】INTRO — 創作理念（左引言/右內文）
+   ════════════════════════════════════════
+   grid-template-columns → 左欄:右欄 比例（1fr 1.65fr = 左窄右寬）
+   gap → 兩欄間距
+   padding → 區塊上下左右內距
+   ════════════════════════════════════════ */
+.r3-intro {
+  width: 100%; box-sizing: border-box;
+  background: var(--r3-navy2);
+  padding: 96px 10%;              /* ← ★ 上下 96px / 左右 10% */
+  display: grid;
+  grid-template-columns: 1fr 1.65fr; /* ← ★ 左欄:右欄比例 */
+  gap: 10px;                      /* ← ★ 兩欄間距 */
+  align-items: center;
+  border-top: 0px solid var(--r3-border);
+  max-width: 100%; margin: 0;
+}
+
+/* ★【B】左側引言大字
+   font-size → 大小
+   letter-spacing → 字間距（行距感）
+   border-left → 左側豎線顏色 */
+.r3-intro-quote {
+  border-left: 1.2px solid var(--r3-accent); /* ← ★ 左側豎線 */
+  padding-left: 36px;                         /* ← ★ 豎線與文字距離 */
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 30px);          /* ← ★ 引言大字大小 */
+  font-weight: 300; color: var(--r3-hi);
+  letter-spacing: .50em; line-height: 5;      /* ← ★ 引言行高（數字越大越鬆散）*/
+  opacity: 0; transform: translateX(-28px);
+  transition: opacity .95s cubic-bezier(.22,1,.36,1), transform .95s cubic-bezier(.22,1,.36,1);
+  align-self: center; padding-top: 28px;
+}
+.r3-intro-quote.r3-in { opacity: 1; transform: translateX(0); }
+
+/* ★【B】右側文字容器 */
+.r3-intro-right {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .95s .18s cubic-bezier(.22,1,.36,1), transform .95s .18s cubic-bezier(.22,1,.36,1);
+}
+.r3-intro-right.r3-in { opacity: 1; transform: translateY(0); }
+
+/* ★【B】右側小標題
+   font-size → 大小
+   letter-spacing → 字間距
+   color → 使用強調色 */
+.r3-intro-subtitle {
+  font-family: var(--mono);
+  font-size: 22px;        /* ← ★ 創作理念標題大小 */
+  letter-spacing: .50em;  /* ← ★ 標題字間距 */
+  color: var(--r3-accent); /* ← ★ 標題顏色（強調藍）*/
+  text-transform: uppercase; margin-bottom: 16px;
+}
+
+/* ★【B】右側內文
+   font-size → 大小
+   line-height → 行高
+   letter-spacing → 字間距 */
+.r3-intro-text {
+  font-size: 20px;       /* ← ★ 內文字體大小（桌機）*/
+  line-height: 1.5;      /* ← ★ 內文行高 */
+  letter-spacing: .07em; /* ← ★ 內文字間距 */
+  color: #fff0e2;
+  margin-top: 28px;
+  margin-bottom: 28px;
+}
+
+
+/* ════════════════════════════════════════
+   ★【C】GALLERY — 三張大圖並排
+   grid-template-columns → 欄數設定（repeat(3,1fr) = 三欄等寬）
+   gap → 圖片之間距離
+   aspect-ratio → 圖片比例（3/4 = 直向，改 16/9 = 橫向）
+   ════════════════════════════════════════ */
+.r3-works-header {
+  background: var(--r3-navy2);
+  padding: 72px 8% 52px;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 32px;
+  border-bottom: 1px solid var(--r3-border);
+}
+
+
+.r3-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* ← ★ 三欄等寬（改 2 = 兩欄）*/
+  gap: 3px;                              /* ← ★ 圖片間距（px）*/
+  background: #b39777;
+}
+.r3-gallery-item {
+  position: relative; overflow: hidden; background: #0a1e40;
+  opacity: 0; transform: translateY(52px);
+  transition: opacity 1s cubic-bezier(.22,1,.36,1), transform 1s cubic-bezier(.22,1,.36,1);
+}
+.r3-gallery-item.r3-in { opacity: 1; transform: translateY(0); }
+.r3-gallery-item:nth-child(2) { transition-delay: .18s; }
+.r3-gallery-item:nth-child(3) { transition-delay: .36s; }
+
+
+
+
+/* ★【C】圖片比例與裁切
+   aspect-ratio → 比例（3/4=直向, 16/9=橫向, 1/1=方形）
+   object-fit   → cover=填滿裁切, contain=完整顯示有letterbox */
+.r3-gallery-item img {
+  width: 100%; display: block;
+  aspect-ratio: 3/4;         /* ← ★ 三圖比例（直向）*/
+  object-fit: cover;
+  transition: transform .9s cubic-bezier(.22,1,.36,1);
+}
+.r3-gallery-item:hover img { transform: scale(1.05); }
+
+/* 陰影效果 */
+.r3-gallery-item, .r3-step-img, .r3-sketch-img {
+  box-shadow:
+    0  4px  8px  rgba(0,0,0,.22),
+    0 12px 24px  rgba(0,0,0,.30),
+    0 28px 56px  rgb(46, 24, 3);
+}
+
+
+/* ════════════════════════════════════════
+   ★【D】製作過程 — 整體背景漸層
+   rgba 的 RGB 值 → 改顏色
+   透明度 0~1 → 改濃淡
+   ════════════════════════════════════════ */
+.r3-process-wrap {
+  background: linear-gradient(180deg,
+    rgba(3, 18, 46,  0)    0%,   /* ← ★ 頂部透明（接上方）*/
+    rgba(4, 22, 55, .96)  12%,   /* ← ★ 開始顯色 */
+    rgba(5, 28, 68, .98)  50%,   /* ← ★ 最深色（中間）*/
+    rgba(4, 22, 55, .96)  88%,   /* ← ★ 結束顯色 */
+    rgb(46, 24, 3)  100%    /* ← ★ 底部（接 footer）*/
+  );
+}
+
+/* ★【D】製作過程 Header（漸層區） */
+.r3-process-header {
+  background: linear-gradient(to bottom,
+    rgba(3,18,46,.0)  0%,
+    rgb(96, 62, 0) 38%,
+    rgba(68, 32, 5, 0.95) 100%,
+    var(--r3-navy)    100%
+  );
+  padding: 80px 8% 72px;   /* ← ★ 上/左右/下 */
+  max-width: 2500px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
+  border-bottom: none;
+}
+.r3-process-sub {
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: .38em;
+  color: #be7530; text-transform: uppercase;
+  display: flex; align-items: center; gap: 14px;
+}
+.r3-process-sub::after { content: ''; display: block; width: 30px; height: 1px; background: var(--r3-accent); }
+.r3-process-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 5vw, 64px); /* ← ★ 製作過程大標大小 */
+  font-weight: 300; color:  #fff0e2;; letter-spacing: .02em; line-height: 1.1;
+}
+
+/* 階段色塊 */
+.r3-phase-block { padding: 80px 8%; position: relative; overflow: hidden; }
+.r3-phase-block:nth-child(odd)  { background: var(--r3-navy); }
+.r3-phase-block:nth-child(even) { background: var(--r3-navy2); }
+.r3-phase-inner {
+  max-width: 1280px; margin: 0 auto;
+  opacity: 0; transform: translateY(50px);
+  transition: opacity 1.05s cubic-bezier(.22,1,.36,1), transform 1.05s cubic-bezier(.22,1,.36,1);
+}
+.r3-phase-inner.r3-in { opacity: 1; transform: translateY(0); }
+
+/* ★【D】階段標題列
+   border-bottom → 標題下分隔線 */
+.r3-phase-head {
+  display: flex; align-items: center; gap: 20px;
+  margin-bottom: 48px; padding-bottom: 20px;
+  border-bottom: 1.1px solid var(--r3-border);
+  color: #fff0e2;
+}
+.r3-phase-num {
+  font-family: var(--mono);
+  font-size: 12px;       /* ← ★ 步驟編號大小 */
+  letter-spacing: .32em; /* ← ★ 步驟編號字間距 */
+  color: #fff0e2;
+}
+.r3-phase-title {
+  font-family: var(--serif);
+  font-size: clamp(24px, 3.2vw, 42px); /* ← ★ 階段標題大小 */
+  font-weight: 300; ; 
+  letter-spacing: .2em;
+  color: #fff0e2;
+}
+.r3-phase-en {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: .30em; /* ← ★ 階段英文副標 */
+  color: #fff0e2; text-transform: uppercase;
+}
+
+/* ════════════════════════════════════════
+   ★【D-草圖】左文右圖版型（r3-step）
+   grid-template-columns → 文字:圖片比例
+   gap → 文字與圖之間距離
+   ════════════════════════════════════════ */
+.r3-step {
+  display: grid; grid-template-columns: 1.fr 1.15fr; /* ← ★ 左:右比例（越大越寬）*/
+  gap: 64px; align-items: center; 
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.r3-step.r3-step--rev { grid-template-columns: 1fr 1.15fr; }
+.r3-step.r3-step--rev .r3-step-img { order: 2; }
+.r3-step.r3-step--rev .r3-step-text { order: 1; }
+
+/* ★【D】圖片容器
+   aspect-ratio → 圖片比例
+   border-radius → 圓角（px）*/
+.r3-step-img {
+  overflow: hidden; border-radius: 6px;    /* ← ★ 圖片圓角 */
+  background: #f8d29c;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  opacity: 0; transform: translateX(-36px);
+  transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1), box-shadow .4s;
+}
+.r3-step.r3-step--rev .r3-step-img { transform: translateX(36px); }
+.r3-step-img.r3-in { opacity: 1; transform: translateX(0) !important; }
+.r3-step-img:hover { box-shadow: 0 28px 72px rgba(0,0,0,.6); }
+.r3-step-img img {
+  width: 100%; display: block;
+  aspect-ratio: 4/3;    /* ← ★ 圖片容器比例（4/3=橫向, 3/4=直向）*/
+  object-fit: cover;
+  transition: transform .8s cubic-bezier(.22,1,.36,1);
+  
+}
+.r3-step-img:hover img { transform: scale(1.04); }
+/* --tall：直向圖格 */
+.r3-step-img--tall img { aspect-ratio: 3/4; }
+
+/* ★【D】文字欄滑入動畫 */
+.r3-step-text {
+  opacity: 0; transform: translateX(28px);
+  transition: opacity .9s .12s cubic-bezier(.22,1,.36,1), transform .9s .12s cubic-bezier(.22,1,.36,1);
+}
+.r3-step.r3-step--rev .r3-step-text { transform: translateX(-28px); }
+.r3-step-text.r3-in { opacity: 1; transform: translateX(0) !important; }
+
+/* ★【D】步驟標題/說明
+   font-size → 字體大小
+   line-height → 行高
+   letter-spacing → 字間距 */
+.r3-step-title {
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.8vw, 34px); /* ← ★ 步驟標題大小 */
+  font-weight: 300; 
+  color: #fff0e2; 
+  letter-spacing: .05em; 
+  margin-bottom: 20px;
+}
+.r3-step-desc {
+  font-size: 20px;       /* ← ★ 步驟說明大小（桌機）*/
+  line-height: 2.5;      /* ← ★ 步驟說明行高 */
+  letter-spacing: .05em; /* ← ★ 步驟說明字間距 */
+  font-weight: 400; 
+  color: #fff0e2;
+}
+
+/* ★【D-草圖】三張半成品照片並排
+   grid-template-columns → 欄數（repeat(3,1fr)=三欄）
+   gap → 圖片間距 */
+.r3-sketches {
+  display: grid; grid-template-columns: repeat(3, 1fr); /* ← ★ 並排欄數 */
+  gap: 50px; 
+  margin-bottom: 70px;
+  margin-top: 100px
+}
+.r3-sketch-img {
+  overflow: hidden; border-radius: 12px; /* ← ★ 半成品圖圓角 */
+  background: #1c3a00c8;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+}
+.r3-sketch-img.r3-in { opacity: 1; transform: translateY(0); }
+.r3-sketch-img:nth-child(2) { transition-delay: .12s; }
+.r3-sketch-img:nth-child(3) { transition-delay: .24s; }
+.r3-sketch-img img {
+  width: 100%; display: block;
+  aspect-ratio: 2/2.5;     /* ← ★ 半成品圖比例 */
+  object-fit: cover;
+  transition: transform .7s cubic-bezier(.22,1,.36,1);
+}
+.r3-sketch-img:hover img { transform: scale(1.04); }
+
+
+
+/* ★【D-Final Work】成品兩張照片（左右高低差）
+   grid-template-columns → 左:右比例 */
+.r3-final-works {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* ← ★ 兩欄比例（等寬）*/
+  gap: 32px;                       /* ← ★ 兩欄間距 */
+  align-items: start;              /* ← ★ start=頂對齊（造成高低差）*/
+  margin-bottom: 48px;
+}
+
+/* 左圖往上，右圖往下（高低差效果）*/
+.r3-final-works .r3-step-img:first-child {
+  margin-top: 0;
+}
+.r3-final-works .r3-step-img:last-child {
+  margin-top: 60px;   /* ← ★ 右圖向下偏移（px，越大高低差越明顯）*/
+}
+
+/* Final Work 旁邊說明文字 */
+.r3-final-works-desc {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px; align-items: start;
+  margin-bottom: 64px;
+}
+.r3-final-desc-item {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+}
+.r3-final-desc-item.r3-in { opacity: 1; transform: translateY(0); }
+.r3-final-desc-label {
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: .28em;
+  color: var(--r3-accent); text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.r3-final-desc-text {
+  font-size: 14px; line-height: 1.9; /* ← ★ Final Work 說明文字行高 */
+  color: rgba(255,255,255,.55);
+}
+
+
+/* ════════════════════════════════════════
+   ★【E】結尾全版大圖
+   height → 圖片高度（80vh = 視窗 80%）
+   ════════════════════════════════════════ */
+.r3-final-full {
+  position: relative; width: 100%;
+  height: 80vh; min-height: 440px;   /* ← ★ 結尾大圖高度 */
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+}
+.r3-final-full-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  transform: scale(1.06) translate3d(0,0,0);
+  transition: transform 9s cubic-bezier(.22,1,.36,1);
+  will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+.r3-final-full.r3-in .r3-final-full-bg {
+  transform: scale(1.04) translate3d(0,0,0);
+}
+
+/* ★【E】霧感遮罩
+   opacity → 整體霧濃度（0=無霧, 1=最濃）
+   backdrop-filter: blur(Xpx) → X越大越模糊 */
+.r3-final-fog {
+  position: absolute; inset: 0;
+  background: radial-gradient(
+    ellipse 55% 48% at center,
+    rgba(3,18,46,.12) 0%,   /* ← ★ 中心透明度 */
+    rgba(3,18,46,.42) 55%,  /* ← ★ 中段過渡 */
+    rgba(3,18,46,.72) 100%  /* ← ★ 四邊暗角 */
+  );
+  opacity: 1;               /* ← ★ 整體霧感（0~1）*/
+  pointer-events: none; z-index: 1;
+  backdrop-filter: blur(2px); /* ← ★ 模糊程度（0=清晰）*/
+  -webkit-backdrop-filter: blur(2px);
+}
+.r3-final-grad {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
+  background: linear-gradient(to bottom, transparent, var(--r3-navy));
+  pointer-events: none; z-index: 2;
+}
+.r3-final-full-text {
+  position: relative; z-index: 3; text-align: center; pointer-events: none;
+}
+
+/* ★【E】結尾中文大字（同 Hero 字體）
+   font-size → 大小
+   letter-spacing → 字間距 */
+.r3-final-title-cjk {
+  display: block;
+  font-family: 'Noto Serif TC', 'Cormorant Garamond', Georgia, serif; /* ← ★ 字體 */
+  font-weight: 200;
+  font-size: clamp(80px, 14vw, 120px); /* ← ★ 結尾中文大字大小 */
+  color: #fff;
+  letter-spacing: .90em; text-indent: .90em;
+  line-height: 1;
+  text-shadow: 0 0 140px rgba(91,140,247,.2), 0 2px 48px rgba(0,0,0,.5);
+}
+/* ★【E】結尾英文副標 */
+.r3-final-en-sub {
+  display: block; font-family: var(--serif); font-style: italic; font-weight: 300;
+  font-size: clamp(28px, 5.5vw, 30px);
+  color: rgba(255,255,255,.42);
+  letter-spacing: .5em; text-indent: .5em;
+  margin-top: 14px; line-height: 1.1;
+}
+.r3-final-full-sub {
+  font-family: var(--mono);
+  font-size: 10px; letter-spacing: .90em; text-indent: .90em;
+  color: rgba(255,255,255,.32); text-transform: uppercase; margin-top: 20px;
+}
+
+/* ★【E】結尾裝飾線 */
+.r3-final-cjk-wrap { display: flex; align-items: center; justify-content: center; }
+.r3-final-deco-line {
+  display: block; width: 200px; height: 1.5px;
+  background: rgba(255,255,255,.52);
+  margin: 0 10px; flex-shrink: 0;
+  transform: scaleX(0); transform-origin: center;
+  transition: transform .9s cubic-bezier(.22,1,.36,1) .4s;
+}
+.r3-final-deco-line--left  { transform-origin: right; }
+.r3-final-deco-line--right { transform-origin: left; }
+.r3-final-full.r3-in .r3-final-deco-line { transform: scaleX(1); }
+
+/* ★【E】返回按鈕（在大圖上）
+   bottom → 距底部距離 */
+.r3-back-on-photo {
+  position: absolute; bottom: 14%; left: 50%; transform: translateX(-50%);
+  z-index: 4; white-space: nowrap; isolation: isolate;
+}
+.r3-back-on-photo:hover {
+  transform: translateX(-50%) translateY(-1px) !important;
+}
+
+/* 底部 Bar */
+.r3-bottom-bar {
+  background: var(--r3-navy);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 28px 6%;
+  border-top: 1px solid var(--r3-border);
+}
+.r3-copyright {
+  font-family: var(--mono);
+  font-size: 8px; letter-spacing: .2em;
+  color: rgba(255, 255, 255, 0.795); text-transform: uppercase;
+}
+
+/* ════════════════════════════════════════
+   進場動畫
+   ════════════════════════════════════════ */
+@keyframes r3Up   { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+@keyframes r3Drop { 0%{transform:translateY(-100%);opacity:0} 30%{opacity:1} 70%{opacity:1} 100%{transform:translateY(200%);opacity:0} }
+.r3-fade { opacity: 0; transform: translateY(30px); transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }
+.r3-fade.r3-in { opacity: 1; transform: translateY(0); }
+
+/* ════════════════════════════════════════
+   RWD — 960px 平板
+   ════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .r3-gallery { grid-template-columns: 1fr 1fr; }
+  .r3-gallery-item:nth-child(3) { grid-column: span 2; }
+  .r3-gallery-item:nth-child(3) img { aspect-ratio: 16/7; }
+  .r3-intro { grid-template-columns: 1fr; gap: 48px; padding: 64px 6%; }
+  .r3-works-header { flex-direction: column; align-items: flex-start; padding: 56px 6% 40px; }
+  .r3-step, .r3-step.r3-step--rev { grid-template-columns: 1fr; }
+  .r3-step.r3-step--rev .r3-step-img, .r3-step.r3-step--rev .r3-step-text { order: unset; }
+  .r3-step-img, .r3-step-text { transform: none !important; }
+  .r3-final-works { grid-template-columns: 1fr; }
+  .r3-final-works .r3-step-img:last-child { margin-top: 0; }
+  .r3-final-works-desc { grid-template-columns: 1fr; }
+}
+
+/* ════════════════════════════════════════
+   RWD — 600px 手機
+   ════════════════════════════════════════ */
+@media (max-width: 600px) {
+  /* ★ Hero 手機版 */
+  .r3-hero { height: 90vw; min-height: 340px; }
+  .r3-hero-content { padding: 0 5%; }
+  .r3-cjk-main {
+    font-size: clamp(32px, 9vw, 50px); /* ← ★ 手機中文大字（縮小）*/
+    letter-spacing: .40em;
+    text-indent: .40em;
+  }
+  .r3-en-sub   {
+    font-size: clamp(17px, 5vw, 26px); /* ← ★ 手機英文副標（縮小）*/
+    letter-spacing: .25em;
+    margin-top: 16px;
+  }
+  .r3-deco-line { width: 36px; margin: 0 10px; }           /* ← ★ 手機裝飾線縮短 */
+  .r3-scroll-hint { display: none; }
+
+  /* ★ Gallery 手機版：單欄 */
+  .r3-works-header { padding: 44px 5% 28px; }
+  .r3-gallery { grid-template-columns: 1fr; gap: 2px; }
+  .r3-gallery-item:nth-child(3) { grid-column: span 1; }
+  .r3-gallery-item:nth-child(3) img { aspect-ratio: 3/4; }
+
+  /* ★ Intro 手機版 */
+  .r3-intro { padding: 48px 5%; gap: 36px; }
+  .r3-intro-text { font-size: 15px; }     /* ← ★ 手機內文大小 */
+
+  /* ★ 製作過程手機版 */
+  .r3-phase-block { padding: 56px 5%; }
+  .r3-process-header { padding: 64px 5% 36px; }
+  .r3-step-desc { font-size: 15px; }      /* ← ★ 手機步驟說明大小 */
+  .r3-sketches { grid-template-columns: 1fr; }  /* ← ★ 手機：並排改單欄 */
+
+  /* ★ Final Work 手機版 */
+  .r3-final-works { grid-template-columns: 1fr; }
+  .r3-final-works .r3-step-img:last-child { margin-top: 0; }
+  .r3-final-works-desc { grid-template-columns: 1fr; }
+
+  /* ★ 結尾大圖手機版 */
+  .r3-final-full { height: 80vw; min-height: 320px; }
+  .r3-final-title-cjk {
+    font-size: clamp(32px, 9vw, 50px); /* ← ★ 手機結尾大字（縮小）*/
+    letter-spacing: .40em;
+    text-indent: .40em;
+  }
+  .r3-final-en-sub {
+    font-size: clamp(17px, 5vw, 26px); /* ← ★ 手機結尾英文（縮小）*/
+    letter-spacing: .25em;
+    text-indent: .25em;
+    margin-top: 16px;
+  }
+  .r3-final-deco-line { width: 36px; margin: 0 8px; }
+  .r3-bottom-bar { padding: 40px 5% 36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="top-nav scrolled" id="navbar">
+  <div class="nav-brand">
+    <span class="nav-brand-name">WANG MIN HSUAN</span>
+    <span class="nav-brand-sub">| CERAMIC ARTIST</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home">HOME</a></li>
+    <li><a href="index.html#ceramics">CERAMICS</a></li>
+    <li><a href="index.html#other-works">OTHER WORKS</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+    <li><a href="index.html#contact">CONTACT</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#home" class="mm-link">HOME</a>
+  <a href="index.html#ceramics" class="mm-link">CERAMICS</a>
+  <a href="index.html#other-works" class="mm-link">OTHER WORKS</a>
+  <a href="about.html" class="mm-link">ABOUT</a>
+  <a href="index.html#contact" class="mm-link">CONTACT</a>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★【A】HERO — 主視覺全版大圖
+     ══════════════════════════════════════════════════════
+     ★【換圖】.r3-hero-bg 的 background-image:url(...)
+     ★【換文字】眉標 / 中文大字 / 英文副標 / 媒材說明
+     ★【調裝飾線】CSS .r3-deco-line（width / height / margin）
+     ★【調文字大小】CSS .r3-cjk-main / .r3-en-sub / .r3-hero-eyebrow
+     ══════════════════════════════════════════════════════ -->
+<div class="r3-hero" id="r3Hero">
+  <!-- ★【換圖】Hero 背景大圖路徑 ↓ -->
+  <div class="r3-hero-bg" style="background-image:url('images/creamic-3.jpg')"></div>
+  <div class="r3-hero-veil"></div>
+  <div class="r3-hero-fog"></div>
+  <div class="r3-hero-content">
+    <!-- ★ 眉標 → 修改文字 -->
+    <div class="r3-hero-eyebrow">CERAMICS &amp; CRAFT · 2024</div>
+    <h1 class="r3-hero-title">
+      <!--
+        ★【裝飾線說明】
+        .r3-cjk-wrap 讓線和文字排在同一行
+        左線 .r3-deco-line--left / 右線 .r3-deco-line--right
+        線的長度/粗細/顏色 → CSS .r3-deco-line
+      -->
+      <span class="r3-cjk-wrap">
+        <span class="r3-deco-line r3-deco-line--left"></span>
+        <!-- ★ 中文大標題 → 修改（建議 2~4 字）-->
+        <span class="r3-cjk-main">はこねこ</span>
+        <span class="r3-deco-line r3-deco-line--right"></span>
+      </span>
+      <!-- ★ 英文副標（斜體）→ 修改 -->
+      <span class="r3-en-sub">BOX CAT</span>
+    </h1>
+    
+  </div>
+  <div class="r3-scroll-hint">
+    <span>Scroll</span>
+    <div class="r3-scroll-arrow"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★【B】INTRO — 創作理念
+     ══════════════════════════════════════════════════════
+     左欄：引言大字（豎線裝飾）
+     右欄：小標題 + 說明文字（可多段）
+     ★【換文字】引言 / 小標題 / 說明段落
+     ★【調比例】CSS .r3-intro grid-template-columns
+     ══════════════════════════════════════════════════════ -->
+<div class="r3-intro">
+  <!-- 左側引言大字 -->
+  <div class="r3-intro-quote">
+    <!-- ★ 引言大字 → 修改（2~5 字）-->
+    箱子?塞進去!
+  </div>
+  <!-- 右側說明 -->
+  <div class="r3-intro-right">
+    <!-- ★ 小標題 → 修改 -->
+    <div class="r3-intro-subtitle">創作理念</div>
+    <!-- ★ 說明段落 1 → 修改 -->
+    <p class="r3-intro-text">
+      參加日本貓咪陶瓷藝術比賽的作品，靈感來自貓咪喜歡躲進箱子裡一臉滿足開心的可愛表情。
+    </p>
+    <!-- ★ 說明段落 2 → 修改（可刪）-->
+    <p class="r3-intro-text">
+     土條成形、陶板技法製作，使用黑金釉、鋯白釉、茶葉末釉燒製1230度而成。
+    </p>
+  </div>
+</div><!-- /intro -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★【C】GALLERY — 三張大圖作品照片
+     ══════════════════════════════════════════════════════
+     ★【換圖】各 <img src="..."> 換路徑
+     ★【調裁切位置】各 img 的 style="object-position: X Y"
+         X: left / center / right / 百分比
+         Y: top / center / bottom / 百分比
+     ★【改圖片比例】CSS .r3-gallery-item img { aspect-ratio }
+         3/4 = 直向；16/9 = 橫向；1/1 = 方形
+     ══════════════════════════════════════════════════════ -->
+
+
+<div class="r3-gallery">
+
+  <!-- ★ Gallery 圖1 -->
+  <div class="r3-gallery-item">
+    <!-- ★【換圖】改 src 路徑
+         ★【調位置】改 object-position 的 X Y 值 -->
+    <img src="images/creamic-3-1.jpg" alt="作品 01"
+         style="object-position: center center;">
+  </div>
+
+  <!-- ★ Gallery 圖2 -->
+  <div class="r3-gallery-item">
+    <img src="images/creamic-3-2.jpg" alt="作品 02"
+         style="object-position: center center;">
+  </div>
+
+  <!-- ★ Gallery 圖3 -->
+  <div class="r3-gallery-item">
+    <img src="images/creamic-3-3.jpg" alt="作品 03"
+         style="object-position: center center;">
+  </div>
+
+</div><!-- /gallery -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★【D】製作過程
+     ══════════════════════════════════════════════════════
+     D-1. 草圖發想：左文右草圖 + 下方三張半成品照片
+     D-2. Final Work：兩張左右高低差 + 旁邊說明文字
+     ══════════════════════════════════════════════════════ -->
+<div class="r3-process-wrap">
+
+  <!-- ═══════ D-1 草圖發想 ═══════ -->
+  <div class="r3-phase-block" id="phase01">
+    <div class="r3-phase-inner">
+
+      <!-- ★ 階段標題列 -->
+      <div class="r3-phase-head">
+        <span class="r3-phase-num">01</span>        <!-- ★ 步驟編號 → 修改 -->
+        <span class="r3-phase-title">製作過程</span>  <!-- ★ 步驟中文標題 → 修改 -->
+        <span class="r3-phase-en">Process</span> <!-- ★ 步驟英文 → 修改 -->
+      </div>
+
+      <!-- ★ 左文右圖佈局
+           .r3-step = 預設左圖右文；
+           .r3-step.r3-step--rev = 左文右圖（目前設定）
+           ★【換圖】改 img src
+           ★【換文字】改 r3-step-title / r3-step-desc -->
+      <div class="r3-step r3-step--rev">
+        <!-- 草圖圖片（右側）-->
+        <div class="r3-step-img">
+          <!-- ★【換圖】草圖圖片路徑 ↓ -->
+          <img src="images/creamic-3-4.jpg" alt="草圖"
+               style="object-position: center center;">
+        </div>
+        <!-- 說明文字（左側）-->
+        <div class="r3-step-text">
+          <!-- ★ 草圖說明標題 → 修改 -->
+          <h4 class="r3-step-title">Concept Sketching</h4>
+          <!-- ★ 草圖說明文字 → 修改 -->
+          <p class="r3-step-desc">
+            以簡單圓滑的造型畫出愛吃的肥肥貓咪的草圖。製作小模型確認造型後再用土條成形製作大土坯。
+          </p>
+        </div>
+      </div><!-- /r3-step -->
+
+      <!-- ★ 三張半成品照片並排 + 各自小說明
+           ★【換圖】各 img src
+           ★【改說明】各 .r3-sketch-caption 文字
+           ★【改比例】CSS .r3-sketch-img img { aspect-ratio } -->
+      <div class="r3-sketches">
+
+        <!-- 半成品圖 1：PNG（左，透明背景，無框） -->
+        <div class="r3-sketch-img" style="background:transparent;border-radius:0;box-shadow:none;">
+          <!-- ★【換圖】半成品圖 1 ↓ -->
+          <img src="images/creamic-3-6.png" alt="半成品 01"
+               style="object-position: center center;object-fit:contain;background:transparent;">
+        </div>
+
+        <!-- 半成品圖 2：中間（有陰影） -->
+        <div class="r3-sketch-img">
+          <!-- ★【換圖】半成品圖 2 ↓ -->
+          <img src="images/creamic-3-5.jpg" alt="半成品 02"
+               style="object-position: center center;">
+        </div>
+
+        <!-- 半成品圖 3 -->
+        <div class="r3-sketch-img">
+          <!-- ★【換圖】半成品圖 3 ↓ -->
+          <img src="images/creamic-3-7.jpg" alt="半成品 03"
+               style="object-position: center center;">
+        </div>
+
+      </div><!-- /r3-sketches -->
+
+    </div><!-- /r3-phase-inner -->
+  </div><!-- /phase01 -->
+
+
+  <!-- ═══════ D-2 Final Work ═══════ -->
+  <div class="r3-phase-block" id="phaseF">
+    <div class="r3-phase-inner">
+
+      <!-- ★ Final Work 階段標題 -->
+      <div class="r3-phase-head">
+         
+        <span class="r3-phase-num">02</span>
+        <span class="r3-phase-title">Final Work</span>
+        <span class="r3-phase-en">Completed Works</span>
+      </div>
+
+      <!--
+        ★ 兩張成品照（左右高低差）
+        左圖正常位置，右圖向下偏移（CSS .r3-final-works .r3-step-img:last-child margin-top）
+        ★【換圖】兩個 img src
+        ★【調高低差】CSS margin-top: 60px → 改數字
+        ★【調圖片比例】.r3-step-img img { aspect-ratio } → 3/4 = 直向
+      -->
+      <div class="r3-final-works">
+
+        <!-- 左側成品圖 -->
+        <div class="r3-step-img r3-step-img--tall">
+          <!-- ★【換圖】成品圖左 ↓ -->
+          <img src="images/creamic-3-6.jpg" alt="成品 01"
+               style="object-position: center center;">
+        </div>
+
+        <!-- 右側成品圖（向下偏移，造成高低差）-->
+        <div class="r3-step-img r3-step-img--tall">
+          <!-- ★【換圖】成品圖右 ↓ -->
+          <img src="images/creamic-3-10.jpg" alt="成品 02"
+               style="object-position: center center;">
+        </div>
+
+      </div><!-- /r3-final-works -->
+
+      
+
+      </div><!-- /r3-final-works-desc -->
+
+    </div><!-- /r3-phase-inner -->
+  </div><!-- /phaseF -->
+
+</div><!-- /process-wrap -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     ★【E】結尾全版大圖
+     ══════════════════════════════════════════════════════
+     ★【換圖】.r3-final-full-bg 的 background-image:url(...)
+     ★【換文字】中文大字 / 英文副標 / 小副標
+     ★【調霧感】CSS .r3-final-fog { opacity / backdrop-filter }
+     ★【調裝飾線】CSS .r3-final-deco-line（width / background）
+     ★【調返回鍵位置】CSS .r3-back-on-photo { bottom: % }
+     ══════════════════════════════════════════════════════ -->
+<div class="r3-final-full" id="r3FinalFull">
+  <!-- ★【換圖】結尾大圖 ↓ -->
+  <div class="r3-final-full-bg" id="r3FinalBg" style="background-image:url('images/creamic-3-9.jpg')"></div>
+  <div class="r3-final-fog" id="r3FinalFog"></div>
+  <div class="r3-final-grad"></div>
+
+  <div class="r3-final-full-text">
+    <!-- ★ 結尾裝飾線 + 中文大字 -->
+    <span class="r3-final-cjk-wrap">
+      <span class="r3-final-deco-line r3-final-deco-line--left"></span>
+      <!-- ★ 結尾中文大字 → 修改 -->
+      <span class="r3-final-title-cjk">はこねこ</span>
+      <span class="r3-final-deco-line r3-final-deco-line--right"></span>
+    </span>
+    <!-- ★ 結尾英文副標 → 修改 -->
+    <span class="r3-final-en-sub">BOX CAT</span>
+    <!-- ★ 結尾小副標 → 修改（可刪）-->
+    <p class="r3-final-full-sub">Ceramics · 2024</p>
+  </div>
+
+  <!-- ★ 返回按鈕（在大圖上）→ 修改 href 改連結 -->
+  <a href="ceramics.html" class="back-page r3-back-on-photo">← BACK TO CERAMICS</a>
+</div>
+
+
+<!-- ★ 底部版權 -->
+<div class="r3-bottom-bar">
+  <p class="r3-copyright">© 2026 WANG MIN HSUAN. All Rights Reserved.</p>
+</div>
+
+
+<script>
+/* ── Hamburger ── */
+const ham = document.getElementById('hamburger'), mMenu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => { ham.classList.toggle('open'); mMenu.classList.toggle('open'); });
+document.querySelectorAll('.mm-link').forEach(a =>
+  a.addEventListener('click', () => { ham.classList.remove('open'); mMenu.classList.remove('open'); })
+);
+
+/* ── Hero 進場縮放 ── */
+requestAnimationFrame(() => document.getElementById('r3Hero').classList.add('loaded'));
+
+/* ── IntersectionObserver 進場動畫 ── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('r3-in');
+    io.unobserve(e.target);
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -32px 0px' });
+
+document.querySelectorAll(
+  '.r3-gallery-item, .r3-phase-inner, .r3-sketch-img, .r3-fade, .r3-intro-quote, .r3-intro-right, .r3-final-full, .r3-final-desc-item'
+).forEach(el => io.observe(el));
+
+/* ── Step 圖文左右滑入 ── */
+const ioStep = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('r3-in');
+    ioStep.unobserve(e.target);
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.r3-step-img, .r3-step-text').forEach(el => ioStep.observe(el));
+
+/* ── Hero + Final 視差滾動 ── */
+let rafPending = false;
+const heroBg  = document.querySelector('.r3-hero-bg');
+const finalBg  = document.getElementById('r3FinalBg');
+const finalFull = document.getElementById('r3FinalFull');
+
+window.addEventListener('scroll', () => {
+  if (rafPending) return;
+  rafPending = true;
+  requestAnimationFrame(() => {
+    const scrollY = window.scrollY;
+    /* Hero 背景微往下移 */
+    if (heroBg) heroBg.style.transform = `scale(1) translate3d(0, ${scrollY * 0.17}px, 0)`;
+    /* Final 大圖反向漂浮 */
+    if (finalBg && finalFull) {
+      const rect = finalFull.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const offset = (rect.top + rect.height / 2) - window.innerHeight / 2;
+        finalBg.style.transform = `scale(1.06) translate3d(0, ${offset * 0.08}px, 0)`;
+      }
+    }
+    rafPending = false;
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
